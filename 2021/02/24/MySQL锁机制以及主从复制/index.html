@@ -1,0 +1,2322 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/tree/4.3.1'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <link rel="preload" href="/css/first.css" as="style">
+  
+
+  <!-- 页面元数据 -->
+  
+  <title>MySQL锁机制以及主从复制 - 追风少年</title>
+  
+    <meta name="keywords" content="MYSQL锁机制">
+  
+
+  
+    <meta name="description" content="MySQL中锁的重要性是不言而喻的，在面试中以及平时工作中都会经常使用。理解锁机制，掌握锁的分类以及每一种锁可能会带来的问题将会有很大的帮助。另外，主从复制这一部分的内容需要单独–&gt;TODOList">
+  
+
+  <!-- feed -->
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  
+    <link rel="shortcut icon" type='image/x-icon' href="https://blog.chasingwind.top/creative-idea.png">
+  
+
+  <!-- import link -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/first.css">
+
+  
+
+  
+  <link rel="stylesheet" href="/css/style.css" media="print" onload="this.media='all';this.onload=null">
+  <noscript><link rel="stylesheet" href="/css/style.css"></noscript>
+  
+
+  <script id="loadcss"></script>
+
+  
+<script>
+if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode))
+    document.write(
+	'<style>'+
+		'html{'+
+			'overflow-x: hidden !important;'+
+			'overflow-y: hidden !important;'+
+		'}'+
+		'.kill-ie{'+
+			'text-align:center;'+
+			'height: 100%;'+
+			'margin-top: 15%;'+
+			'margin-bottom: 5500%;'+
+		'}'+
+	'</style>'+
+    '<div class="kill-ie">'+
+        '<h1><b>抱歉，您的浏览器无法访问本站</b></h1>'+
+        '<h3>微软已经于2016年终止了对 Internet Explorer (IE) 10 及更早版本的支持，<br/>'+
+        '继续使用存在极大的安全隐患，请使用当代主流的浏览器进行访问。</h3><br/>'+
+        '<a target="_blank" rel="noopener" href="https://www.microsoft.com/zh-cn/WindowsForBusiness/End-of-IE-support"><strong>了解详情 ></strong></a>'+
+    '</div>');
+</script>
+
+
+<noscript>
+	<style>
+		html{
+			overflow-x: hidden !important;
+			overflow-y: hidden !important;
+		}
+		.kill-noscript{
+			text-align:center;
+			height: 100%;
+			margin-top: 15%;
+			margin-bottom: 5500%;
+		}
+	</style>
+    <div class="kill-noscript">
+        <h1><b>抱歉，您的浏览器无法访问本站</b></h1>
+        <h3>本页面需要浏览器支持（启用）JavaScript</h3><br/>
+        <a target="_blank" rel="noopener" href="https://www.baidu.com/s?wd=启用JavaScript"><strong>了解详情 ></strong></a>
+    </div>
+</noscript>
+
+</head>
+
+  <body>
+    
+
+<header id="l_header" class="l_header always shadow floatable blur show"  >
+  <div class='container'>
+  <div id='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h m-phone' id="pjax-header-nav-list">
+        <li><a id="s-comment" class="fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a id="s-toc" class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+            <img no-lazy class='logo' src='https://blog.chasingwind.top/blogavater.jpeg'/>
+          
+          
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h m-pc'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              
+                <li>
+                  <a class="menuitem flat-box">
+                    <i class='fas fa-compact-disc fa-fw music'></i>背景音乐
+                  </a>
+                  <ul class="list-v">
+                    <li>
+                      <div class="aplayer-container">
+                        
+
+  
+    <meting-js
+      theme='#1BCDFC'
+      volume='0.7'
+      loop='all'
+      order='list'
+      fixed='false'
+      list-max-height='320px'
+      server='netease'
+      type='playlist'
+      id='754595573'
+      list-folded='true'>
+    </meting-js>
+  
+
+
+                      </div>
+                    </li>
+                  </ul>
+                <li>
+              
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="看点什么呢..." />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h m-phone'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+    <div id="l_body">
+      <div id="l_cover">
+  
+    
+        <div id="full" class='cover-wrapper post search' style="display: none;">
+          
+            <div id='cover-backstretch'></div>
+          
+          <div class='cover-body'>
+  <div class='top'>
+    
+    
+      <p class="title">ChasingWind</p>
+    
+    
+      <p class="subtitle">向死而生，反求诸己</p>
+    
+  </div>
+  <div class='bottom'>
+    
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <input type="text" class="input u-search-input" placeholder="会搜到什么呢~" />
+          <i class="icon fas fa-search fa-fw"></i>
+        </form>
+      </div>
+    
+    <div class='menu navigation'>
+      <div class='list-h'>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+          <div id="scroll-down" style="display: none;"><i class="fa fa-chevron-down scroll-down-effects"></i></div>
+        </div>
+    
+  
+  </div>
+
+      <div id="safearea">
+        <div class="body-wrapper" id="pjax-container">
+          
+
+<div class='l_main'>
+  <article class="article post white-box reveal md shadow article-type-post" id="post" itemscope itemprop="blogPost">
+  
+
+
+  
+  <div class="article-meta" id="top">
+    
+    
+    
+      <h1 class="title">
+        MySQL锁机制以及主从复制
+      </h1>
+      <div class='new-meta-box'>
+        
+          
+            
+<div class='new-meta-item author'>
+  <a class='author' href="/about/" rel="nofollow">
+    <img no-lazy src="https://blog.chasingwind.top/blogavater.jpeg">
+    <p>ChasingWind</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class='new-meta-item category'>
+    <a class='notlink'>
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <a class="category-link" href="/categories/MySQL%E9%AB%98%E7%BA%A7/">MySQL高级</a>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：2021年2月24日</p>
+  </a>
+</div>
+
+          
+        
+          
+            <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-03-03T22:37:45+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2021年3月3日</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+
+          
+        
+          
+            
+  <div class="new-meta-item browse leancloud">
+    <a class='notlink'>
+      
+      <div id="lc-pv" data-title="MySQL锁机制以及主从复制" data-path="/2021/02/24/MySQL%E9%94%81%E6%9C%BA%E5%88%B6%E4%BB%A5%E5%8F%8A%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/">
+        <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
+        <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+        次浏览
+      </div>
+    </a>
+  </div>
+
+
+          
+        
+      </div>
+    
+  </div>
+
+
+  
+  
+  <p>MySQL中锁的重要性是不言而喻的，在面试中以及平时工作中都会经常使用。理解锁机制，掌握锁的分类以及每一种锁可能会带来的问题将会有很大的帮助。另外，主从复制这一部分的内容需要单独–&gt;TODOList</p>
+<a id="more"></a>
+
+
+
+<h2 id="MySQL锁机制"><a href="#MySQL锁机制" class="headerlink" title="MySQL锁机制"></a>MySQL锁机制</h2><ul>
+<li>锁是计算机协调多个进程或线程并发访问某一资源的机制</li>
+<li>在数据库中，除传统的计算资源（如CPU、RAM、IO等）的争用以外，数据（表）也是一种供许多用户共享的资源。<strong>如何保证数据并发访问的一致性、有效性</strong>是所有数据库必须解决的一个问题，锁冲突也是影响数据库并发访问性能的一个重要因素。从这个角度来说，锁对数据库而言显得尤其重要，也更加复杂。</li>
+</ul>
+<h3 id="锁的分类"><a href="#锁的分类" class="headerlink" title="锁的分类"></a>锁的分类</h3><ol>
+<li><p>根据数据操作类型分类：读锁、写锁</p>
+<div class="note "><p>读锁（共享锁）： 针对同一份数据，多个读操作可以同时进行而不会相互影响。</p></div>
+
+<div class="note "><p>写锁（排它锁）：当前写操作没有完成前，它会阻断其他写锁和读锁。</p></div>
+</li>
+<li><p>对数据操作粒度分类：表锁（偏读）、行锁（偏写）、页锁</p>
+<div class="note "><p><strong>表锁</strong></p><details green><summary> 特点： </summary>              <div class='content'>              <div class="note guide clear"><p>偏向MyISAM存储引擎，开销小，加锁快</p></div><div class="note guide clear"><p>无死锁，因为锁的是整个表</p></div><div class="note guide clear"><p>锁粒度大，发生锁冲突概率高</p></div><div class="note guide clear"><p>并发度最低</p></div>              </div>            </details></div>
+
+</li>
+</ol>
+<h3 id="表锁案例演示（偏读，偏向MyISAM存储引擎）"><a href="#表锁案例演示（偏读，偏向MyISAM存储引擎）" class="headerlink" title="表锁案例演示（偏读，偏向MyISAM存储引擎）"></a>表锁案例演示（偏读，偏向MyISAM存储引擎）</h3><pre><code class="mysql"># 查看表是否有锁
+show open tables ;
+</code></pre>
+   <span class='p cyan'>In_use = 0表示当前表未加锁</span>
+
+<p>   <img src="https://blog.chasingwind.top/VgXLt8.png" class="lazyload" data-srcset="https://blog.chasingwind.top/VgXLt8.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="VgXLt8"></p>
+<hr>
+<pre><code class="mysql"># 手动为account表上读锁,article表上写锁
+lock tables account read, SqlPro.article write ;
+</code></pre>
+<p>   为account表上读锁之后进行查询</p>
+<p>   <img src="https://blog.chasingwind.top/PR8djq.png" class="lazyload" data-srcset="https://blog.chasingwind.top/PR8djq.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>   解锁</p>
+<pre><code class="mysql">## 解锁
+unlock tables ;
+</code></pre>
+<p>   解锁之后再次进行查询</p>
+<p>   <img src="https://blog.chasingwind.top/cCwBUd.png" class="lazyload" data-srcset="https://blog.chasingwind.top/cCwBUd.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>   读锁和写锁究竟会如何影响我们的操作呢？</p>
+<blockquote>
+<p>以下案例均在两个Session中实现</p>
+<p><img src="https://blog.chasingwind.top/IXQvHf.png" class="lazyload" data-srcset="https://blog.chasingwind.top/IXQvHf.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+<ol>
+<li><p>加读锁（共享锁）</p>
+<blockquote>
+<p>在Session1中为account加读锁，在Session2中读取account</p>
+<p>Session1和Session2均可以读取，这就说明了读锁是共享锁</p>
+<p><img src="https://blog.chasingwind.top/OaDbPU.png" class="lazyload" data-srcset="https://blog.chasingwind.top/OaDbPU.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>Session1写（insert或者update）加读锁的表</p>
+<p>结果是不允许修改</p>
+<p><img src="https://blog.chasingwind.top/4RrhLQ.png" class="lazyload" data-srcset="https://blog.chasingwind.top/4RrhLQ.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>Session1读别的表  不允许。因为目前Session1已经有了一把表锁在手上，而且还未释放锁。</p>
+<p>由于MySQL出于自我保护的机制，需要当前表解锁之后才能读其他的表，否则这个表可能会一直被锁而没有后续操作。</p>
+<p><img src="https://blog.chasingwind.top/WexAd0.png" class="lazyload" data-srcset="https://blog.chasingwind.top/WexAd0.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>Session2写Session1中加了读锁的表</p>
+<p>发现Session2一直处于阻塞状态。</p>
+<p>当在系统中如果有多个操作都需要写加读锁的表，那么都会处于阻塞状态，这就会大大影响系统的性能了。</p>
+<p><img src="https://blog.chasingwind.top/zXTMkr.png" class="lazyload" data-srcset="https://blog.chasingwind.top/zXTMkr.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>在Session1解锁之后 Session2的写操作立即执行了</p>
+<hr>
+<p>总结  Session1中某张表加读锁</p>
+<table>
+<thead>
+<tr>
+<th>Session1</th>
+<th>Session2</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>当前Session可以查询加读锁的表</td>
+<td>当前Session可以查询Session1中加读锁的表</td>
+</tr>
+<tr>
+<td>当前Session不能查询其他没有锁定的表（因为占据着一个锁，未释放锁就不能操作其他的表）</td>
+<td>当前Session可以查询或者更新其他未锁定的表</td>
+</tr>
+<tr>
+<td>当前Session写加读锁的表报错（读锁不允许进行写操作）</td>
+<td>当前Session写Session1中加读锁的表会<strong>一直等待（阻塞）</strong></td>
+</tr>
+<tr>
+<td>释放锁</td>
+<td>在Session1释放锁之后，执行阻塞的对之前加锁的表的写操作</td>
+</tr>
+</tbody></table>
+</blockquote>
+</li>
+<li><p>加写锁（排它锁）</p>
+<blockquote>
+<p><img src="https://blog.chasingwind.top/lLhtAr.png" class="lazyload" data-srcset="https://blog.chasingwind.top/lLhtAr.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>Session1读、写加写锁的表 都可以执行</p>
+<p><img src="https://blog.chasingwind.top/PnK8zv.png" class="lazyload" data-srcset="https://blog.chasingwind.top/PnK8zv.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>Session1读、写其他表  均报错</p>
+<p><img src="https://blog.chasingwind.top/2ty7TM.png" class="lazyload" data-srcset="https://blog.chasingwind.top/2ty7TM.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>Session2读取加写锁的表 一直处于阻塞状态  Session1释放写锁之后 Session2读取命令执行</p>
+<p><img src="https://blog.chasingwind.top/71xlF4.png" class="lazyload" data-srcset="https://blog.chasingwind.top/71xlF4.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>同样  Session2写加写锁的表 同样处于阻塞状态，等待Session1写锁释放之后就会执行</p>
+<p><img src="https://blog.chasingwind.top/qbgEUG.png" class="lazyload" data-srcset="https://blog.chasingwind.top/qbgEUG.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>Session1中某张表加写锁</p>
+<table>
+<thead>
+<tr>
+<th>Session1</th>
+<th>Session2</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>可以读写加写锁的表</td>
+<td>读取和写加写锁的表会阻塞</td>
+</tr>
+<tr>
+<td>不可以读写其他表（因为占据着一个锁，未释放锁就不能操作其他的表）</td>
+<td>读写其他的表都可以正常进行</td>
+</tr>
+</tbody></table>
+</blockquote>
+</li>
+<li><p>表锁分析</p>
+<blockquote>
+<p>查看当前表的锁的情况</p>
+<pre><code class="mysql"># 查看数据库中表的加锁情况
+show open tables;
+
+# 查看MySQL表的锁定情况
+show status like &#39;table_locks%&#39;;
+</code></pre>
+<p><img src="https://blog.chasingwind.top/M6CvYJ.png" class="lazyload" data-srcset="https://blog.chasingwind.top/M6CvYJ.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>Table_locks_immediate：产生表级锁定的次数，表示可以立即获取锁的查询次数，每立即获取锁值加一</p>
+<p><strong>Table_locks_waited</strong>：出现表级锁定争用而发生等待的次数（不能立即获取锁的次数，每等待一次锁值就加一），此值高说明当前系统存在较严重的表级锁争用情况</p>
+</blockquote>
+</li>
+<li><p>总结</p>
+<ul>
+<li>MyISAM存储引擎在执行<strong>查询（SELECT语句）之前，会自动给涉及的所有表加读锁</strong></li>
+<li>MyISAM存储引擎在执行<strong>增删改之前，会自动给涉及的所有表加写锁</strong></li>
+<li>因此，MyISAM存储引擎的读写调度是<strong>写优先</strong>，所以不适合作为写为主表的引擎。因为执行写操作，会加写锁，其他线程不能做任何操作（包括读写），大量的写操作会使读很难获取到锁，从而造成永远堵塞。</li>
+<li>MySQL的表级锁有两种模式：表共享读锁、表独占写锁</li>
+<li><p class='p cyan'>读锁会阻塞写，但不会阻塞读。而写锁会阻塞读和写。</p>
+
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="行锁案例演示（偏写，偏向InnoDB存储引擎）"><a href="#行锁案例演示（偏写，偏向InnoDB存储引擎）" class="headerlink" title="行锁案例演示（偏写，偏向InnoDB存储引擎）"></a>行锁案例演示（偏写，偏向InnoDB存储引擎）</h3><ol>
+<li><p>特点</p>
+<ul>
+<li><p>偏向InnoDB存储引擎</p>
+</li>
+<li><p>开销大，加锁慢，会出现死锁</p>
+</li>
+<li><p>锁的粒度最小，发生锁冲突的概率最低，并发度也最高</p>
+<blockquote>
+<p>InnoDB和MyISAM最大的不同点：InnoDB支持事务，InnoDB采用行级别的锁</p>
+<hr>
+<p><strong>事务（Transaction）</strong>：事务是由一组SQL语句组成的逻辑处理单元，事务具有以下4个属性，通常称为ACID属性。</p>
+<ul>
+<li><p>原子性（Atomicity）：事务是一个原子操作。里面的SQL语句要么同时执行，要么都不执行</p>
+</li>
+<li><p>一致性（Consistent）：ACID里的AID都是数据库的特征,也就是依赖数据库的具体实现.而唯独这个C,实际上它依赖于应用层,也就是依赖于开发者。这里的一致性是指系统从一个正确的状态,迁移到另一个正确的状态，什么叫正确的状态呢?就是当前的状态满足预定的约束就叫做正确的状态.而事务具备ACID里C的特性是说通过事务的AID来保证我们的一致性.<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/31346392">参考文章</a></p>
+</li>
+<li><p>隔离性（Isolation）：数据库提供一定的隔离机制，保证事务在不受外部并发操作影响的“独立”的环境执行。这也同时意味着事务处理过程中的中间状态对外部是不可见的。</p>
+</li>
+<li><p>持久性（Durable）：事务完成之后，它对于数据的修改是永久性的，即使系统出现故障也能够保持。</p>
+</li>
+</ul>
+<hr>
+<p>并发事务处理带来的问题</p>
+<ul>
+<li><p>更新丢失：当多个事务更新同一行数据的时候，由于事务之间是隔离的，就会可能出现A事务和B事务在时间上有一定的执行顺序，比如事务A和事务B，修改同一个数据，事务开始的时候，查询的这一行数据是相同的，A事务执行完之后提交，此时数据已经被修改了，但是B事务还是以为数据还是刚开始的时候的。那么A事务执行的更新就丢失了，被B事务修改的内容覆盖了。<strong>解决方法</strong>：在A事务提交之前，B事务不可访问同一行数据。<a target="_blank" rel="noopener" href="https://www.cnblogs.com/immer/p/10930020.html">参考文章</a></p>
+</li>
+<li><p>脏读：一个事务正在对一条记录修改，在这个事务未提交之前，这条数据就处于不一致的状态，此时另一个事务也来读取这个数据，<strong>如果不加控制</strong>，第二个事务就读到了脏数据并在此基础之上做进一步的处理了，就会产生未提交的数据依赖关系。<strong>总结</strong>：事务A读取了事务B已修改但尚未提交的数据，并在此基础之上进行操作。此时，如果A事务回滚，那么数据就不符合一致性原则。</p>
+</li>
+<li><p>不可重复读：事务A在读取某些数据之后，过段时间（还在事务中）再次读取以前读过的数据，发现数据已经被事务B被改变并提交，那么事务A再次读取的时候，就会发现数据已经不匹配了。<strong>总结</strong>：事务A读取到了事务B已经提交的修改数据，不符合隔离性</p>
+</li>
+<li><p>幻读：一个事务按照相同的查询条件进行查询，过段时间后，重新按照相同条件查询（还在同一个事务中），却发现了其他事务insert了新的记录。总结：事务A读取到了事务B新增的数据，不符合隔离性。</p>
+</li>
+</ul>
+<hr>
+<p>事务的隔离级别</p>
+<p>MySQL默认隔离级别：可重复读</p>
+<p><img src="https://blog.chasingwind.top/q031Ez.png" class="lazyload" data-srcset="https://blog.chasingwind.top/q031Ez.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>案例演示</p>
+<blockquote>
+<p>InnoDB引擎  事务隔离级别是可重复度  并关闭自动提交 </p>
+<p>分别为a、b创建单值索引，因为<strong>如果where条件没有索引的话，行锁会变成表锁</strong></p>
+<p><img src="https://blog.chasingwind.top/6PNqKx.png" class="lazyload" data-srcset="https://blog.chasingwind.top/6PNqKx.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>A 修改之后未手动提交，然后查询，发现可以读取到已经修改未提交的数据</p>
+<p>此时A还是未提交 B去查询，发现是修改之前的数据</p>
+<p><img src="https://blog.chasingwind.top/WYEBst.png" class="lazyload" data-srcset="https://blog.chasingwind.top/WYEBst.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>A手动提交事务之后 B手动提交事务之后</p>
+<p>二者再次查询 发现都能读取到A修改后的数据</p>
+<p><img src="https://blog.chasingwind.top/6oQbaI.png" class="lazyload" data-srcset="https://blog.chasingwind.top/6oQbaI.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>修改同一行数据</p>
+<p>A修改之后还未提交 B修改同一行数据  B会处于阻塞状态</p>
+<p><img src="https://blog.chasingwind.top/QYCx4X.png" class="lazyload" data-srcset="https://blog.chasingwind.top/QYCx4X.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>A commit之后  B处于阻塞的更新语句也执行了</p>
+<p><img src="https://blog.chasingwind.top/zvzfkt.png" class="lazyload" data-srcset="https://blog.chasingwind.top/zvzfkt.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>B commit</p>
+<p><img src="https://blog.chasingwind.top/AnG2uT.png" class="lazyload" data-srcset="https://blog.chasingwind.top/AnG2uT.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>A修改一行不提交 B修改另一行不提交  两者都不会冲突</p>
+<p><img src="https://blog.chasingwind.top/tXo2Pn.png" class="lazyload" data-srcset="https://blog.chasingwind.top/tXo2Pn.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>二者都commit之后  更新都提交了</p>
+<p><img src="https://blog.chasingwind.top/gQmKSb.png" class="lazyload" data-srcset="https://blog.chasingwind.top/gQmKSb.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>索引失效导致行锁变表锁</p>
+<blockquote>
+<p>这个问题很隐蔽，需要多加注意</p>
+<p>首先建立一个新表 a是int型  b是varchar型，并为a、b创建索引</p>
+<p><img src="https://blog.chasingwind.top/2hguQI.png" class="lazyload" data-srcset="https://blog.chasingwind.top/2hguQI.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>正常情况下 A修改第1行数据，B修改第6行数据。二者互不影响，如下图</p>
+<p>A修改未提，B修改也未提交。这种情况下B并未阻塞，因为修改的不是同一行数据。</p>
+<p><img src="https://blog.chasingwind.top/Bv79wZ.png" class="lazyload" data-srcset="https://blog.chasingwind.top/Bv79wZ.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>二者都commit之后  数据都修改了</p>
+<p><img src="https://blog.chasingwind.top/SN7Top.png" class="lazyload" data-srcset="https://blog.chasingwind.top/SN7Top.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>我们知道 如果MySQL数据进行了数据类型转换，会使得索引失效。在行锁的情况下，索引失效会导致行锁变为表锁。</p>
+<p>这里varchar类型必须使用<code>&#39;&#39;</code>，否则会发生类型转换导致索引失效</p>
+<p>左边where条件b列索引使用的是number类型，原本是varchar类型，导致索引失效</p>
+<p>左边update执行完之后 再去执行右边的update ，右边的update被阻塞了！！</p>
+<p><img src="https://blog.chasingwind.top/gNZvDl.png" class="lazyload" data-srcset="https://blog.chasingwind.top/gNZvDl.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>左侧commit之后，右边立即执行了</p>
+<p><img src="https://blog.chasingwind.top/rA0NzC.png" class="lazyload" data-srcset="https://blog.chasingwind.top/rA0NzC.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>两个都commit之后  修改成功</p>
+<p><img src="https://blog.chasingwind.top/r8bomu.png" class="lazyload" data-srcset="https://blog.chasingwind.top/r8bomu.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>总结：<strong>如果索引失效，InnoDB默认会将行锁变为表锁！</strong></p>
+</blockquote>
+</li>
+<li><p>间隙锁</p>
+<ol>
+<li><p>什么是间隙锁</p>
+<blockquote>
+<p>当我们的<strong>查询条件是范围条件</strong>而不是相等条件的时候，InnoDB会给符合条件的已有数据记录的索引项进行加锁；对于键值条件在范围内但并不存在的记录，就叫做“间隙”。</p>
+<p>InnoDB也同时会对间隙进行加锁，也就是所谓的间隙锁（Next-Key锁）</p>
+</blockquote>
+</li>
+<li><p>危害</p>
+<blockquote>
+<p>间隙锁锁定某个范围的索引值之后，即使某些不存在的键值也会被无辜的锁定，而造成在锁定期间，无法插入锁定键值范围内的数任何据。</p>
+</blockquote>
+</li>
+<li><p>演示</p>
+<blockquote>
+<p>首先设置数据库隔离级别：可重复读</p>
+<pre><code class="mysql">set GLOBAL TRANSACTION ISOLATION LEVEL REPEATABLE READ;
+</code></pre>
+<p>初始数据 a字段设置有单值索引</p>
+<p><img src="https://blog.chasingwind.top/Cwg3eF.png" class="lazyload" data-srcset="https://blog.chasingwind.top/Cwg3eF.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>左侧更新（where条件使用索引范围），不提交</p>
+<p>右侧insert 右侧会阻塞，即使右侧insert的键是3，在表中并不存在</p>
+<p><img src="https://blog.chasingwind.top/GvSI4U.png" class="lazyload" data-srcset="https://blog.chasingwind.top/GvSI4U.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>左侧commit之后 右侧的update也立即执行了</p>
+<p><img src="https://blog.chasingwind.top/Hmufjl.png" class="lazyload" data-srcset="https://blog.chasingwind.top/Hmufjl.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>间隙锁解决的问题：幻读（隔离级别：可重复读下）</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/32904ee07e56">参考文章</a></li>
+</ul>
+</li>
+<li><p>手动锁定某一行</p>
+<blockquote>
+<p>当我们需要确定修改某一条数据时，不希望其他人这条具体数据进行操作</p>
+<p>左边两条语句就是指定锁住某一行  并且未提交</p>
+<p>右边去更新锁定的行的时候 会被阻塞</p>
+<p><img src="https://blog.chasingwind.top/eEQWbA.png" class="lazyload" data-srcset="https://blog.chasingwind.top/eEQWbA.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>左边commit ，右边也被执行了</p>
+<p><img src="https://blog.chasingwind.top/TT7uM4.png" class="lazyload" data-srcset="https://blog.chasingwind.top/TT7uM4.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>关于<code>for update</code>和<code>for share </code>以及<code>lock in share mode</code></p>
+<p><code>for update</code>：排它锁</p>
+<p><code>for share </code>以及<code>lock in share mode</code>：均为共享锁</p>
+<p><img src="https://blog.chasingwind.top/QemHJ2.png" class="lazyload" data-srcset="https://blog.chasingwind.top/QemHJ2.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="行锁总结"><a href="#行锁总结" class="headerlink" title="行锁总结"></a>行锁总结</h3><ul>
+<li><p>查看行锁状况</p>
+<pre><code class="mysql"># 查看当前系统行锁的状况
+show status like &#39;innodb_row_lock%&#39;
+</code></pre>
+<blockquote>
+<p>参数意义</p>
+<p><img src="https://blog.chasingwind.top/cJb1tb.jpg" class="lazyload" data-srcset="https://blog.chasingwind.top/cJb1tb.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>优化建议</p>
+<ol>
+<li>尽可能让所有数据检索都通过索引来完成，避免无索引或者索引失效导致行锁升级为表锁</li>
+<li>合理设计索引，尽量缩小锁的范围</li>
+<li>尽可能减少检索条件，避免间隙锁的出现</li>
+<li>尽量控制事务大小，减少锁定资源量和时间长度</li>
+</ol>
+</li>
+</ul>
+<h2 id="MySQL主从复制"><a href="#MySQL主从复制" class="headerlink" title="MySQL主从复制"></a>MySQL主从复制</h2><p>TODO </p>
+
+  
+  
+    
+    <div class='footer'>
+      
+      
+      
+      
+    </div>
+  
+  
+    
+
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-03-03T22:37:45+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2021年3月3日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/MYSQL%E9%94%81%E6%9C%BA%E5%88%B6/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>MYSQL锁机制</p></a></div>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.chasingwind.top/2021/02/24/MySQL%E9%94%81%E6%9C%BA%E5%88%B6%E4%BB%A5%E5%8F%8A%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/&title=MySQL锁机制以及主从复制 - 追风少年&summary=MySQL中锁的重要性是不言而喻的，在面试中以及平时工作中都会经常使用。理解锁机制，掌握锁的分类以及每一种锁可能会带来的问题将会有很大的帮助。另外，主从复制这一部分的内容需要单独–&gt;TODOList"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://www.chasingwind.top/2021/02/24/MySQL%E9%94%81%E6%9C%BA%E5%88%B6%E4%BB%A5%E5%8F%8A%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/&title=MySQL锁机制以及主从复制 - 追风少年&summary=MySQL中锁的重要性是不言而喻的，在面试中以及平时工作中都会经常使用。理解锁机制，掌握锁的分类以及每一种锁可能会带来的问题将会有很大的帮助。另外，主从复制这一部分的内容需要单独–&gt;TODOList"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.chasingwind.top/2021/02/24/MySQL%E9%94%81%E6%9C%BA%E5%88%B6%E4%BB%A5%E5%8F%8A%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/&title=MySQL锁机制以及主从复制 - 追风少年&summary=MySQL中锁的重要性是不言而喻的，在面试中以及平时工作中都会经常使用。理解锁机制，掌握锁的分类以及每一种锁可能会带来的问题将会有很大的帮助。另外，主从复制这一部分的内容需要单独–&gt;TODOList"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </div>
+
+
+  
+  
+
+  
+    <div class="prev-next">
+      
+      
+        <a class='next' href='/2021/01/02/Java-IO/'>
+          <p class='title'>Java IO<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>
+
+
+
+Java IO的演进IO模型基本说明
+IO模型：就是用什么样的通道或者说通信模式和架构进行数据的传递与接收，这在很大程度上决定了程序通信的性能。Java共支持3种网络编程的IO模型：BI...</p>
+        </a>
+      
+    </div>
+  
+</article>
+
+
+  
+
+  <article class="post white-box reveal shadow" id="comments">
+    <p ct><i class='fas fa-comments'></i> 评论</p>
+    
+    <div id="valine_container" class="valine_thread">
+  <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+</div>
+
+  </article>
+
+
+
+
+
+
+</div>
+<aside class='l_side'>
+  
+  
+    
+    
+
+
+
+  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL%E9%94%81%E6%9C%BA%E5%88%B6"><span class="toc-text">MySQL锁机制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%94%81%E7%9A%84%E5%88%86%E7%B1%BB"><span class="toc-text">锁的分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%A8%E9%94%81%E6%A1%88%E4%BE%8B%E6%BC%94%E7%A4%BA%EF%BC%88%E5%81%8F%E8%AF%BB%EF%BC%8C%E5%81%8F%E5%90%91MyISAM%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%EF%BC%89"><span class="toc-text">表锁案例演示（偏读，偏向MyISAM存储引擎）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%8C%E9%94%81%E6%A1%88%E4%BE%8B%E6%BC%94%E7%A4%BA%EF%BC%88%E5%81%8F%E5%86%99%EF%BC%8C%E5%81%8F%E5%90%91InnoDB%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%EF%BC%89"><span class="toc-text">行锁案例演示（偏写，偏向InnoDB存储引擎）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%8C%E9%94%81%E6%80%BB%E7%BB%93"><span class="toc-text">行锁总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6"><span class="toc-text">MySQL主从复制</span></a></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+
+		  
+		  <!--此文件用来存放一些不方便取值的变量-->
+<!--思路大概是将值藏到重加载的区域内-->
+
+<script>
+  window.pdata={}
+  pdata.ispage=true;
+  pdata.postTitle="MySQL锁机制以及主从复制";
+  pdata.commentPath="";
+  pdata.commentPlaceholder="";
+  // header 这里无论是否开启pjax都需要
+  var l_header=document.getElementById("l_header");
+  
+  l_header.classList.add("show");
+  
+  
+    // cover
+    var cover_wrapper=document.querySelector('.cover-wrapper');
+    
+    cover_wrapper.id="none";
+    cover_wrapper.style.display="none";
+    
+  
+</script>
+
+        </div>
+        
+  
+  <footer class="footer clearfix">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+  
+    <meting-js
+      theme='#1BCDFC'
+      volume='0.7'
+      loop='all'
+      order='list'
+      fixed='false'
+      list-max-height='320px'
+      server='netease'
+      type='playlist'
+      id='754595573'
+      list-folded='true'>
+    </meting-js>
+  
+
+
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+          
+            
+          
+            
+          
+        </div>
+      
+    
+      
+        
+          <div><p><span id="lc-sv">本站总访问量为 <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span> 次</span> <span id="lc-uv">访客数为 <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span> 人</span></p>
+</div>
+        
+      
+    
+      
+        本站使用
+        <a href="https://github.com/volantis-x/hexo-theme-volantis/tree/4.3.1" target="_blank" class="codename">Volantis</a>
+        作为主题
+      
+    
+      
+        
+          <div><p><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">网站备案号：皖ICP备19016733号</a></p>
+</div>
+        
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="/">Copyright © 2018-2021 ChasingWind</a></p>
+
+        </div>
+      
+    
+  </footer>
+
+
+        <a id="s-top" class="fas fa-arrow-up fa-fw" href="javascript:void(0)"></a>
+      </div>
+    </div>
+    <div>
+      <script>
+/************这个文件存放不需要重载的全局变量和全局函数*********/
+window.volantis={};
+window.volantis.loadcss=document.getElementById("loadcss");
+/******************** Pjax ********************************/
+function VPjax(){
+	this.list=[] // 存放回调函数
+	this.start=()=>{
+	  for(var i=0;i<this.list.length;i++){
+		this.list[i].run();
+	  }
+	}
+	this.push=(fn,name)=>{
+		var f=new PjaxItem(fn,name);
+		this.list.push(f);
+	}
+	// 构造一个可以run的对象
+	function PjaxItem(fn,name){
+		// 函数名称
+		this.name = name || fn.name
+		// run方法
+		this.run=()=>{
+			fn()
+		}
+	}
+}
+volantis.pjax={}
+volantis.pjax.method={
+	complete: new VPjax(),
+	error: new VPjax(),
+	send: new VPjax()
+}
+volantis.pjax={
+	...volantis.pjax,
+	push: volantis.pjax.method.complete.push,
+	error: volantis.pjax.method.error.push,
+	send: volantis.pjax.method.send.push
+}
+/********************脚本懒加载函数********************************/
+// 已经加入了setTimeout
+function loadScript(src, cb) {
+	setTimeout(function() {
+		var HEAD = document.getElementsByTagName('head')[0] || document.documentElement;
+		var script = document.createElement('script');
+		script.setAttribute('type','text/javascript');
+		if (cb) script.onload = cb;
+		script.setAttribute('src', src);
+		HEAD.appendChild(script);
+	});
+}
+//https://github.com/filamentgroup/loadCSS
+var loadCSS = function( href, before, media, attributes ){
+	var doc = window.document;
+	var ss = doc.createElement( "link" );
+	var ref;
+	if( before ){
+		ref = before;
+	}
+	else {
+		var refs = ( doc.body || doc.getElementsByTagName( "head" )[ 0 ] ).childNodes;
+		ref = refs[ refs.length - 1];
+	}
+	var sheets = doc.styleSheets;
+	if( attributes ){
+		for( var attributeName in attributes ){
+			if( attributes.hasOwnProperty( attributeName ) ){
+				ss.setAttribute( attributeName, attributes[attributeName] );
+			}
+		}
+	}
+	ss.rel = "stylesheet";
+	ss.href = href;
+	ss.media = "only x";
+	function ready( cb ){
+		if( doc.body ){
+			return cb();
+		}
+		setTimeout(function(){
+			ready( cb );
+		});
+	}
+	ready( function(){
+		ref.parentNode.insertBefore( ss, ( before ? ref : ref.nextSibling ) );
+	});
+	var onloadcssdefined = function( cb ){
+		var resolvedHref = ss.href;
+		var i = sheets.length;
+		while( i-- ){
+			if( sheets[ i ].href === resolvedHref ){
+				return cb();
+			}
+		}
+		setTimeout(function() {
+			onloadcssdefined( cb );
+		});
+	};
+	function loadCB(){
+		if( ss.addEventListener ){
+			ss.removeEventListener( "load", loadCB );
+		}
+		ss.media = media || "all";
+	}
+	if( ss.addEventListener ){
+		ss.addEventListener( "load", loadCB);
+	}
+	ss.onloadcssdefined = onloadcssdefined;
+	onloadcssdefined( loadCB );
+	return ss;
+};
+</script>
+<script>
+  
+  loadCSS("https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14/css/all.min.css", window.volantis.loadcss);
+  
+  
+  
+  
+</script>
+<!-- required -->
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5/dist/jquery.min.js"></script>
+
+<script>
+  function pjax_fancybox() {
+    $(".md .gallery").find("img").each(function () { //渲染 fancybox
+      var element = document.createElement("a"); // a 标签
+      $(element).attr("class", "fancybox");
+      $(element).attr("pjax-fancybox", "");  // 过滤 pjax
+      $(element).attr("href", $(this).attr("src"));
+      if ($(this).attr("data-original")) {
+        $(element).attr("href", $(this).attr("data-original"));
+      }
+      $(element).attr("data-fancybox", "images");
+      var caption = "";   // 描述信息
+      if ($(this).attr('alt')) {  // 判断当前页面是否存在描述信息
+        $(element).attr('data-caption', $(this).attr('alt'));
+        caption = $(this).attr('alt');
+      }
+      var div = document.createElement("div");
+      $(div).addClass("fancybox");
+      $(this).wrap(div); // 最外层套 div ，其实主要作用还是 class 样式
+      var span = document.createElement("span");
+      $(span).addClass("image-caption");
+      $(span).text(caption); // 加描述
+      $(this).after(span);  // 再套一层描述
+      $(this).wrap(element);  // 最后套 a 标签
+    })
+    $(".md .gallery").find("img").fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+      closeClick: true,
+      helpers: {
+        overlay: {closeClick: true}
+      },
+      buttons: [
+        "zoom",
+        "close"
+      ]
+    });
+  };
+  function SCload_fancybox() {
+    if ($(".md .gallery").find("img").length == 0) return;
+    loadCSS("https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css", document.getElementById("loadcss"));
+    loadScript('https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', pjax_fancybox)
+  };
+  $(function () {
+    SCload_fancybox();
+  });
+  function Pjax_SCload_fancybox(){
+	if (typeof $.fancybox == "undefined") {
+	 SCload_fancybox();
+    } else {
+	 pjax_fancybox();
+    }
+  }
+  volantis.pjax.push(Pjax_SCload_fancybox)
+  volantis.pjax.send(()=>{
+      if (typeof $.fancybox != "undefined") {
+        $.fancybox.close();    // 关闭弹窗
+      }
+  },'fancybox')
+</script>
+
+
+<!-- internal -->
+
+  
+  
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js"></script>
+
+    <script type="text/javascript">
+        var imgs=["https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/001.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/002.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/003.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/004.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/005.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/006.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/012.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/016.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/019.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/025.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/033.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/034.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/035.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/038.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/039.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/042.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/046.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/051.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/052.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/054.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/056.jpg"];
+        if ('true' == 'true') {
+          function shuffle(arr){
+            /*From countercurrent-time*/
+            var n = arr.length;
+            while(n--) {
+              var index = Math.floor(Math.random() * n);
+              var temp = arr[index];
+              arr[index] = arr[n];
+              arr[n] = temp;
+            }
+          }
+          shuffle(imgs);
+        }
+	  function Pjax_backstretch(){
+        
+          $.backstretch(
+            imgs,
+          {
+            duration: "10000",
+            fade: "1500"
+          });
+        
+	  }
+	  loadScript("https://cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js",Pjax_backstretch)
+    </script>
+  
+
+
+
+  
+  
+
+  <div id="rightmenu-wrapper">
+    <ul class="list-v rightmenu" id="rightmenu-content">
+      <li class='option'>
+        <a class='vlts-menu opt fix-cursor-default' id='menu-copy-text' onclick="document.execCommand('copy')"><i class='fa fa-copy fa-fw'></i>复制文本</a>
+        <hr id='hr-text'>
+        <a class='vlts-menu opt fix-cursor-default' id='menu-copy-href'><i class='fa fa-link fa-fw'></i>复制链接</a>
+        <a class='vlts-menu opt fix-cursor-default' id='menu-open-href'><i class='fa fa-external-link-square-alt fa-fw'></i>在新标签页打开</a>
+        <hr id='hr-href'>
+        <a class='vlts-menu opt fix-cursor-default' id='menu-copy-src'><i class='fa fa-image fa-fw'></i>复制图片地址</a>
+        <hr id='hr-src'>
+      </li>
+      
+        <li class='navigation'>
+          <a class='nav icon-only fix-cursor-default' onclick='history.back()'><i class='fa fa-arrow-left fa-fw'></i></a>
+          <a class='nav icon-only fix-cursor-default' onclick='history.forward()'><i class='fa fa-arrow-right fa-fw'></i></a>
+          <a class='nav icon-only fix-cursor-default' onclick='window.location.reload()'><i class='fa fa-redo fa-fw'></i></a>
+          <a class='nav icon-only fix-cursor-default' href='/'><i class='fa fa-home fa-fw'></i></a>
+        </li>
+      
+      <hr>
+      
+        
+      
+        
+          
+    <li>
+      <a class='vlts-menu fix-cursor-default toggle-mode-btn' 
+        
+        
+        
+        >
+        <i class='fas fa-moon fa-fw'></i> Dark mode
+      </a>
+    </li>
+  
+        
+      
+        
+          <hr>
+        
+      
+        
+          <li class='music name'>
+            <p class='nav music-title fix-cursor-default'></p>
+          </li>
+          <li class='music ctrl'>
+            <a class='nav icon-only backward fix-cursor-default' onclick='aplayerBackward()'><i class='fa fa-step-backward fa-fw'></i></a>
+            <a class='nav icon-only toggle fix-cursor-default' onclick='aplayerToggle()'><i class='fa fa-play fa-fw'></i></a>
+            <a class='nav icon-only forward fix-cursor-default' onclick='aplayerForward()'><i class='fa fa-step-forward fa-fw'></i></a>
+          </li>
+          <li class='music volume'>
+            <a class='nav volume'>
+              <div class="aplayer-volume-bar-wrap">
+                <div class="aplayer-volume-bar fix-cursor-pointer">
+                  <div class="aplayer-volume"></div>
+                  <i class='left fa fa-volume-off fa-fw'></i>
+                  <i class='right fa fa-volume-up fa-fw'></i>
+                </div>
+              </div>
+            </a>
+          </li>
+        
+      
+    </ul>
+  </div>
+
+  <script>
+    window.document.oncontextmenu = function (event) {
+      if (event.ctrlKey) return true;
+      if (/Android|webOS|BlackBerry/i.test(navigator.userAgent)) return true;
+      return popMenu(event);
+    };
+    document.addEventListener("click", function (event) {
+      var mymenu = document.getElementById('rightmenu-wrapper');
+      mymenu.style.display = "none";
+    });
+    function popMenu(event) {
+      var mymenu = document.getElementById('rightmenu-wrapper');
+      var menuContent = document.getElementById('rightmenu-content');
+      var screenWidth = document.documentElement.clientWidth || document.body.clientWidth;
+      var screenHeight = document.documentElement.clientHeight || document.body.clientHeight;
+      mymenu.style.left = event.clientX + "px"; // 获取鼠标位置
+      mymenu.style.top = event.clientY + "px";
+      mymenu.style.display = 'block';
+      if (event.clientX * 2 > screenWidth) {
+        menuContent.classList.add('left');
+      } else {
+        menuContent.classList.remove('left');
+      }
+      if (event.clientY * 2 > screenHeight) {
+        menuContent.classList.add('top');
+      } else {
+        menuContent.classList.remove('top');
+      }
+
+      let hrText = document.getElementById('hr-text');
+      let hrSrc = document.getElementById('hr-src');
+      let hrHref = document.getElementById('hr-href');
+
+      // 选中图片
+      let copySrc = document.getElementById('menu-copy-src');
+      if (copySrc != undefined) {
+        if (event.target.currentSrc) {
+          copySrc.style.display = 'block';
+          copySrc.addEventListener("click", function (e) {
+            copyString(event.target.currentSrc);
+          },{once: true});
+          hrSrc.style.display = 'block';
+        } else {
+          copySrc.style.display = 'none';
+          hrSrc.style.display = 'none';
+        }
+      }
+
+      // 选中按钮
+      // 判断是不是按钮
+      let href = '';
+      if (event.path) {
+        for (i = 0; i < event.path.length; i++) {
+          if (event.path[i].href != undefined && event.path[i].href.length > 0) {
+            href = event.path[i].href;
+          }
+        }
+      }
+
+      let copyText = document.getElementById('menu-copy-text');
+      copyText.style.display = 'none';
+      hrText.style.display = 'none';
+      if (href.length == 0) {
+        // 选中文本
+        if (window.getSelection().toString()) {
+          if ('' == 'true') {
+            copyText.style.display = 'block';
+            hrText.style.display = 'block';
+          }
+        }
+      }
+
+      // 在新标签页打开
+      let openHref = document.getElementById('menu-open-href');
+      if (openHref != undefined) {
+        if (href.length > 0) {
+          openHref.style.display = 'block';
+          openHref.addEventListener("click", function (e) {
+            window.open(href);
+          },{once: true});
+          hrHref.style.display = 'block';
+        } else {
+          openHref.style.display = 'none';
+          hrHref.style.display = 'none';
+        }
+      }
+      // 复制链接
+      let copyHref = document.getElementById('menu-copy-href');
+      if (copyHref != undefined) {
+        if (href.length > 0) {
+          copyHref.style.display = 'block';
+          copyHref.addEventListener("click", function (e) {
+            copyString(href);
+          },{once: true});
+        } else {
+          copyHref.style.display = 'none';
+        }
+      }
+      // 有音乐播放器 see: layout/_third-party/aplayer/script.ejs
+      
+      if(volantis.APlayerLoaded){ // APlayer加载完成？
+        // 如果有aplayer，初始化一下
+        checkAPlayer();
+      }
+      
+      return false; // 该行代码确保系统自带的右键菜单不会被调出
+    }
+    function hideMenu() {
+      document.getElementById('rightmenu-wrapper').style.display = 'none';
+    }
+    function copyString(str) {
+      const input = document.createElement('input');
+      input.setAttribute('readonly', 'readonly');
+      document.body.appendChild(input);
+      input.setAttribute('value', str);
+      input.select();
+      document.execCommand('copy');
+      document.body.removeChild(input);
+    }
+    document.execCommand('click');
+  </script>
+
+
+
+
+<script>
+  function loadIssuesJS() {
+    if ($(".md").find(".issues-api").length == 0) return;
+	
+	  loadScript('/js/issues.js');
+	
+  };
+  $(function () {
+    loadIssuesJS();
+  });
+  volantis.pjax.push(()=>{
+	if (typeof IssuesAPI == "undefined") {
+	  loadIssuesJS();
+	}
+  },"IssuesJS")
+</script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 0
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    lazyLoadInstance.update();
+  });
+  document.addEventListener('pjax:complete', function () {
+    lazyLoadInstance.update();
+  });
+</script>
+
+
+
+
+  
+
+<script>
+  window.FPConfig = {
+	delay: 0,
+	ignoreKeywords: [],
+	maxRPS: 5,
+	hoverDelay: 25
+  };
+</script>
+<script defer src="https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"></script>
+
+
+
+
+
+
+
+
+
+  <script>
+  let APlayerController = new Object();
+  APlayerController.id = '754595573';  // 设定全局音乐播放ID
+  APlayerController.volume = '0.7';
+  APlayerController.autoPlay = 'false';
+  loadCSS("https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css", window.volantis.loadcss);
+  // APlayer 需要在  MetingJS 之前加载
+  loadScript("https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js")
+  window.volantis.APlayerLoaded=0 // APlayer加载完成状态
+  var checkAPlayer = setInterval(function () {
+    if (!window.APlayer) return // APlayer加载完成？
+	  if ($("#safearea").css("display")!="block") return // 文章内容加载完成？ see: source/css/first.styl
+    clearInterval(checkAPlayer)
+	  if (!window.volantis.APlayerLoaded&&!window.MetingJSElement){ // APlayer只能加载一次
+      window.volantis.APlayerLoaded=1 // APlayer加载完成
+      loadScript("https://cdn.jsdelivr.net/npm/meting@2.0/dist/Meting.min.js") // 加载 MetingJS
+	  }
+  }, 2500) // 按照网速调节差分2.5s
+  // rightmenu see: layout/_partial/rightmenu.ejs
+
+  
+    loadScript("/js/aplayer.js")
+  
+
+</script>
+
+
+
+
+  
+  
+<script src="/js/valine.js"></script>
+
+
+<script>
+  function emoji(path, idx, ext) {
+    return path + "/" + path + "-" + idx + "." + ext;
+  }
+  var emojiMaps = {};
+  for (var i = 1; i <= 54; i++) {
+    emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+  }
+  for (var i = 1; i <= 101; i++) {
+    emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+  }
+  for (var i = 1; i <= 116; i++) {
+    emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+  }
+  for (var i = 1; i <= 125; i++) {
+    emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+  }
+  for (var i = 1; i <= 4; i++) {
+    emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+  }
+  function pjax_valine() {
+    if(!document.querySelectorAll("#valine_container")[0])return;
+    let pagePlaceholder = pdata.commentPlaceholder || "快来评论吧~";
+    let path = pdata.commentPath;
+    if (path.length == 0) {
+      let defaultPath = '';
+      path = defaultPath || decodeURI(window.location.pathname);
+    }
+    var valine = new Valine();
+    valine.init(Object.assign({"path":null,"placeholder":"快来评论吧~","appId":null,"appKey":null,"meta":["nick","mail","link"],"requiredFields":["nick","mail"],"enableQQ":true,"recordIP":false,"avatar":"robohash","pageSize":10,"lang":"zh-cn","highlight":true,"mathJax":false}, {
+      el: '#valine_container',
+      path: path,
+      placeholder: pagePlaceholder,
+      emojiCDN: 'https://cdn.jsdelivr.net/gh/volantis-x/cdn-emoji/valine/',
+      emojiMaps: emojiMaps,
+    }))
+  }
+  $(function () {
+    pjax_valine();
+  });
+  volantis.pjax.push(pjax_valine);
+</script>
+
+
+
+
+
+
+  
+<script src="/js/app.js"></script>
+
+
+
+<!-- optional -->
+
+  <script>
+const SearchServiceimagePath="https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@master/img/";
+const ROOT =  ("/" || "/").endsWith('/') ? ("/" || "/") : ("//" || "/" );
+
+$('.input.u-search-input').one('focus',function(){
+	
+		loadScript('/js/search/hexo.js',setSearchService);
+	
+})
+
+function listenSearch(){
+  
+    customSearch = new HexoSearch({
+      imagePath: SearchServiceimagePath
+    });
+  
+}
+function setSearchService() {
+	listenSearch();
+	
+		document.addEventListener("pjax:success", listenSearch);
+	
+}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  <script defer>
+
+  const LCCounter = {
+    app_id: 'geHH6vdoVq9LpPQTAtb6CxW5-gzGzoHsz',
+    app_key: 'NqX0R9487fsiAaloOO5VxE4u',
+    custom_api_server: '',
+
+    // 查询存储的记录
+    getRecord(Counter, url, title) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({url})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {url, title: title, times: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    },
+
+    // 发起自增请求
+    increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    },
+
+    // 构建自增请求体
+    buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "times": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    },
+
+    // 校验是否为有效的 UV
+    validUV() {
+      var key = 'LeanCloudUVTimestamp';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    },
+
+    addCount(Counter) {
+      var enableIncr = '' === 'true' && window.location.hostname !== 'localhost';
+      enableIncr = true;
+      var getterArr = [];
+      var incrArr = [];
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#lc-sv');
+      if (pvCtn || enableIncr) {
+        var pvGetter = this.getRecord(Counter, 'https://www.chasingwind.top' + '/#lc-sv', 'Visits').then((record) => {
+          incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-sv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + 1;
+              if (pvCtn) {
+                pvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#lc-uv');
+      if (uvCtn || enableIncr) {
+        var uvGetter = this.getRecord(Counter, 'https://www.chasingwind.top' + '/#lc-uv', 'Visitors').then((record) => {
+          var vuv = this.validUV();
+          vuv && incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-uv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + (vuv ? 1 : 0);
+              if (uvCtn) {
+                uvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 请求文章的浏览数，如果是当前页面就自增
+      var allPV = document.querySelectorAll('#lc-pv');
+      if (allPV.length > 0 || enableIncr) {
+        for (i = 0; i < allPV.length; i++) {
+          let pv = allPV[i];
+          let title = pv.getAttribute('data-title');
+          var url = 'https://www.chasingwind.top' + pv.getAttribute('data-path');
+          if (url) {
+            var viewGetter = this.getRecord(Counter, url, title).then((record) => {
+              // 是当前页面就自增
+              let curPath = window.location.pathname;
+              if (curPath.includes('index.html')) {
+                curPath = curPath.substring(0, curPath.lastIndexOf('index.html'));
+              }
+              if (pv.getAttribute('data-path') == curPath) {
+                incrArr.push(this.buildIncrement(record.objectId));
+              }
+              if (pv) {
+                var ele = pv.querySelector('#lc-pv #number');
+                if (ele) {
+                  if (pv.getAttribute('data-path') == curPath) {
+                    ele.innerText = (record.times || 0) + 1;
+                  } else {
+                    ele.innerText = record.times || 0;
+                  }
+                  pv.style.display = 'inline';
+                }
+              }
+            });
+            getterArr.push(viewGetter);
+          }
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && this.increment(Counter, incrArr);
+        })
+      }
+
+    },
+
+
+    fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': this.app_id,
+            'X-LC-Key': this.app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      this.addCount(Counter);
+    },
+
+    refreshCounter() {
+      var api_server = this.app_id.slice(-9) !== '-MdYXbMMI' ? this.custom_api_server : `https://${ this.app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+      if (api_server) {
+        this.fetchData(api_server);
+      } else {
+        fetch('https://app-router.leancloud.cn/2/route?appId=' + this.app_id)
+          .then(resp => resp.json())
+          .then(({api_server}) => {
+            this.fetchData('https://' + api_server);
+          });
+      }
+    }
+
+  };
+
+  LCCounter.refreshCounter();
+
+  document.addEventListener('pjax:complete', function () {
+    LCCounter.refreshCounter();
+  });
+</script>
+
+
+
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/Colsrch/CDN@master/judge_time/js.js"></script>
+<script>
+const rootElement = document.documentElement;
+const darkModeStorageKey = "user-color-scheme";
+const rootElementDarkModeAttributeName = "data-user-color-scheme";
+
+const setLS = (k, v) => {
+    localStorage.setItem(k, v);
+};
+
+const removeLS = (k) => {
+    localStorage.removeItem(k);
+};
+
+const getLS = (k) => {
+    return localStorage.getItem(k);
+};
+
+const getModeFromCSSMediaQuery = () => {
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
+};
+
+const resetRootDarkModeAttributeAndLS = () => {
+  rootElement.removeAttribute(rootElementDarkModeAttributeName);
+  removeLS(darkModeStorageKey);
+};
+
+const validColorModeKeys = {
+  dark: true,
+  light: true,
+};
+
+const applyCustomDarkModeSettings = (mode) => {
+  const currentSetting = mode || getLS(darkModeStorageKey);
+
+  if (currentSetting === getModeFromCSSMediaQuery()) {
+    resetRootDarkModeAttributeAndLS();
+  } else if (validColorModeKeys[currentSetting]) {
+    rootElement.setAttribute(rootElementDarkModeAttributeName, currentSetting);
+  } else {
+    resetRootDarkModeAttributeAndLS();
+  }
+};
+
+const invertDarkModeObj = {
+  dark: "light",
+  light: "dark",
+};
+
+/**
+ * get target mode
+ */
+const toggleCustomDarkMode = () => {
+  let currentSetting = getLS(darkModeStorageKey);
+
+  if (validColorModeKeys[currentSetting]) {
+    currentSetting = invertDarkModeObj[currentSetting];
+  } else if (currentSetting === null) {
+    currentSetting = invertDarkModeObj[getModeFromCSSMediaQuery()];
+  } else {
+    return;
+  }
+  setLS(darkModeStorageKey, currentSetting);
+  return currentSetting;
+};
+
+/**
+ * bind click event for toggle button
+ */
+var btn=$("#wrapper .toggle-mode-btn,#rightmenu-wrapper .toggle-mode-btn");
+function bindToggleButton() {
+    btn.on('click',(e) => {
+      const mode = toggleCustomDarkMode();
+      applyCustomDarkModeSettings(mode);
+    });
+}
+
+applyCustomDarkModeSettings();
+document.addEventListener("DOMContentLoaded", bindToggleButton);
+volantis.pjax.push(bindToggleButton);
+volantis.pjax.send(()=>{
+	btn.unbind('click');
+},'toggle-mode-btn-unbind');
+
+// 自动夜间模式
+if (navigator.geolocation) {   //获取地理位置 用于判断日出日落时间
+    navigator.geolocation.getCurrentPosition(
+      function (position) {
+        var res = computeSunRiseSunSet(position.coords.latitude, position.coords.longitude, 8);
+        console.log(res.str)
+        adjust_time(res.strSunRise, res.strSunSet, "08:00", "12:00", "14:00", "23:00")
+      },
+      function (e) {
+        adjust_time("7:00", "17:30", "08:00", "12:00", "14:00", "23:00")  //未允许获取地理位置时，使用默认时间
+        console.log("未允许获取地理位置，使用默认配置时间")
+        throw (e.message);
+      }
+    )
+  }
+function adjust_time(beginTime, endTime, morningTime, noonTime, afternoonTime, nightTime) {
+  const rootElement = document.documentElement;
+  var strb = beginTime.split(":");
+  if (strb.length != 2) {
+    return false;
+  }
+
+  var stre = endTime.split(":");
+  if (stre.length != 2) {
+    return false;
+  }
+
+  var strmorning = morningTime.split(":");   //12点
+  if (stre.length != 2) {
+    return false;
+  }
+
+  var strnoon = noonTime.split(":");   //12点
+  if (stre.length != 2) {
+    return false;
+  }
+
+  var strafternoon = afternoonTime.split(":");   //13点
+  if (stre.length != 2) {
+    return false;
+  }
+
+  var strnight = nightTime.split(":");   //23点
+  if (stre.length != 2) {
+    return false;
+  }
+
+  var b = new Date();
+  var e = new Date();
+  var n = new Date();
+  var morning = new Date();
+  var noon = new Date();
+  var afternoon = new Date();
+  var night = new Date();
+
+  b.setHours(strb[0]);
+  b.setMinutes(strb[1]);
+  e.setHours(stre[0]);
+  e.setMinutes(stre[1]);
+  morning.setHours(strmorning[0]);
+  morning.setMinutes(strmorning[1]);
+  noon.setHours(strnoon[0]);
+  noon.setMinutes(strnoon[1]);
+  afternoon.setHours(strafternoon[0]);
+  afternoon.setMinutes(strafternoon[1]);
+  night.setHours(strnight[0]);
+  night.setMinutes(strnight[1]);
+
+
+  $.getJSON("https://v1.hitokoto.cn", function (hitokoto) {
+    //在这里面处理获得的数据
+    if (n.getTime() - b.getTime() > 0 && n.getTime() - e.getTime() < 0) {
+      var daytimetitle = ''
+      var daytimemessage = ''
+      if (n.getTime() - morning.getTime() < 0) {
+        // 早上
+        daytimetitle = '早安'
+      }
+      else if (n.getTime() - noon.getTime() < 0) {
+        // 上午
+        daytimetitle = '上午好'
+      }
+      else if (n.getTime() - afternoon.getTime() < 0) {
+        // 中午
+        daytimetitle = '中午好'
+        daytimemessage = '<br>要注意休息哦~'
+      }
+      else {
+        // 下午
+        daytimetitle = '下午好'
+      }
+      // 判断是否已经开启夜间模式
+      if (rootElement.getAttribute('data-user-color-scheme', 'dark')) {
+        // 已开启夜间模式，修改按钮状态
+        $.message({ title: '操作通知', message: daytimetitle + '，已自动为您切换为日间模式。<br>' + hitokoto.hitokoto + daytimemessage, type: 'success' });
+        const mode = toggleCustomDarkMode();
+        applyCustomDarkModeSettings(mode);
+      }
+      else {
+        // 未开启夜间模式，不执行操作
+        $.message({ title: daytimetitle, message: hitokoto.hitokoto + daytimemessage, type: 'info' });
+        return true;
+      }
+    } else {
+      // 晚上
+      var nighttitle = ''
+      var nightmessage = ''
+      if (night.getTime() - n.getTime() < 0 || n.getTime() - b.getTime() < 0) {
+        nighttitle = '夜深了'
+        nightmessage = '<br>该睡觉啦~'
+      }
+      else {
+        nighttitle = '晚上好'
+        nightmessage = '<br>吃晚饭了吗？要注意眼睛哦。'
+      }
+      // 判断是否已经开启夜间模式
+      if (rootElement.getAttribute('data-user-color-scheme', 'dark')) {
+        // 已开启夜间模式，不执行操作
+        $.message({ title: nighttitle, message: hitokoto.hitokoto + nightmessage, type: 'info' });
+        return true;
+      }
+      else {
+        // 未开启夜间模式，修改按钮状态
+        $.message({ title: '操作通知', message: nighttitle + '，已自动为您切换为夜间模式。<br>' + hitokoto.hitokoto + nightmessage, type: 'success' });
+        const mode = toggleCustomDarkMode();
+        applyCustomDarkModeSettings(mode);
+      }
+    }
+  });
+}
+</script>
+
+
+
+
+
+
+
+
+<script>
+function listennSidebarTOC() {
+  const navItems = document.querySelectorAll(".toc li");
+  if (!navItems.length) return;
+  const sections = [...navItems].map((element) => {
+    const link = element.querySelector(".toc-link");
+    const target = document.getElementById(
+      decodeURI(link.getAttribute("href")).replace("#", "")
+    );
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      window.scrollTo({
+		top: target.offsetTop + 100,
+		
+		behavior: "smooth"
+		
+	  });
+    });
+    return target;
+  });
+
+  function activateNavByIndex(target) {
+    if (target.classList.contains("active-current")) return;
+
+    document.querySelectorAll(".toc .active").forEach((element) => {
+      element.classList.remove("active", "active-current");
+    });
+    target.classList.add("active", "active-current");
+    let parent = target.parentNode;
+    while (!parent.matches(".toc")) {
+      if (parent.matches("li")) parent.classList.add("active");
+      parent = parent.parentNode;
+    }
+  }
+
+  function findIndex(entries) {
+    let index = 0;
+    let entry = entries[index];
+    if (entry.boundingClientRect.top > 0) {
+      index = sections.indexOf(entry.target);
+      return index === 0 ? 0 : index - 1;
+    }
+    for (; index < entries.length; index++) {
+      if (entries[index].boundingClientRect.top <= 0) {
+        entry = entries[index];
+      } else {
+        return sections.indexOf(entry.target);
+      }
+    }
+    return sections.indexOf(entry.target);
+  }
+
+  function createIntersectionObserver(marginTop) {
+    marginTop = Math.floor(marginTop + 10000);
+    let intersectionObserver = new IntersectionObserver(
+      (entries, observe) => {
+        let scrollHeight = document.documentElement.scrollHeight + 100;
+        if (scrollHeight > marginTop) {
+          observe.disconnect();
+          createIntersectionObserver(scrollHeight);
+          return;
+        }
+        let index = findIndex(entries);
+        activateNavByIndex(navItems[index]);
+      },
+      {
+        rootMargin: marginTop + "px 0px -100% 0px",
+        threshold: 0,
+      }
+    );
+    sections.forEach((element) => {
+      element && intersectionObserver.observe(element);
+    });
+  }
+  createIntersectionObserver(document.documentElement.scrollHeight);
+}
+
+document.addEventListener("DOMContentLoaded", listennSidebarTOC);
+document.addEventListener("pjax:success", listennSidebarTOC);
+</script>
+
+<!-- more -->
+
+ 
+	   
+	    
+
+
+<script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script>
+
+
+<script>
+    var pjax;
+    document.addEventListener('DOMContentLoaded', function () {
+      pjax = new Pjax({
+        elements: 'a[href]:not([href^="#"]):not([href="javascript:void(0)"]):not([pjax-fancybox])',
+        selectors: [
+          "title",
+          
+          "#pjax-container",
+          "#pjax-header-nav-list"
+        ],
+        cacheBust: false,   // url 地址追加时间戳，用以避免浏览器缓存
+        timeout: 5000
+      });
+    });
+
+    document.addEventListener('pjax:send', function (e) {
+      //window.stop(); // 相当于点击了浏览器的停止按钮
+
+      try {
+        var currentUrl = window.location.pathname;
+        var targetUrl = e.triggerElement.href;
+        var banUrl = [""];
+        if (banUrl[0] != "") {
+          banUrl.forEach(item => {
+            if(currentUrl.indexOf(item) != -1 || targetUrl.indexOf(item) != -1) {
+              window.location.href = targetUrl;
+            }
+          });
+        }
+      } catch (error) {}
+
+      window.subData = null; // 移除标题（用于一二级导航栏切换处）
+
+      volantis.$switcher.removeClass('active'); // 关闭移动端激活的搜索框
+      volantis.$header.removeClass('z_search-open'); // 关闭移动端激活的搜索框
+      volantis.$wrapper.removeClass('sub'); // 跳转页面时关闭二级导航
+
+      // 解绑事件 避免重复监听
+      volantis.$topBtn.unbind('click');
+      $('.menu a').unbind('click');
+      $(window).unbind('resize');
+      $(window).unbind('scroll');
+      $(document).unbind('scroll');
+      $(document).unbind('click');
+      $('body').unbind('click');
+	  // 使用 volantis.pjax.send 方法传入pjax:send回调函数 参见layout/_partial/scripts/global.ejs
+	  volantis.pjax.method.send.start();
+    });
+
+    document.addEventListener('pjax:complete', function () {
+      $('.nav-main').find('.list-v').not('.menu-phone').removeAttr("style",""); // 移除小尾巴的移除
+      $('.menu-phone.list-v').removeAttr("style",""); // 移除小尾巴的移除
+      $('script[data-pjax], .pjax-reload script').each(function () {
+        $(this).parent().append($(this).remove());
+      });
+      try{
+		// 使用 volantis.pjax.push 方法传入重载函数 参见layout/_partial/scripts/global.ejs
+		volantis.pjax.method.complete.start();
+      } catch (e) {
+        console.log(e);
+      }
+    });
+
+    document.addEventListener('pjax:error', function (e) {
+	  // 使用 volantis.pjax.error 方法传入pjax:error回调函数 参见layout/_partial/scripts/global.ejs
+	  volantis.pjax.method.error.start();
+      window.location.href = e.triggerElement.href;
+    });
+</script>
+ 
+	  
+    </div>
+  </body>
+</html>

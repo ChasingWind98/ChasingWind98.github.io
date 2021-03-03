@@ -1,0 +1,2521 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/tree/4.3.1'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <link rel="preload" href="/css/first.css" as="style">
+  
+
+  <!-- 页面元数据 -->
+  
+  <title>Redis - 追风少年</title>
+  
+    <meta name="keywords" content="Redis">
+  
+
+  
+    <meta name="description" content="Redis是用C语言开发的一个开源的高性能键值对（key-value）数据库，同时是一款NOSQL(Not Only SQL)系列的非关系型数据库。">
+  
+
+  <!-- feed -->
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  
+    <link rel="shortcut icon" type='image/x-icon' href="https://blog.chasingwind.top/creative-idea.png">
+  
+
+  <!-- import link -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/first.css">
+
+  
+
+  
+  <link rel="stylesheet" href="/css/style.css" media="print" onload="this.media='all';this.onload=null">
+  <noscript><link rel="stylesheet" href="/css/style.css"></noscript>
+  
+
+  <script id="loadcss"></script>
+
+  
+<script>
+if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode))
+    document.write(
+	'<style>'+
+		'html{'+
+			'overflow-x: hidden !important;'+
+			'overflow-y: hidden !important;'+
+		'}'+
+		'.kill-ie{'+
+			'text-align:center;'+
+			'height: 100%;'+
+			'margin-top: 15%;'+
+			'margin-bottom: 5500%;'+
+		'}'+
+	'</style>'+
+    '<div class="kill-ie">'+
+        '<h1><b>抱歉，您的浏览器无法访问本站</b></h1>'+
+        '<h3>微软已经于2016年终止了对 Internet Explorer (IE) 10 及更早版本的支持，<br/>'+
+        '继续使用存在极大的安全隐患，请使用当代主流的浏览器进行访问。</h3><br/>'+
+        '<a target="_blank" rel="noopener" href="https://www.microsoft.com/zh-cn/WindowsForBusiness/End-of-IE-support"><strong>了解详情 ></strong></a>'+
+    '</div>');
+</script>
+
+
+<noscript>
+	<style>
+		html{
+			overflow-x: hidden !important;
+			overflow-y: hidden !important;
+		}
+		.kill-noscript{
+			text-align:center;
+			height: 100%;
+			margin-top: 15%;
+			margin-bottom: 5500%;
+		}
+	</style>
+    <div class="kill-noscript">
+        <h1><b>抱歉，您的浏览器无法访问本站</b></h1>
+        <h3>本页面需要浏览器支持（启用）JavaScript</h3><br/>
+        <a target="_blank" rel="noopener" href="https://www.baidu.com/s?wd=启用JavaScript"><strong>了解详情 ></strong></a>
+    </div>
+</noscript>
+
+</head>
+
+  <body>
+    
+
+<header id="l_header" class="l_header always shadow floatable blur "  >
+  <div class='container'>
+  <div id='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h m-phone' id="pjax-header-nav-list">
+        <li><a id="s-comment" class="fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a id="s-toc" class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+            <img no-lazy class='logo' src='https://blog.chasingwind.top/blogavater.jpeg'/>
+          
+          
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h m-pc'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              
+                <li>
+                  <a class="menuitem flat-box">
+                    <i class='fas fa-compact-disc fa-fw music'></i>背景音乐
+                  </a>
+                  <ul class="list-v">
+                    <li>
+                      <div class="aplayer-container">
+                        
+
+  
+    <meting-js
+      theme='#1BCDFC'
+      volume='0.7'
+      loop='all'
+      order='list'
+      fixed='false'
+      list-max-height='320px'
+      server='netease'
+      type='playlist'
+      id='754595573'
+      list-folded='true'>
+    </meting-js>
+  
+
+
+                      </div>
+                    </li>
+                  </ul>
+                <li>
+              
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="看点什么呢..." />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h m-phone'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+    <div id="l_body">
+      <div id="l_cover">
+  
+    
+        <div id="half" class='cover-wrapper post search' style="display: ;">
+          
+            <div id='cover-backstretch'></div>
+          
+          <div class='cover-body'>
+  <div class='top'>
+    
+    
+      <p class="title">ChasingWind</p>
+    
+    
+      <p class="subtitle">向死而生，反求诸己</p>
+    
+  </div>
+  <div class='bottom'>
+    
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <input type="text" class="input u-search-input" placeholder="会搜到什么呢~" />
+          <i class="icon fas fa-search fa-fw"></i>
+        </form>
+      </div>
+    
+    <div class='menu navigation'>
+      <div class='list-h'>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+          <div id="scroll-down" style="display: none;"><i class="fa fa-chevron-down scroll-down-effects"></i></div>
+        </div>
+    
+  
+  </div>
+
+      <div id="safearea">
+        <div class="body-wrapper" id="pjax-container">
+          
+
+<div class='l_main'>
+  <article class="article post white-box reveal md shadow article-type-post" id="post" itemscope itemprop="blogPost">
+  
+
+
+  
+    <div class='headimg-div'>
+      <a class='headimg-a'>
+        <img class='headimg' src='http://blog.chasingwind.top/redis.jpg'/>
+      </a>
+    </div>
+  
+  <div class="article-meta" id="top">
+    
+    
+    
+      <h1 class="title">
+        Redis
+      </h1>
+      <div class='new-meta-box'>
+        
+          
+            
+<div class='new-meta-item author'>
+  <a class='author' href="/about/" rel="nofollow">
+    <img no-lazy src="https://blog.chasingwind.top/blogavater.jpeg">
+    <p>ChasingWind</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class='new-meta-item category'>
+    <a class='notlink'>
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <a class="category-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：2019年8月4日</p>
+  </a>
+</div>
+
+          
+        
+          
+            <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-02-08T16:04:54+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2021年2月8日</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+
+          
+        
+          
+            
+  <div class="new-meta-item browse leancloud">
+    <a class='notlink'>
+      
+      <div id="lc-pv" data-title="Redis" data-path="/2019/08/04/Redis/">
+        <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
+        <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+        次浏览
+      </div>
+    </a>
+  </div>
+
+
+          
+        
+      </div>
+    
+  </div>
+
+
+  
+  
+  <p>Redis是用C语言开发的一个开源的高性能键值对（key-value）数据库，同时是一款NOSQL(Not Only SQL)系列的非关系型数据库。</p>
+<a id="more"></a>
+
+
+
+<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><ol>
+<li><p>概念: Redis是一款高性能的<strong>NOSQL(Not Only SQL)系列的非关系型数据库</strong></p>
+<blockquote>
+<p>关系型数据库和非关系型数据库(NOSQL)</p>
+<p><img src="http://blog.chasingwind.top/1564925605019.png" class="lazyload" data-srcset="http://blog.chasingwind.top/1564925605019.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+<blockquote>
+<p>当我们查询一些不是经常改变的数据的时候 ,去请求数据库的查询是比较耗时的,</p>
+<p>所以可以用缓存的思想来解决这个问题</p>
+<p><img src="http://blog.chasingwind.top/1564925682387.png" class="lazyload" data-srcset="http://blog.chasingwind.top/1564925682387.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+<blockquote>
+<p>缓存的选择有很多</p>
+<p>比如说 ,可以在内存中开辟空间 存储map集合(JVM中) , 但是这个问题就是他<strong>只能用在当前的项目中</strong></p>
+<p>分布式缓存,<strong>NOSQL数据存储在内存中,而且可以部署在独立的机器上</strong>,刚好符合上面的要求 ,Redis用来做缓存就很合适</p>
+</blockquote>
+</li>
+<li><p>一些相关的概念</p>
+<ol>
+<li><p>什么是NOSQL</p>
+<blockquote>
+<p>NOSQL(NOSQL = Not Only SQL)，意即“不仅仅是SQL”，是一项全新的数据库理念，<strong>泛指非关系型的数据库</strong>。</p>
+<hr>
+<p>随着互联网web2.0网站的兴起，传统的关系数据库在应付web2.0网站，特别是超大规模和高并发的SNS类型的web2.0纯动态网站已经显得力不从心，暴露了很多难以克服的问题，而非关系型的数据库则由于其本身的特点得到了非常迅速的发展。NOSQL数据库的产生就是为了解决大规模数据集合多重数据种类带来的挑战，尤其是大数据应用难题。</p>
+</blockquote>
+</li>
+<li><p>NOSQL非关系型数据库和关系型数据库比较</p>
+<blockquote>
+<p>优点: </p>
+<ol>
+<li>成本：NOSQL数据库简单易部署，基本都是开源软件，不需要像使用oracle那样花费大量成本购买使用，相比关系型数据库价格便宜。</li>
+<li>查询速度：<strong>NOSQL数据库将数据存储于缓存之中</strong>，<strong>关系型数据库将数据存储在硬盘中</strong>，自然查询速度远不及NOSQL数据库。</li>
+<li>存储数据的格式：NOSQL的存储格式是key,value形式、文档形式、图片形式等等，所以可以存储基础类型以及对象或者是集合等各种格式，而数据库则只支持基础类型。</li>
+<li>扩展性：关系型数据库有类似join这样的多表查询机制的限制导致扩展很艰难。</li>
+</ol>
+<hr>
+<p>缺点 : </p>
+<ol>
+<li>维护的工具和资料有限，因为NOSQL是属于新的技术，不能和关系型数据库10几年的技术同日而语。</li>
+<li>不提供对SQL的支持，如果不支持SQL这样的工业标准，将产生一定用户的学习和使用成本。</li>
+</ol>
+</blockquote>
+</li>
+<li><p>关系型数据库和非关系型数据库的关系</p>
+<blockquote>
+<p>关系型数据库与NOSQL数据库并非对立而是<strong>互补的关系</strong>，即通常情况下使用关系型数据库，在适合使用NOSQL的时候使用NOSQL数据库，让NOSQL数据库对关系型数据库的不足进行弥补。</p>
+<hr>
+<p>一般会将<strong>数据存储在关系型数据库中</strong>，在<strong>NOSQL数据库中备份存储关系型数据库的数据</strong></p>
+</blockquote>
+</li>
+</ol>
+</li>
+<li><p>主流的NOSQL产品</p>
+<ul>
+<li>键值(Key-Value)存储数据库<ul>
+<li>相关产品 : Tokyo Cabinet/Tyrant、<strong>Redis</strong>、Voldemort、Berkeley DB</li>
+<li>典型应用 : 内容缓存，主要用于处理大量数据的高访问负载。 </li>
+<li>数据模型： 一系列键值对</li>
+<li>优势： 快速查询</li>
+<li>劣势： 存储的数据缺少结构化</li>
+</ul>
+</li>
+<li>列存储数据库<ul>
+<li>相关产品：Cassandra, HBase, Riak</li>
+<li>典型应用：分布式的文件系统</li>
+<li>数据模型：以列簇式存储，将同一列数据存在一起</li>
+<li>优势：查找速度快，可扩展性强，更容易进行分布式扩展</li>
+<li>劣势：功能相对局限</li>
+</ul>
+</li>
+<li>文档型数据库<ul>
+<li>相关产品：CouchDB、MongoDB</li>
+<li>典型应用：Web应用（与Key-Value类似，Value是结构化的）</li>
+<li>数据模型： 一系列键值对</li>
+<li>优势：数据结构要求不严格</li>
+<li>劣势： 查询性能不高，而且缺乏统一的查询语法</li>
+</ul>
+</li>
+<li>图形(Graph)数据库<ul>
+<li>相关数据库：Neo4J、InfoGrid、Infinite Graph</li>
+<li>典型应用：社交网络</li>
+<li>数据模型：图结构</li>
+<li>优势：利用图结构相关算法。</li>
+<li>劣势：需要对整个图做计算才能得出结果，不容易做分布式的集群方案。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>什么是Redis?</p>
+<ul>
+<li>Redis是用C语言开发的一个<strong>开源的高性能键值对（key-value）数据库</strong>，官方提供测试数据，50个并发执行100000个请求,读的速度是110000次/s,写的速度是81000次/s ，且Redis通过提供多种键值数据类型来适应不同场景下的存储需求，目前为止<strong>Redis支持的键值数据类型</strong>如下：<ul>
+<li>字符串类型 string</li>
+<li>哈希类型 hash</li>
+<li>列表类型 list</li>
+<li>集合类型 set</li>
+<li>有序集合类型 sortedset</li>
+</ul>
+</li>
+<li><strong>Redis的应用场景</strong><ul>
+<li>缓存（数据查询、短连接、新闻内容、商品内容等等）</li>
+<li>聊天室的在线好友列表</li>
+<li>任务队列。（秒杀、抢购、12306等等）</li>
+<li>应用排行榜</li>
+<li>网站访问统计</li>
+<li>数据过期处理（可以精确到毫秒）</li>
+<li>分布式集群架构中的session分离</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h2><ol>
+<li><p>官网 ：<a target="_blank" rel="noopener" href="https://redis.io/">Redis官网</a></p>
+</li>
+<li><p>中文网：<a target="_blank" rel="noopener" href="http://www.redis.net.cn/">Redis中文网</a></p>
+</li>
+<li><p>解压即可使用</p>
+<ul>
+<li>redis.windows.conf：配置文件</li>
+<li>redis-cli.exe：redis的客户端</li>
+<li>redis-server.exe：redis服务器端</li>
+</ul>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/1564927291743.png" class="lazyload" data-srcset="http://blog.chasingwind.top/1564927291743.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>使用</p>
+<ol>
+<li><p>双击redis-server.exe 启动Redis服务器端</p>
+<blockquote>
+<p>可以看到Redis的端口号是6379</p>
+<p>进程ID为2960</p>
+<p><img src="http://blog.chasingwind.top/1564927436692.png" class="lazyload" data-srcset="http://blog.chasingwind.top/1564927436692.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>双击redis-cli.exe 打开本地的客户端  这样客户端就连接上了服务器端</p>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/1564928112898.png" class="lazyload" data-srcset="http://blog.chasingwind.top/1564928112898.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="命令操作"><a href="#命令操作" class="headerlink" title="命令操作"></a>命令操作</h2><ol>
+<li><p>Redis的数据结构 : key,value格式的数据 , 其中key都是字符串，value有5种不同的数据结构</p>
+<ul>
+<li><p>value的数据结构：</p>
+<ol>
+<li>字符串类型 string</li>
+<li>哈希类型 hash ： 相当于map格式 (key,value) </li>
+<li>列表类型 list ： 相当于LinkedList格式。支持重复元素</li>
+<li>集合类型 set  ： 不允许重复元素</li>
+<li>有序集合类型 sortedset：不允许重复元素，且元素有顺序</li>
+</ol>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/1564928450204.png" class="lazyload" data-srcset="http://blog.chasingwind.top/1564928450204.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>命令行的操作</p>
+<ol>
+<li><p>字符串类型 string</p>
+<ol>
+<li>存储 : <code>set key value</code></li>
+<li>获取 : <code>get key</code></li>
+<li>删除 : <code>del key</code></li>
+</ol>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/1564931065287.png" class="lazyload" data-srcset="http://blog.chasingwind.top/1564931065287.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>哈希类型</p>
+<ol>
+<li>存储 : <code>hset key field(字段) value</code></li>
+<li>获取 : <ol>
+<li><code>hget key field</code>: 获取指定的field对应的值</li>
+<li><code>hgetall key</code>：获取所有的field和value</li>
+</ol>
+</li>
+<li>删除 : <code>hdel key field</code></li>
+</ol>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/1564931631733.png" class="lazyload" data-srcset="http://blog.chasingwind.top/1564931631733.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>列表类型 list : <strong>允许重复元素</strong>, 可以添加一个元素到列表的头部（左边）或者尾部（右边）</p>
+<ol>
+<li>添加<ol>
+<li><code>lpush key value</code>: 将元素加入列表左表</li>
+<li><code>rpush key value</code>：将元素加入列表右边</li>
+</ol>
+</li>
+<li>获取<ul>
+<li><code>lrange key start end</code> ：范围获取</li>
+<li><code>lrange key 0 -1</code> : 获取列表中的所有元素</li>
+</ul>
+</li>
+<li>删除<ul>
+<li><code>lpop key</code>： 删除列表<strong>最左边</strong>的元素，并将元素返回</li>
+<li><code>rpop key</code>： 删除列表<strong>最右边</strong>的元素，并将元素返回</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/1564932236612.png" class="lazyload" data-srcset="http://blog.chasingwind.top/1564932236612.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>重复元素</p>
+<p><img src="http://blog.chasingwind.top/1564932410731.png" class="lazyload" data-srcset="http://blog.chasingwind.top/1564932410731.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>集合类型 set : <strong>不允许存储重复元素</strong> <strong>不保证顺序</strong>,也就是存入和取出的顺序不一致</p>
+<ol>
+<li>存储 : <code>sadd key value</code></li>
+<li>获取 : <code>smembers key</code> : 获取set集合中的所有的元素</li>
+<li>删除 : <code>srem key value</code> : 删除set集合中的某个元素</li>
+</ol>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/1564932883029.png" class="lazyload" data-srcset="http://blog.chasingwind.top/1564932883029.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>有序集合类型 sortedset : <strong>不允许存储重复元素，且元素有顺序。</strong></p>
+<ul>
+<li>保证有序 ：<strong>每个元素都会关联一个double类型的分数</strong>。redis正是通过score的值来为集合中的成员进行从小到大的排序。</li>
+</ul>
+<ol>
+<li>存储 : <code>zadd key score value </code>, 根据score的大小来进行排序</li>
+<li>获取 : <code>zrange key start end [withscores]</code></li>
+<li>删除 : <code>zrem key value</code></li>
+</ol>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/1564933497623.png" class="lazyload" data-srcset="http://blog.chasingwind.top/1564933497623.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ol>
+</li>
+<li><p>通用命令</p>
+<ol>
+<li><code>keys *</code> : 查询所有的键  ,这个*可以替换为需要的正则表达式</li>
+<li><code>type  key</code> : 获取键对应的value的类型</li>
+<li><code>del key</code> : 删除指定的key value</li>
+</ol>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/1564933762946.png" class="lazyload" data-srcset="http://blog.chasingwind.top/1564933762946.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ol>
+<h2 id="持久化操作"><a href="#持久化操作" class="headerlink" title="持久化操作"></a>持久化操作</h2><ol>
+<li><p>Redis是一个<strong>内存数据库</strong>，当Redis服务器重启，或者电脑重启了，那么数据就没有了。我们可以将Redis中的数据持久化保存到硬盘的文件中。这样当我们重启Redis后，会自动加载文件中的数据，进行恢复。</p>
+</li>
+<li><p>Redis持久化机制</p>
+<ol>
+<li><p>RDB：默认方式，不需要进行配置，默认使用这种机制（<strong>开销较小</strong>）</p>
+<ul>
+<li>在一定的间隔时间中，检测key的变化情况,然后持久化</li>
+</ul>
+<blockquote>
+<p>在redis.windwos.conf文件中可以进行配置 , (图中的是默认的)</p>
+<p><img src="http://blog.chasingwind.top/1564934531208.png" class="lazyload" data-srcset="http://blog.chasingwind.top/1564934531208.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>比如说<code> save 300 10</code>的意思就是</p>
+<p>在<strong>接下来的300秒key发生了10次变化</strong>,那么<strong>就在300s后进行一次持久化存储</strong></p>
+<hr>
+<p>如果将配置文件修改了  就需要在启动的时候指定配置文件的名称</p>
+<p><code>redis-server.exe redis.windows.conf    </code></p>
+<p><img src="http://blog.chasingwind.top/1564934849007.png" class="lazyload" data-srcset="http://blog.chasingwind.top/1564934849007.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="http://blog.chasingwind.top/1564934912838.png" class="lazyload" data-srcset="http://blog.chasingwind.top/1564934912838.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>当达到持久化的条件的时候  会在目录中生成<code>.rpb</code>的文件</p>
+<p><img src="http://blog.chasingwind.top/1564935020325.png" class="lazyload" data-srcset="http://blog.chasingwind.top/1564935020325.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>关闭服务器 重启就会加载之前的rpb文件进行恢复的操作</p>
+</blockquote>
+</li>
+<li><p>AOF：日志记录的方式（<strong>开销较大</strong>）</p>
+<ul>
+<li>可以记录每一条命令的操作,可以每一次命令操作后,持久化数据</li>
+</ul>
+<blockquote>
+<ol>
+<li><p>编辑redis.windwos.conf文件</p>
+<p>appendonly no（关闭AOF） –&gt; appendonly yes （开启AOF）</p>
+<p><code># appendfsync always </code>： 每一次操作都进行持久化</p>
+<p><code>appendfsync everysec ： 每隔一秒进行一次持久化</code></p>
+<p><code># appendfsync no     ： 不进行持久化</code></p>
+</li>
+</ol>
+</blockquote>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="使用Java客户端操作Redis-Jedis"><a href="#使用Java客户端操作Redis-Jedis" class="headerlink" title="使用Java客户端操作Redis(Jedis)"></a>使用Java客户端操作Redis(Jedis)</h2><ol>
+<li><p>Jedis : 一款Java操作Redis数据库的工具，作用可以类比MySQL中的JDBC</p>
+</li>
+<li><p>使用步骤：</p>
+<ol>
+<li>下载Jedis的相关的jar包<ol>
+<li>commons-pool2-2.3.jar</li>
+<li>jedis-2.7.0.jar</li>
+</ol>
+</li>
+<li>使用</li>
+</ol>
+<blockquote>
+<p>首先,需要确保你的数据库服务器是开着的</p>
+<p><img src="http://blog.chasingwind.top/1564936863326.png" class="lazyload" data-srcset="http://blog.chasingwind.top/1564936863326.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>刚开始是没有数据的,执行过后的结果</p>
+<p><img src="http://blog.chasingwind.top/1564936944384.png" class="lazyload" data-srcset="http://blog.chasingwind.top/1564936944384.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>使用Jedis来操作Redis中的各种数据结构</p>
+<ol>
+<li><p>字符串类型 string</p>
+<ul>
+<li>set</li>
+<li>get</li>
+</ul>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/1564984526243.png" class="lazyload" data-srcset="http://blog.chasingwind.top/1564984526243.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>setex()方法一般我们可以用在验证码</p>
+</blockquote>
+</li>
+<li><p>哈希类型 hash ： map格式  </p>
+<ul>
+<li>hset</li>
+<li>hget</li>
+<li>hgetAll</li>
+</ul>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/1564985079358.png" class="lazyload" data-srcset="http://blog.chasingwind.top/1564985079358.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p><img src="http://blog.chasingwind.top/1564985092043.png" class="lazyload" data-srcset="http://blog.chasingwind.top/1564985092043.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>列表类型 list ： linkedlist格式。支持重复元素</p>
+<ul>
+<li>lpush/rpush</li>
+<li>lpop/rpop</li>
+<li>lrange start end : 范围获取</li>
+</ul>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/1564985826098.png" class="lazyload" data-srcset="http://blog.chasingwind.top/1564985826098.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p><img src="http://blog.chasingwind.top/1564985838206.png" class="lazyload" data-srcset="http://blog.chasingwind.top/1564985838206.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>集合类型 set  ： 不允许重复元素</p>
+<ul>
+<li>sadd</li>
+<li>smembers : 获取所有元素</li>
+</ul>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/1564987504084.png" class="lazyload" data-srcset="http://blog.chasingwind.top/1564987504084.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p><img src="http://blog.chasingwind.top/1564987011093.png" class="lazyload" data-srcset="http://blog.chasingwind.top/1564987011093.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>有序集合类型 sortedset：不允许重复元素，且元素有顺序</p>
+<ul>
+<li>zadd</li>
+<li>zrange</li>
+</ul>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/1564987431069.png" class="lazyload" data-srcset="http://blog.chasingwind.top/1564987431069.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p><img src="http://blog.chasingwind.top/1564987450592.png" class="lazyload" data-srcset="http://blog.chasingwind.top/1564987450592.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ol>
+</li>
+<li><p>Jedis的连接池(自带的) : JedisPool  <strong>对Jedis的连接有更好的复用和管理</strong></p>
+<ol>
+<li><p>使用</p>
+<ol>
+<li>创建JedisPool连接池对象</li>
+<li>调用方法 getResource()方法获取连接</li>
+</ol>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/1564987944207.png" class="lazyload" data-srcset="http://blog.chasingwind.top/1564987944207.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>注意,这里的close()不是关流 ,而是将连接归还到连接池中</p>
+<hr>
+<p>当然 我们可以进行连接池的一些参数的配置 在创建连接池的时候,将配置对象传入构造函数中</p>
+<p><img src="http://blog.chasingwind.top/1564988276101.png" class="lazyload" data-srcset="http://blog.chasingwind.top/1564988276101.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>配置的参数参考</p>
+<pre><code class="properties">#最大活动对象数     
+redis.pool.maxTotal=1000    
+#最大能够保持idel状态的对象数      
+redis.pool.maxIdle=100  
+#最小能够保持idel状态的对象数   
+redis.pool.minIdle=50    
+#当池内没有返回对象时，最大等待时间    
+redis.pool.maxWaitMillis=10000    
+#当调用borrow Object方法时，是否进行有效性检查    
+redis.pool.testOnBorrow=true    
+#当调用return Object方法时，是否进行有效性检查    
+redis.pool.testOnReturn=true  
+#“空闲链接”检测线程，检测的周期，毫秒数。如果为负值，表示不运行“检测线程”。默认为-1.  
+redis.pool.timeBetweenEvictionRunsMillis=30000  
+#向调用者输出“链接”对象时，是否检测它的空闲超时；  
+redis.pool.testWhileIdle=true  
+# 对于“空闲链接”检测线程而言，每次检测的链接资源的个数。默认为3.  
+redis.pool.numTestsPerEvictionRun=50  
+#redis服务器的IP    
+redis.ip=xxxxxx  
+#redis服务器的Port    
+redis1.port=6379  
+</code></pre>
+</blockquote>
+</li>
+</ol>
+</li>
+<li><p>Jedis连接池的工具类</p>
+<blockquote>
+<p>JedisPoolUtils</p>
+<p>配置文件</p>
+<p><img src="http://blog.chasingwind.top/1564989899374.png" class="lazyload" data-srcset="http://blog.chasingwind.top/1564989899374.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>工具类</p>
+<p><img src="http://blog.chasingwind.top/1564990234978.png" class="lazyload" data-srcset="http://blog.chasingwind.top/1564990234978.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>使用工具类来获取连接池中的连接  这样我们就不需要进行配置了 </p>
+<p>直接使用工具类中的方法来获取连接就行了</p>
+<p><img src="http://blog.chasingwind.top/1564990274902.png" class="lazyload" data-srcset="http://blog.chasingwind.top/1564990274902.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ol>
+<h2 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h2><ol>
+<li><p>需求</p>
+<ol>
+<li>提供index.html页面，页面中有一个省份 下拉列表</li>
+<li>当 页面加载完成后 发送ajax请求，加载所有省份</li>
+</ol>
+</li>
+<li><p>分析</p>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/1565016525407.png" class="lazyload" data-srcset="http://blog.chasingwind.top/1565016525407.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>实现</p>
+<ol>
+<li><p>数据库环境搭建</p>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/1564993501327.png" class="lazyload" data-srcset="http://blog.chasingwind.top/1564993501327.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>导入相关的jar包以及配置文件</p>
+<blockquote>
+<p>这个问题碰到好几次了 ,就是druid.properties的问题</p>
+<p>需要删除重新建立  别去复制内容  具体原因我也不知道为啥(找了我好久的)</p>
+<hr>
+<p>Servlet</p>
+<p><img src="http://blog.chasingwind.top/1565016227044.png" class="lazyload" data-srcset="http://blog.chasingwind.top/1565016227044.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>Service层调用dao层</p>
+<p><img src="http://blog.chasingwind.top/1565016264223.png" class="lazyload" data-srcset="http://blog.chasingwind.top/1565016264223.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>dao层</p>
+<p><img src="http://blog.chasingwind.top/1565016292363.png" class="lazyload" data-srcset="http://blog.chasingwind.top/1565016292363.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>index.html</p>
+<p><img src="http://blog.chasingwind.top/1565016364911.png" class="lazyload" data-srcset="http://blog.chasingwind.top/1565016364911.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>注意内容的拼接</p>
+</blockquote>
+</li>
+<li><p>案例存在的问题 : 这里的数据是不经常发生变化的, 每一次去请求数据库耗时比较长 , 可以使用缓存解决</p>
+<ul>
+<li><p>分析</p>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/1565016555228.png" class="lazyload" data-srcset="http://blog.chasingwind.top/1565016555228.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<p>使用缓存的方法</p>
+<p><img src="http://blog.chasingwind.top/1565019987923.png" class="lazyload" data-srcset="http://blog.chasingwind.top/1565019987923.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>servlet中调用该方法</p>
+<p><img src="http://blog.chasingwind.top/1565020031792.png" class="lazyload" data-srcset="http://blog.chasingwind.top/1565020031792.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>在这里给自己挖了个坑</p>
+<p>就是之前代码出错把province中存储了”province_json”字符串 ,所以redis中是有数据的  , 一直获取不到正确的格式….  删除数据库中的内容就好了 </p>
+<p>所以 一定要注意存储的时候province_json本来就是字符串了  别加引号</p>
+</blockquote>
+</li>
+</ol>
+</li>
+<li><p>注意</p>
+<ul>
+<li>使用redis缓存一些不经常发生变化的数据。<ul>
+<li>数据库的表执行 增删改的相关操作，需要将redis缓存数据删除，再次存入</li>
+<li>在service对应的增删改方法中，将redis数据删除。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+
+  
+  
+    
+    <div class='footer'>
+      
+      
+      
+      
+    </div>
+  
+  
+    
+
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-02-08T16:04:54+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2021年2月8日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Redis/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Redis</p></a></div>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.chasingwind.top/2019/08/04/Redis/&title=Redis - 追风少年&summary=Redis是用C语言开发的一个开源的高性能键值对（key-value）数据库，同时是一款NOSQL(Not Only SQL)系列的非关系型数据库。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://www.chasingwind.top/2019/08/04/Redis/&title=Redis - 追风少年&summary=Redis是用C语言开发的一个开源的高性能键值对（key-value）数据库，同时是一款NOSQL(Not Only SQL)系列的非关系型数据库。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.chasingwind.top/2019/08/04/Redis/&title=Redis - 追风少年&summary=Redis是用C语言开发的一个开源的高性能键值对（key-value）数据库，同时是一款NOSQL(Not Only SQL)系列的非关系型数据库。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </div>
+
+
+  
+  
+
+  
+    <div class="prev-next">
+      
+        <a class='prev' href='/2019/08/06/Maven%E5%9F%BA%E7%A1%80/'>
+          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>Maven基础</p>
+          <p class='content'>之前讲解的是Maven的基础使用，本节讲解的是Maven的高级应用，主要是Maven项目的拆分与聚合的思想以及实际操作，并且介绍了Maven的远程仓库和私服的概念
+
+
+
+
+概念
+什么是Maven...</p>
+        </a>
+      
+      
+        <a class='next' href='/2019/08/04/Ajax%E5%92%8CJSON/'>
+          <p class='title'>Ajax和JSON<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>Ajax是指一种创建交互式网页应用的网页开发技术，在无需重新加载整个网页的情况下，能够更新部分网页的技术。JSON(JavaScript Object Notation, JS 对象简谱) 是一...</p>
+        </a>
+      
+    </div>
+  
+</article>
+
+
+  
+
+  <article class="post white-box reveal shadow" id="comments">
+    <p ct><i class='fas fa-comments'></i> 评论</p>
+    
+    <div id="valine_container" class="valine_thread">
+  <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+</div>
+
+  </article>
+
+
+
+
+
+
+</div>
+<aside class='l_side'>
+  
+  
+    
+    
+
+
+
+  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5"><span class="toc-text">概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85"><span class="toc-text">下载安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%91%BD%E4%BB%A4%E6%93%8D%E4%BD%9C"><span class="toc-text">命令操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8C%81%E4%B9%85%E5%8C%96%E6%93%8D%E4%BD%9C"><span class="toc-text">持久化操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8Java%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%93%8D%E4%BD%9CRedis-Jedis"><span class="toc-text">使用Java客户端操作Redis(Jedis)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B"><span class="toc-text">案例</span></a></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+
+		  
+		  <!--此文件用来存放一些不方便取值的变量-->
+<!--思路大概是将值藏到重加载的区域内-->
+
+<script>
+  window.pdata={}
+  pdata.ispage=true;
+  pdata.postTitle="Redis";
+  pdata.commentPath="";
+  pdata.commentPlaceholder="";
+  // header 这里无论是否开启pjax都需要
+  var l_header=document.getElementById("l_header");
+  
+  l_header.classList.remove("show");
+  
+  
+    // cover
+    var cover_wrapper=document.querySelector('.cover-wrapper');
+    
+    cover_wrapper.id="half";
+    cover_wrapper.style.display="";
+    
+  
+</script>
+
+        </div>
+        
+  
+  <footer class="footer clearfix">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+  
+    <meting-js
+      theme='#1BCDFC'
+      volume='0.7'
+      loop='all'
+      order='list'
+      fixed='false'
+      list-max-height='320px'
+      server='netease'
+      type='playlist'
+      id='754595573'
+      list-folded='true'>
+    </meting-js>
+  
+
+
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+          
+            
+          
+            
+          
+        </div>
+      
+    
+      
+        
+          <div><p><span id="lc-sv">本站总访问量为 <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span> 次</span> <span id="lc-uv">访客数为 <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span> 人</span></p>
+</div>
+        
+      
+    
+      
+        本站使用
+        <a href="https://github.com/volantis-x/hexo-theme-volantis/tree/4.3.1" target="_blank" class="codename">Volantis</a>
+        作为主题
+      
+    
+      
+        
+          <div><p><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">网站备案号：皖ICP备19016733号</a></p>
+</div>
+        
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="/">Copyright © 2018-2021 ChasingWind</a></p>
+
+        </div>
+      
+    
+  </footer>
+
+
+        <a id="s-top" class="fas fa-arrow-up fa-fw" href="javascript:void(0)"></a>
+      </div>
+    </div>
+    <div>
+      <script>
+/************这个文件存放不需要重载的全局变量和全局函数*********/
+window.volantis={};
+window.volantis.loadcss=document.getElementById("loadcss");
+/******************** Pjax ********************************/
+function VPjax(){
+	this.list=[] // 存放回调函数
+	this.start=()=>{
+	  for(var i=0;i<this.list.length;i++){
+		this.list[i].run();
+	  }
+	}
+	this.push=(fn,name)=>{
+		var f=new PjaxItem(fn,name);
+		this.list.push(f);
+	}
+	// 构造一个可以run的对象
+	function PjaxItem(fn,name){
+		// 函数名称
+		this.name = name || fn.name
+		// run方法
+		this.run=()=>{
+			fn()
+		}
+	}
+}
+volantis.pjax={}
+volantis.pjax.method={
+	complete: new VPjax(),
+	error: new VPjax(),
+	send: new VPjax()
+}
+volantis.pjax={
+	...volantis.pjax,
+	push: volantis.pjax.method.complete.push,
+	error: volantis.pjax.method.error.push,
+	send: volantis.pjax.method.send.push
+}
+/********************脚本懒加载函数********************************/
+// 已经加入了setTimeout
+function loadScript(src, cb) {
+	setTimeout(function() {
+		var HEAD = document.getElementsByTagName('head')[0] || document.documentElement;
+		var script = document.createElement('script');
+		script.setAttribute('type','text/javascript');
+		if (cb) script.onload = cb;
+		script.setAttribute('src', src);
+		HEAD.appendChild(script);
+	});
+}
+//https://github.com/filamentgroup/loadCSS
+var loadCSS = function( href, before, media, attributes ){
+	var doc = window.document;
+	var ss = doc.createElement( "link" );
+	var ref;
+	if( before ){
+		ref = before;
+	}
+	else {
+		var refs = ( doc.body || doc.getElementsByTagName( "head" )[ 0 ] ).childNodes;
+		ref = refs[ refs.length - 1];
+	}
+	var sheets = doc.styleSheets;
+	if( attributes ){
+		for( var attributeName in attributes ){
+			if( attributes.hasOwnProperty( attributeName ) ){
+				ss.setAttribute( attributeName, attributes[attributeName] );
+			}
+		}
+	}
+	ss.rel = "stylesheet";
+	ss.href = href;
+	ss.media = "only x";
+	function ready( cb ){
+		if( doc.body ){
+			return cb();
+		}
+		setTimeout(function(){
+			ready( cb );
+		});
+	}
+	ready( function(){
+		ref.parentNode.insertBefore( ss, ( before ? ref : ref.nextSibling ) );
+	});
+	var onloadcssdefined = function( cb ){
+		var resolvedHref = ss.href;
+		var i = sheets.length;
+		while( i-- ){
+			if( sheets[ i ].href === resolvedHref ){
+				return cb();
+			}
+		}
+		setTimeout(function() {
+			onloadcssdefined( cb );
+		});
+	};
+	function loadCB(){
+		if( ss.addEventListener ){
+			ss.removeEventListener( "load", loadCB );
+		}
+		ss.media = media || "all";
+	}
+	if( ss.addEventListener ){
+		ss.addEventListener( "load", loadCB);
+	}
+	ss.onloadcssdefined = onloadcssdefined;
+	onloadcssdefined( loadCB );
+	return ss;
+};
+</script>
+<script>
+  
+  loadCSS("https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14/css/all.min.css", window.volantis.loadcss);
+  
+  
+  
+  
+</script>
+<!-- required -->
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5/dist/jquery.min.js"></script>
+
+<script>
+  function pjax_fancybox() {
+    $(".md .gallery").find("img").each(function () { //渲染 fancybox
+      var element = document.createElement("a"); // a 标签
+      $(element).attr("class", "fancybox");
+      $(element).attr("pjax-fancybox", "");  // 过滤 pjax
+      $(element).attr("href", $(this).attr("src"));
+      if ($(this).attr("data-original")) {
+        $(element).attr("href", $(this).attr("data-original"));
+      }
+      $(element).attr("data-fancybox", "images");
+      var caption = "";   // 描述信息
+      if ($(this).attr('alt')) {  // 判断当前页面是否存在描述信息
+        $(element).attr('data-caption', $(this).attr('alt'));
+        caption = $(this).attr('alt');
+      }
+      var div = document.createElement("div");
+      $(div).addClass("fancybox");
+      $(this).wrap(div); // 最外层套 div ，其实主要作用还是 class 样式
+      var span = document.createElement("span");
+      $(span).addClass("image-caption");
+      $(span).text(caption); // 加描述
+      $(this).after(span);  // 再套一层描述
+      $(this).wrap(element);  // 最后套 a 标签
+    })
+    $(".md .gallery").find("img").fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+      closeClick: true,
+      helpers: {
+        overlay: {closeClick: true}
+      },
+      buttons: [
+        "zoom",
+        "close"
+      ]
+    });
+  };
+  function SCload_fancybox() {
+    if ($(".md .gallery").find("img").length == 0) return;
+    loadCSS("https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css", document.getElementById("loadcss"));
+    loadScript('https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', pjax_fancybox)
+  };
+  $(function () {
+    SCload_fancybox();
+  });
+  function Pjax_SCload_fancybox(){
+	if (typeof $.fancybox == "undefined") {
+	 SCload_fancybox();
+    } else {
+	 pjax_fancybox();
+    }
+  }
+  volantis.pjax.push(Pjax_SCload_fancybox)
+  volantis.pjax.send(()=>{
+      if (typeof $.fancybox != "undefined") {
+        $.fancybox.close();    // 关闭弹窗
+      }
+  },'fancybox')
+</script>
+
+
+<!-- internal -->
+
+  
+  
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js"></script>
+
+    <script type="text/javascript">
+        var imgs=["https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/001.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/002.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/003.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/004.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/005.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/006.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/012.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/016.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/019.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/025.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/033.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/034.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/035.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/038.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/039.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/042.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/046.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/051.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/052.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/054.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/056.jpg"];
+        if ('true' == 'true') {
+          function shuffle(arr){
+            /*From countercurrent-time*/
+            var n = arr.length;
+            while(n--) {
+              var index = Math.floor(Math.random() * n);
+              var temp = arr[index];
+              arr[index] = arr[n];
+              arr[n] = temp;
+            }
+          }
+          shuffle(imgs);
+        }
+	  function Pjax_backstretch(){
+        
+          $.backstretch(
+            imgs,
+          {
+            duration: "10000",
+            fade: "1500"
+          });
+        
+	  }
+	  loadScript("https://cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js",Pjax_backstretch)
+    </script>
+  
+
+
+
+  
+  
+
+  <div id="rightmenu-wrapper">
+    <ul class="list-v rightmenu" id="rightmenu-content">
+      <li class='option'>
+        <a class='vlts-menu opt fix-cursor-default' id='menu-copy-text' onclick="document.execCommand('copy')"><i class='fa fa-copy fa-fw'></i>复制文本</a>
+        <hr id='hr-text'>
+        <a class='vlts-menu opt fix-cursor-default' id='menu-copy-href'><i class='fa fa-link fa-fw'></i>复制链接</a>
+        <a class='vlts-menu opt fix-cursor-default' id='menu-open-href'><i class='fa fa-external-link-square-alt fa-fw'></i>在新标签页打开</a>
+        <hr id='hr-href'>
+        <a class='vlts-menu opt fix-cursor-default' id='menu-copy-src'><i class='fa fa-image fa-fw'></i>复制图片地址</a>
+        <hr id='hr-src'>
+      </li>
+      
+        <li class='navigation'>
+          <a class='nav icon-only fix-cursor-default' onclick='history.back()'><i class='fa fa-arrow-left fa-fw'></i></a>
+          <a class='nav icon-only fix-cursor-default' onclick='history.forward()'><i class='fa fa-arrow-right fa-fw'></i></a>
+          <a class='nav icon-only fix-cursor-default' onclick='window.location.reload()'><i class='fa fa-redo fa-fw'></i></a>
+          <a class='nav icon-only fix-cursor-default' href='/'><i class='fa fa-home fa-fw'></i></a>
+        </li>
+      
+      <hr>
+      
+        
+      
+        
+          
+    <li>
+      <a class='vlts-menu fix-cursor-default toggle-mode-btn' 
+        
+        
+        
+        >
+        <i class='fas fa-moon fa-fw'></i> Dark mode
+      </a>
+    </li>
+  
+        
+      
+        
+          <hr>
+        
+      
+        
+          <li class='music name'>
+            <p class='nav music-title fix-cursor-default'></p>
+          </li>
+          <li class='music ctrl'>
+            <a class='nav icon-only backward fix-cursor-default' onclick='aplayerBackward()'><i class='fa fa-step-backward fa-fw'></i></a>
+            <a class='nav icon-only toggle fix-cursor-default' onclick='aplayerToggle()'><i class='fa fa-play fa-fw'></i></a>
+            <a class='nav icon-only forward fix-cursor-default' onclick='aplayerForward()'><i class='fa fa-step-forward fa-fw'></i></a>
+          </li>
+          <li class='music volume'>
+            <a class='nav volume'>
+              <div class="aplayer-volume-bar-wrap">
+                <div class="aplayer-volume-bar fix-cursor-pointer">
+                  <div class="aplayer-volume"></div>
+                  <i class='left fa fa-volume-off fa-fw'></i>
+                  <i class='right fa fa-volume-up fa-fw'></i>
+                </div>
+              </div>
+            </a>
+          </li>
+        
+      
+    </ul>
+  </div>
+
+  <script>
+    window.document.oncontextmenu = function (event) {
+      if (event.ctrlKey) return true;
+      if (/Android|webOS|BlackBerry/i.test(navigator.userAgent)) return true;
+      return popMenu(event);
+    };
+    document.addEventListener("click", function (event) {
+      var mymenu = document.getElementById('rightmenu-wrapper');
+      mymenu.style.display = "none";
+    });
+    function popMenu(event) {
+      var mymenu = document.getElementById('rightmenu-wrapper');
+      var menuContent = document.getElementById('rightmenu-content');
+      var screenWidth = document.documentElement.clientWidth || document.body.clientWidth;
+      var screenHeight = document.documentElement.clientHeight || document.body.clientHeight;
+      mymenu.style.left = event.clientX + "px"; // 获取鼠标位置
+      mymenu.style.top = event.clientY + "px";
+      mymenu.style.display = 'block';
+      if (event.clientX * 2 > screenWidth) {
+        menuContent.classList.add('left');
+      } else {
+        menuContent.classList.remove('left');
+      }
+      if (event.clientY * 2 > screenHeight) {
+        menuContent.classList.add('top');
+      } else {
+        menuContent.classList.remove('top');
+      }
+
+      let hrText = document.getElementById('hr-text');
+      let hrSrc = document.getElementById('hr-src');
+      let hrHref = document.getElementById('hr-href');
+
+      // 选中图片
+      let copySrc = document.getElementById('menu-copy-src');
+      if (copySrc != undefined) {
+        if (event.target.currentSrc) {
+          copySrc.style.display = 'block';
+          copySrc.addEventListener("click", function (e) {
+            copyString(event.target.currentSrc);
+          },{once: true});
+          hrSrc.style.display = 'block';
+        } else {
+          copySrc.style.display = 'none';
+          hrSrc.style.display = 'none';
+        }
+      }
+
+      // 选中按钮
+      // 判断是不是按钮
+      let href = '';
+      if (event.path) {
+        for (i = 0; i < event.path.length; i++) {
+          if (event.path[i].href != undefined && event.path[i].href.length > 0) {
+            href = event.path[i].href;
+          }
+        }
+      }
+
+      let copyText = document.getElementById('menu-copy-text');
+      copyText.style.display = 'none';
+      hrText.style.display = 'none';
+      if (href.length == 0) {
+        // 选中文本
+        if (window.getSelection().toString()) {
+          if ('' == 'true') {
+            copyText.style.display = 'block';
+            hrText.style.display = 'block';
+          }
+        }
+      }
+
+      // 在新标签页打开
+      let openHref = document.getElementById('menu-open-href');
+      if (openHref != undefined) {
+        if (href.length > 0) {
+          openHref.style.display = 'block';
+          openHref.addEventListener("click", function (e) {
+            window.open(href);
+          },{once: true});
+          hrHref.style.display = 'block';
+        } else {
+          openHref.style.display = 'none';
+          hrHref.style.display = 'none';
+        }
+      }
+      // 复制链接
+      let copyHref = document.getElementById('menu-copy-href');
+      if (copyHref != undefined) {
+        if (href.length > 0) {
+          copyHref.style.display = 'block';
+          copyHref.addEventListener("click", function (e) {
+            copyString(href);
+          },{once: true});
+        } else {
+          copyHref.style.display = 'none';
+        }
+      }
+      // 有音乐播放器 see: layout/_third-party/aplayer/script.ejs
+      
+      if(volantis.APlayerLoaded){ // APlayer加载完成？
+        // 如果有aplayer，初始化一下
+        checkAPlayer();
+      }
+      
+      return false; // 该行代码确保系统自带的右键菜单不会被调出
+    }
+    function hideMenu() {
+      document.getElementById('rightmenu-wrapper').style.display = 'none';
+    }
+    function copyString(str) {
+      const input = document.createElement('input');
+      input.setAttribute('readonly', 'readonly');
+      document.body.appendChild(input);
+      input.setAttribute('value', str);
+      input.select();
+      document.execCommand('copy');
+      document.body.removeChild(input);
+    }
+    document.execCommand('click');
+  </script>
+
+
+
+
+<script>
+  function loadIssuesJS() {
+    if ($(".md").find(".issues-api").length == 0) return;
+	
+	  loadScript('/js/issues.js');
+	
+  };
+  $(function () {
+    loadIssuesJS();
+  });
+  volantis.pjax.push(()=>{
+	if (typeof IssuesAPI == "undefined") {
+	  loadIssuesJS();
+	}
+  },"IssuesJS")
+</script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 0
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    lazyLoadInstance.update();
+  });
+  document.addEventListener('pjax:complete', function () {
+    lazyLoadInstance.update();
+  });
+</script>
+
+
+
+
+  
+
+<script>
+  window.FPConfig = {
+	delay: 0,
+	ignoreKeywords: [],
+	maxRPS: 5,
+	hoverDelay: 25
+  };
+</script>
+<script defer src="https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"></script>
+
+
+
+
+
+
+
+
+
+  <script>
+  let APlayerController = new Object();
+  APlayerController.id = '754595573';  // 设定全局音乐播放ID
+  APlayerController.volume = '0.7';
+  APlayerController.autoPlay = 'false';
+  loadCSS("https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css", window.volantis.loadcss);
+  // APlayer 需要在  MetingJS 之前加载
+  loadScript("https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js")
+  window.volantis.APlayerLoaded=0 // APlayer加载完成状态
+  var checkAPlayer = setInterval(function () {
+    if (!window.APlayer) return // APlayer加载完成？
+	  if ($("#safearea").css("display")!="block") return // 文章内容加载完成？ see: source/css/first.styl
+    clearInterval(checkAPlayer)
+	  if (!window.volantis.APlayerLoaded&&!window.MetingJSElement){ // APlayer只能加载一次
+      window.volantis.APlayerLoaded=1 // APlayer加载完成
+      loadScript("https://cdn.jsdelivr.net/npm/meting@2.0/dist/Meting.min.js") // 加载 MetingJS
+	  }
+  }, 2500) // 按照网速调节差分2.5s
+  // rightmenu see: layout/_partial/rightmenu.ejs
+
+  
+    loadScript("/js/aplayer.js")
+  
+
+</script>
+
+
+
+
+  
+  
+<script src="/js/valine.js"></script>
+
+
+<script>
+  function emoji(path, idx, ext) {
+    return path + "/" + path + "-" + idx + "." + ext;
+  }
+  var emojiMaps = {};
+  for (var i = 1; i <= 54; i++) {
+    emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+  }
+  for (var i = 1; i <= 101; i++) {
+    emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+  }
+  for (var i = 1; i <= 116; i++) {
+    emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+  }
+  for (var i = 1; i <= 125; i++) {
+    emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+  }
+  for (var i = 1; i <= 4; i++) {
+    emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+  }
+  function pjax_valine() {
+    if(!document.querySelectorAll("#valine_container")[0])return;
+    let pagePlaceholder = pdata.commentPlaceholder || "快来评论吧~";
+    let path = pdata.commentPath;
+    if (path.length == 0) {
+      let defaultPath = '';
+      path = defaultPath || decodeURI(window.location.pathname);
+    }
+    var valine = new Valine();
+    valine.init(Object.assign({"path":null,"placeholder":"快来评论吧~","appId":null,"appKey":null,"meta":["nick","mail","link"],"requiredFields":["nick","mail"],"enableQQ":true,"recordIP":false,"avatar":"robohash","pageSize":10,"lang":"zh-cn","highlight":true,"mathJax":false}, {
+      el: '#valine_container',
+      path: path,
+      placeholder: pagePlaceholder,
+      emojiCDN: 'https://cdn.jsdelivr.net/gh/volantis-x/cdn-emoji/valine/',
+      emojiMaps: emojiMaps,
+    }))
+  }
+  $(function () {
+    pjax_valine();
+  });
+  volantis.pjax.push(pjax_valine);
+</script>
+
+
+
+
+
+
+  
+<script src="/js/app.js"></script>
+
+
+
+<!-- optional -->
+
+  <script>
+const SearchServiceimagePath="https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@master/img/";
+const ROOT =  ("/" || "/").endsWith('/') ? ("/" || "/") : ("//" || "/" );
+
+$('.input.u-search-input').one('focus',function(){
+	
+		loadScript('/js/search/hexo.js',setSearchService);
+	
+})
+
+function listenSearch(){
+  
+    customSearch = new HexoSearch({
+      imagePath: SearchServiceimagePath
+    });
+  
+}
+function setSearchService() {
+	listenSearch();
+	
+		document.addEventListener("pjax:success", listenSearch);
+	
+}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  <script defer>
+
+  const LCCounter = {
+    app_id: 'geHH6vdoVq9LpPQTAtb6CxW5-gzGzoHsz',
+    app_key: 'NqX0R9487fsiAaloOO5VxE4u',
+    custom_api_server: '',
+
+    // 查询存储的记录
+    getRecord(Counter, url, title) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({url})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {url, title: title, times: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    },
+
+    // 发起自增请求
+    increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    },
+
+    // 构建自增请求体
+    buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "times": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    },
+
+    // 校验是否为有效的 UV
+    validUV() {
+      var key = 'LeanCloudUVTimestamp';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    },
+
+    addCount(Counter) {
+      var enableIncr = '' === 'true' && window.location.hostname !== 'localhost';
+      enableIncr = true;
+      var getterArr = [];
+      var incrArr = [];
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#lc-sv');
+      if (pvCtn || enableIncr) {
+        var pvGetter = this.getRecord(Counter, 'https://www.chasingwind.top' + '/#lc-sv', 'Visits').then((record) => {
+          incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-sv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + 1;
+              if (pvCtn) {
+                pvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#lc-uv');
+      if (uvCtn || enableIncr) {
+        var uvGetter = this.getRecord(Counter, 'https://www.chasingwind.top' + '/#lc-uv', 'Visitors').then((record) => {
+          var vuv = this.validUV();
+          vuv && incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-uv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + (vuv ? 1 : 0);
+              if (uvCtn) {
+                uvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 请求文章的浏览数，如果是当前页面就自增
+      var allPV = document.querySelectorAll('#lc-pv');
+      if (allPV.length > 0 || enableIncr) {
+        for (i = 0; i < allPV.length; i++) {
+          let pv = allPV[i];
+          let title = pv.getAttribute('data-title');
+          var url = 'https://www.chasingwind.top' + pv.getAttribute('data-path');
+          if (url) {
+            var viewGetter = this.getRecord(Counter, url, title).then((record) => {
+              // 是当前页面就自增
+              let curPath = window.location.pathname;
+              if (curPath.includes('index.html')) {
+                curPath = curPath.substring(0, curPath.lastIndexOf('index.html'));
+              }
+              if (pv.getAttribute('data-path') == curPath) {
+                incrArr.push(this.buildIncrement(record.objectId));
+              }
+              if (pv) {
+                var ele = pv.querySelector('#lc-pv #number');
+                if (ele) {
+                  if (pv.getAttribute('data-path') == curPath) {
+                    ele.innerText = (record.times || 0) + 1;
+                  } else {
+                    ele.innerText = record.times || 0;
+                  }
+                  pv.style.display = 'inline';
+                }
+              }
+            });
+            getterArr.push(viewGetter);
+          }
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && this.increment(Counter, incrArr);
+        })
+      }
+
+    },
+
+
+    fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': this.app_id,
+            'X-LC-Key': this.app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      this.addCount(Counter);
+    },
+
+    refreshCounter() {
+      var api_server = this.app_id.slice(-9) !== '-MdYXbMMI' ? this.custom_api_server : `https://${ this.app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+      if (api_server) {
+        this.fetchData(api_server);
+      } else {
+        fetch('https://app-router.leancloud.cn/2/route?appId=' + this.app_id)
+          .then(resp => resp.json())
+          .then(({api_server}) => {
+            this.fetchData('https://' + api_server);
+          });
+      }
+    }
+
+  };
+
+  LCCounter.refreshCounter();
+
+  document.addEventListener('pjax:complete', function () {
+    LCCounter.refreshCounter();
+  });
+</script>
+
+
+
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/Colsrch/CDN@master/judge_time/js.js"></script>
+<script>
+const rootElement = document.documentElement;
+const darkModeStorageKey = "user-color-scheme";
+const rootElementDarkModeAttributeName = "data-user-color-scheme";
+
+const setLS = (k, v) => {
+    localStorage.setItem(k, v);
+};
+
+const removeLS = (k) => {
+    localStorage.removeItem(k);
+};
+
+const getLS = (k) => {
+    return localStorage.getItem(k);
+};
+
+const getModeFromCSSMediaQuery = () => {
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
+};
+
+const resetRootDarkModeAttributeAndLS = () => {
+  rootElement.removeAttribute(rootElementDarkModeAttributeName);
+  removeLS(darkModeStorageKey);
+};
+
+const validColorModeKeys = {
+  dark: true,
+  light: true,
+};
+
+const applyCustomDarkModeSettings = (mode) => {
+  const currentSetting = mode || getLS(darkModeStorageKey);
+
+  if (currentSetting === getModeFromCSSMediaQuery()) {
+    resetRootDarkModeAttributeAndLS();
+  } else if (validColorModeKeys[currentSetting]) {
+    rootElement.setAttribute(rootElementDarkModeAttributeName, currentSetting);
+  } else {
+    resetRootDarkModeAttributeAndLS();
+  }
+};
+
+const invertDarkModeObj = {
+  dark: "light",
+  light: "dark",
+};
+
+/**
+ * get target mode
+ */
+const toggleCustomDarkMode = () => {
+  let currentSetting = getLS(darkModeStorageKey);
+
+  if (validColorModeKeys[currentSetting]) {
+    currentSetting = invertDarkModeObj[currentSetting];
+  } else if (currentSetting === null) {
+    currentSetting = invertDarkModeObj[getModeFromCSSMediaQuery()];
+  } else {
+    return;
+  }
+  setLS(darkModeStorageKey, currentSetting);
+  return currentSetting;
+};
+
+/**
+ * bind click event for toggle button
+ */
+var btn=$("#wrapper .toggle-mode-btn,#rightmenu-wrapper .toggle-mode-btn");
+function bindToggleButton() {
+    btn.on('click',(e) => {
+      const mode = toggleCustomDarkMode();
+      applyCustomDarkModeSettings(mode);
+    });
+}
+
+applyCustomDarkModeSettings();
+document.addEventListener("DOMContentLoaded", bindToggleButton);
+volantis.pjax.push(bindToggleButton);
+volantis.pjax.send(()=>{
+	btn.unbind('click');
+},'toggle-mode-btn-unbind');
+
+// 自动夜间模式
+if (navigator.geolocation) {   //获取地理位置 用于判断日出日落时间
+    navigator.geolocation.getCurrentPosition(
+      function (position) {
+        var res = computeSunRiseSunSet(position.coords.latitude, position.coords.longitude, 8);
+        console.log(res.str)
+        adjust_time(res.strSunRise, res.strSunSet, "08:00", "12:00", "14:00", "23:00")
+      },
+      function (e) {
+        adjust_time("7:00", "17:30", "08:00", "12:00", "14:00", "23:00")  //未允许获取地理位置时，使用默认时间
+        console.log("未允许获取地理位置，使用默认配置时间")
+        throw (e.message);
+      }
+    )
+  }
+function adjust_time(beginTime, endTime, morningTime, noonTime, afternoonTime, nightTime) {
+  const rootElement = document.documentElement;
+  var strb = beginTime.split(":");
+  if (strb.length != 2) {
+    return false;
+  }
+
+  var stre = endTime.split(":");
+  if (stre.length != 2) {
+    return false;
+  }
+
+  var strmorning = morningTime.split(":");   //12点
+  if (stre.length != 2) {
+    return false;
+  }
+
+  var strnoon = noonTime.split(":");   //12点
+  if (stre.length != 2) {
+    return false;
+  }
+
+  var strafternoon = afternoonTime.split(":");   //13点
+  if (stre.length != 2) {
+    return false;
+  }
+
+  var strnight = nightTime.split(":");   //23点
+  if (stre.length != 2) {
+    return false;
+  }
+
+  var b = new Date();
+  var e = new Date();
+  var n = new Date();
+  var morning = new Date();
+  var noon = new Date();
+  var afternoon = new Date();
+  var night = new Date();
+
+  b.setHours(strb[0]);
+  b.setMinutes(strb[1]);
+  e.setHours(stre[0]);
+  e.setMinutes(stre[1]);
+  morning.setHours(strmorning[0]);
+  morning.setMinutes(strmorning[1]);
+  noon.setHours(strnoon[0]);
+  noon.setMinutes(strnoon[1]);
+  afternoon.setHours(strafternoon[0]);
+  afternoon.setMinutes(strafternoon[1]);
+  night.setHours(strnight[0]);
+  night.setMinutes(strnight[1]);
+
+
+  $.getJSON("https://v1.hitokoto.cn", function (hitokoto) {
+    //在这里面处理获得的数据
+    if (n.getTime() - b.getTime() > 0 && n.getTime() - e.getTime() < 0) {
+      var daytimetitle = ''
+      var daytimemessage = ''
+      if (n.getTime() - morning.getTime() < 0) {
+        // 早上
+        daytimetitle = '早安'
+      }
+      else if (n.getTime() - noon.getTime() < 0) {
+        // 上午
+        daytimetitle = '上午好'
+      }
+      else if (n.getTime() - afternoon.getTime() < 0) {
+        // 中午
+        daytimetitle = '中午好'
+        daytimemessage = '<br>要注意休息哦~'
+      }
+      else {
+        // 下午
+        daytimetitle = '下午好'
+      }
+      // 判断是否已经开启夜间模式
+      if (rootElement.getAttribute('data-user-color-scheme', 'dark')) {
+        // 已开启夜间模式，修改按钮状态
+        $.message({ title: '操作通知', message: daytimetitle + '，已自动为您切换为日间模式。<br>' + hitokoto.hitokoto + daytimemessage, type: 'success' });
+        const mode = toggleCustomDarkMode();
+        applyCustomDarkModeSettings(mode);
+      }
+      else {
+        // 未开启夜间模式，不执行操作
+        $.message({ title: daytimetitle, message: hitokoto.hitokoto + daytimemessage, type: 'info' });
+        return true;
+      }
+    } else {
+      // 晚上
+      var nighttitle = ''
+      var nightmessage = ''
+      if (night.getTime() - n.getTime() < 0 || n.getTime() - b.getTime() < 0) {
+        nighttitle = '夜深了'
+        nightmessage = '<br>该睡觉啦~'
+      }
+      else {
+        nighttitle = '晚上好'
+        nightmessage = '<br>吃晚饭了吗？要注意眼睛哦。'
+      }
+      // 判断是否已经开启夜间模式
+      if (rootElement.getAttribute('data-user-color-scheme', 'dark')) {
+        // 已开启夜间模式，不执行操作
+        $.message({ title: nighttitle, message: hitokoto.hitokoto + nightmessage, type: 'info' });
+        return true;
+      }
+      else {
+        // 未开启夜间模式，修改按钮状态
+        $.message({ title: '操作通知', message: nighttitle + '，已自动为您切换为夜间模式。<br>' + hitokoto.hitokoto + nightmessage, type: 'success' });
+        const mode = toggleCustomDarkMode();
+        applyCustomDarkModeSettings(mode);
+      }
+    }
+  });
+}
+</script>
+
+
+
+
+
+
+
+
+<script>
+function listennSidebarTOC() {
+  const navItems = document.querySelectorAll(".toc li");
+  if (!navItems.length) return;
+  const sections = [...navItems].map((element) => {
+    const link = element.querySelector(".toc-link");
+    const target = document.getElementById(
+      decodeURI(link.getAttribute("href")).replace("#", "")
+    );
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      window.scrollTo({
+		top: target.offsetTop + 100,
+		
+		behavior: "smooth"
+		
+	  });
+    });
+    return target;
+  });
+
+  function activateNavByIndex(target) {
+    if (target.classList.contains("active-current")) return;
+
+    document.querySelectorAll(".toc .active").forEach((element) => {
+      element.classList.remove("active", "active-current");
+    });
+    target.classList.add("active", "active-current");
+    let parent = target.parentNode;
+    while (!parent.matches(".toc")) {
+      if (parent.matches("li")) parent.classList.add("active");
+      parent = parent.parentNode;
+    }
+  }
+
+  function findIndex(entries) {
+    let index = 0;
+    let entry = entries[index];
+    if (entry.boundingClientRect.top > 0) {
+      index = sections.indexOf(entry.target);
+      return index === 0 ? 0 : index - 1;
+    }
+    for (; index < entries.length; index++) {
+      if (entries[index].boundingClientRect.top <= 0) {
+        entry = entries[index];
+      } else {
+        return sections.indexOf(entry.target);
+      }
+    }
+    return sections.indexOf(entry.target);
+  }
+
+  function createIntersectionObserver(marginTop) {
+    marginTop = Math.floor(marginTop + 10000);
+    let intersectionObserver = new IntersectionObserver(
+      (entries, observe) => {
+        let scrollHeight = document.documentElement.scrollHeight + 100;
+        if (scrollHeight > marginTop) {
+          observe.disconnect();
+          createIntersectionObserver(scrollHeight);
+          return;
+        }
+        let index = findIndex(entries);
+        activateNavByIndex(navItems[index]);
+      },
+      {
+        rootMargin: marginTop + "px 0px -100% 0px",
+        threshold: 0,
+      }
+    );
+    sections.forEach((element) => {
+      element && intersectionObserver.observe(element);
+    });
+  }
+  createIntersectionObserver(document.documentElement.scrollHeight);
+}
+
+document.addEventListener("DOMContentLoaded", listennSidebarTOC);
+document.addEventListener("pjax:success", listennSidebarTOC);
+</script>
+
+<!-- more -->
+
+ 
+	   
+	    
+
+
+<script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script>
+
+
+<script>
+    var pjax;
+    document.addEventListener('DOMContentLoaded', function () {
+      pjax = new Pjax({
+        elements: 'a[href]:not([href^="#"]):not([href="javascript:void(0)"]):not([pjax-fancybox])',
+        selectors: [
+          "title",
+          
+          "#pjax-container",
+          "#pjax-header-nav-list"
+        ],
+        cacheBust: false,   // url 地址追加时间戳，用以避免浏览器缓存
+        timeout: 5000
+      });
+    });
+
+    document.addEventListener('pjax:send', function (e) {
+      //window.stop(); // 相当于点击了浏览器的停止按钮
+
+      try {
+        var currentUrl = window.location.pathname;
+        var targetUrl = e.triggerElement.href;
+        var banUrl = [""];
+        if (banUrl[0] != "") {
+          banUrl.forEach(item => {
+            if(currentUrl.indexOf(item) != -1 || targetUrl.indexOf(item) != -1) {
+              window.location.href = targetUrl;
+            }
+          });
+        }
+      } catch (error) {}
+
+      window.subData = null; // 移除标题（用于一二级导航栏切换处）
+
+      volantis.$switcher.removeClass('active'); // 关闭移动端激活的搜索框
+      volantis.$header.removeClass('z_search-open'); // 关闭移动端激活的搜索框
+      volantis.$wrapper.removeClass('sub'); // 跳转页面时关闭二级导航
+
+      // 解绑事件 避免重复监听
+      volantis.$topBtn.unbind('click');
+      $('.menu a').unbind('click');
+      $(window).unbind('resize');
+      $(window).unbind('scroll');
+      $(document).unbind('scroll');
+      $(document).unbind('click');
+      $('body').unbind('click');
+	  // 使用 volantis.pjax.send 方法传入pjax:send回调函数 参见layout/_partial/scripts/global.ejs
+	  volantis.pjax.method.send.start();
+    });
+
+    document.addEventListener('pjax:complete', function () {
+      $('.nav-main').find('.list-v').not('.menu-phone').removeAttr("style",""); // 移除小尾巴的移除
+      $('.menu-phone.list-v').removeAttr("style",""); // 移除小尾巴的移除
+      $('script[data-pjax], .pjax-reload script').each(function () {
+        $(this).parent().append($(this).remove());
+      });
+      try{
+		// 使用 volantis.pjax.push 方法传入重载函数 参见layout/_partial/scripts/global.ejs
+		volantis.pjax.method.complete.start();
+      } catch (e) {
+        console.log(e);
+      }
+    });
+
+    document.addEventListener('pjax:error', function (e) {
+	  // 使用 volantis.pjax.error 方法传入pjax:error回调函数 参见layout/_partial/scripts/global.ejs
+	  volantis.pjax.method.error.start();
+      window.location.href = e.triggerElement.href;
+    });
+</script>
+ 
+	  
+    </div>
+  </body>
+</html>

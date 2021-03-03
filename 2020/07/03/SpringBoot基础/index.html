@@ -1,0 +1,2873 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/tree/4.3.1'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <link rel="preload" href="/css/first.css" as="style">
+  
+
+  <!-- 页面元数据 -->
+  
+  <title>SpringBoot基础 - 追风少年</title>
+  
+    <meta name="keywords" content="Spring,SpringBoot入门">
+  
+
+  
+    <meta name="description" content="本节介绍了SpringBoot的基础内容，包括对SpringBoot的简介，以及配置的介绍。主要包括SpringBoot是如何实现自动配置的，这是必须要掌握的内容。">
+  
+
+  <!-- feed -->
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  
+    <link rel="shortcut icon" type='image/x-icon' href="https://blog.chasingwind.top/creative-idea.png">
+  
+
+  <!-- import link -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/first.css">
+
+  
+
+  
+  <link rel="stylesheet" href="/css/style.css" media="print" onload="this.media='all';this.onload=null">
+  <noscript><link rel="stylesheet" href="/css/style.css"></noscript>
+  
+
+  <script id="loadcss"></script>
+
+  
+<script>
+if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode))
+    document.write(
+	'<style>'+
+		'html{'+
+			'overflow-x: hidden !important;'+
+			'overflow-y: hidden !important;'+
+		'}'+
+		'.kill-ie{'+
+			'text-align:center;'+
+			'height: 100%;'+
+			'margin-top: 15%;'+
+			'margin-bottom: 5500%;'+
+		'}'+
+	'</style>'+
+    '<div class="kill-ie">'+
+        '<h1><b>抱歉，您的浏览器无法访问本站</b></h1>'+
+        '<h3>微软已经于2016年终止了对 Internet Explorer (IE) 10 及更早版本的支持，<br/>'+
+        '继续使用存在极大的安全隐患，请使用当代主流的浏览器进行访问。</h3><br/>'+
+        '<a target="_blank" rel="noopener" href="https://www.microsoft.com/zh-cn/WindowsForBusiness/End-of-IE-support"><strong>了解详情 ></strong></a>'+
+    '</div>');
+</script>
+
+
+<noscript>
+	<style>
+		html{
+			overflow-x: hidden !important;
+			overflow-y: hidden !important;
+		}
+		.kill-noscript{
+			text-align:center;
+			height: 100%;
+			margin-top: 15%;
+			margin-bottom: 5500%;
+		}
+	</style>
+    <div class="kill-noscript">
+        <h1><b>抱歉，您的浏览器无法访问本站</b></h1>
+        <h3>本页面需要浏览器支持（启用）JavaScript</h3><br/>
+        <a target="_blank" rel="noopener" href="https://www.baidu.com/s?wd=启用JavaScript"><strong>了解详情 ></strong></a>
+    </div>
+</noscript>
+
+</head>
+
+  <body>
+    
+
+<header id="l_header" class="l_header always shadow floatable blur "  >
+  <div class='container'>
+  <div id='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h m-phone' id="pjax-header-nav-list">
+        <li><a id="s-comment" class="fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a id="s-toc" class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+            <img no-lazy class='logo' src='https://blog.chasingwind.top/blogavater.jpeg'/>
+          
+          
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h m-pc'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              
+                <li>
+                  <a class="menuitem flat-box">
+                    <i class='fas fa-compact-disc fa-fw music'></i>背景音乐
+                  </a>
+                  <ul class="list-v">
+                    <li>
+                      <div class="aplayer-container">
+                        
+
+  
+    <meting-js
+      theme='#1BCDFC'
+      volume='0.7'
+      loop='all'
+      order='list'
+      fixed='false'
+      list-max-height='320px'
+      server='netease'
+      type='playlist'
+      id='754595573'
+      list-folded='true'>
+    </meting-js>
+  
+
+
+                      </div>
+                    </li>
+                  </ul>
+                <li>
+              
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="看点什么呢..." />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h m-phone'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+    <div id="l_body">
+      <div id="l_cover">
+  
+    
+        <div id="half" class='cover-wrapper post search' style="display: ;">
+          
+            <div id='cover-backstretch'></div>
+          
+          <div class='cover-body'>
+  <div class='top'>
+    
+    
+      <p class="title">ChasingWind</p>
+    
+    
+      <p class="subtitle">向死而生，反求诸己</p>
+    
+  </div>
+  <div class='bottom'>
+    
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <input type="text" class="input u-search-input" placeholder="会搜到什么呢~" />
+          <i class="icon fas fa-search fa-fw"></i>
+        </form>
+      </div>
+    
+    <div class='menu navigation'>
+      <div class='list-h'>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+          <div id="scroll-down" style="display: none;"><i class="fa fa-chevron-down scroll-down-effects"></i></div>
+        </div>
+    
+  
+  </div>
+
+      <div id="safearea">
+        <div class="body-wrapper" id="pjax-container">
+          
+
+<div class='l_main'>
+  <article class="article post white-box reveal md shadow article-type-post" id="post" itemscope itemprop="blogPost">
+  
+
+
+  
+    <div class='headimg-div'>
+      <a class='headimg-a'>
+        <img class='headimg' src='http://blog.chasingwind.top/SpringBoot.png'/>
+      </a>
+    </div>
+  
+  <div class="article-meta" id="top">
+    
+    
+    
+      <h1 class="title">
+        SpringBoot基础
+      </h1>
+      <div class='new-meta-box'>
+        
+          
+            
+<div class='new-meta-item author'>
+  <a class='author' href="/about/" rel="nofollow">
+    <img no-lazy src="https://blog.chasingwind.top/blogavater.jpeg">
+    <p>ChasingWind</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class='new-meta-item category'>
+    <a class='notlink'>
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <a class="category-link" href="/categories/SpringBoot/">SpringBoot</a>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：2020年7月3日</p>
+  </a>
+</div>
+
+          
+        
+          
+            <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-02-08T16:09:27+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2021年2月8日</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+
+          
+        
+          
+            
+  <div class="new-meta-item browse leancloud">
+    <a class='notlink'>
+      
+      <div id="lc-pv" data-title="SpringBoot基础" data-path="/2020/07/03/SpringBoot%E5%9F%BA%E7%A1%80/">
+        <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
+        <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+        次浏览
+      </div>
+    </a>
+  </div>
+
+
+          
+        
+      </div>
+    
+  </div>
+
+
+  
+  
+  <p>本节介绍了SpringBoot的基础内容，包括对SpringBoot的简介，以及配置的介绍。主要包括SpringBoot是如何实现自动配置的，这是必须要掌握的内容。</p>
+<a id="more"></a>
+
+
+
+<h2 id="SpringBoot简介"><a href="#SpringBoot简介" class="headerlink" title="SpringBoot简介"></a>SpringBoot简介</h2><ol>
+<li><p><a target="_blank" rel="noopener" href="https://spring.io/">SpringBoot</a>官网</p>
+</li>
+<li><p>SpringBoot简化Spring的开发流程，可以整合各种框架，来完成企业级开发</p>
+</li>
+<li><p>SpringBoot帮我们自动配置好相关环境，我们只需要简单配置即可</p>
+</li>
+<li><p>SpringBoot的优点</p>
+<blockquote>
+<ol>
+<li>快速创建独立运行的Spring项目以及主流框架的集成，配置很简单</li>
+<li>使用嵌入式的Servlet，不需要像之前一样安装Tomcat服务器，打成war包才能运行，而是打包成jar包，直接使用java -jar命令运行程序</li>
+<li>starters启动器帮助我们完成自动依赖和版本控制，比如：我们需要使用JDBC，就不需要我们导入各种相关的jar的依赖，而是使用starters即可</li>
+<li>大量的自动配置。简化开发，也可以修改默认值</li>
+<li>无需配置XML，无代码生成，开箱即用</li>
+<li>准生产环境的运行时应用监控</li>
+<li>与云计算的天然集成</li>
+</ol>
+</blockquote>
+</li>
+<li><p>与Spring的关系</p>
+<blockquote>
+<p>SpringBoot帮助我们整合各种框架，我们作为用户直接使用SpringBoot即可，但是需要我们掌握Spring的相关知识</p>
+<p><img src="http://blog.chasingwind.top/image-20200529145235047.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200529145235047.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>微服务（MicroServices）架构风格</p>
+<ol>
+<li><p>单体应用程序</p>
+<blockquote>
+<p>传统的应用的优点：开发，测试，部署以及负载均衡比较容易</p>
+<p>但是缺点也很明显：随着需求的增长，软件会越来越大，并且如果某一块有问题了，那么整个应用就需要重新打包，再进行部署</p>
+<p><img src="http://blog.chasingwind.top/image-20200529150310213.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200529150310213.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>微服务应用</p>
+<blockquote>
+<p>一个应用应该是一组小型服务，每个服务之间通过HTTP来进行互通</p>
+<p>每一个功能单元之间是相互独立的，每一个服务都是可以替换和独立升级的单元</p>
+<p><img src="http://blog.chasingwind.top/image-20200529150529455.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200529150529455.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>缺点就是：部署和运维比较困难，其实这个就相当于是一个大的分布式应用</p>
+</blockquote>
+</li>
+</ol>
+</li>
+<li><p>SpringBoot构建微服务</p>
+<ol>
+<li><p>使用SpringBoot构建我们的应用</p>
+</li>
+<li><p>使用SpringCloud来完成服务之间的互连，来完成分布式</p>
+</li>
+<li><p>SpringCloud Data来完成数据的流式处理</p>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/image-20200529152041501.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200529152041501.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="入门程序"><a href="#入门程序" class="headerlink" title="入门程序"></a>入门程序</h3><ol>
+<li><p>创建Maven项目，这里创建的是简单的Java项目（后面会直接使用SpringBoot Initializer来快速创建）</p>
+</li>
+<li><p>导入依赖，这里依赖的版本是统一管理的</p>
+<blockquote>
+<pre><code class="xml"> &lt;!--统一为SpringBoot的启动器约定版本信息--&gt;
+ &lt;parent&gt;
+     &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+     &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;
+     &lt;version&gt;1.5.9.RELEASE&lt;/version&gt;
+ &lt;/parent&gt;
+ &lt;dependencies&gt;
+     &lt;dependency&gt;
+         &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+         &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
+     &lt;/dependency&gt;
+ &lt;/dependencies&gt;
+</code></pre>
+</blockquote>
+</li>
+<li><p>编写主程序，启动SpringBoot应用</p>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/image-20200529154836404.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200529154836404.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>编写相关的Controller和Service</p>
+<blockquote>
+<p>我们不需要再进行相关的配置</p>
+<p>编写Controller</p>
+<p><img src="http://blog.chasingwind.top/image-20200529155338076.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200529155338076.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>@ResponseBody注解</p>
+<p>@ResponseBody注解的作用是将controller的方法返回的对象通过适当的转换器转换为指定的格式之后，写入到response对象的body区，通常用来返回JSON数据或者是XML数据。<br><strong>注意</strong>：在使用此注解之后不会再走视图处理器，而是直接将数据写入到输入流中，他的效果等同于通过response对象输出指定格式的数据。</p>
+</blockquote>
+</li>
+<li><p>启动主程序</p>
+<blockquote>
+<p>我们不需要配置Tomcat就可以进行访问</p>
+<p>在启动日志中可以发现 Tomcat已经默认配置好的</p>
+<p><img src="http://blog.chasingwind.top/image-20200529155649879.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200529155649879.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>访问hello</p>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/image-20200529155741776.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200529155741776.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ol>
+<h3 id="部署程序"><a href="#部署程序" class="headerlink" title="部署程序"></a>部署程序</h3><ol>
+<li><p>在pom.xml中添加SpringBoot的Maven插件</p>
+<blockquote>
+<pre><code class="xml"> &lt;!-- 这个插件，可以将应用打包成一个可执行的jar包；--&gt;
+ &lt;build&gt;
+     &lt;plugins&gt;
+         &lt;plugin&gt;
+             &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+             &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;
+         &lt;/plugin&gt;
+     &lt;/plugins&gt;
+ &lt;/build&gt;
+</code></pre>
+</blockquote>
+</li>
+<li><p>使用package插件打包</p>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/image-20200529160353207.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200529160353207.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>运行jar包</p>
+<blockquote>
+<p>使用命令<code>java -jar</code></p>
+<p><img src="http://blog.chasingwind.top/image-20200529160721431.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200529160721431.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p><img src="http://blog.chasingwind.top/image-20200529160747908.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200529160747908.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>我们本地并没有安装Tomcat服务器，这个程序是怎么运行并可以访问的？</p>
+<blockquote>
+<p>我们打开这个jar包</p>
+<p>在BOOT-INF目录下</p>
+<p><img src="http://blog.chasingwind.top/image-20200529161212182.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200529161212182.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>classes目录下是我们编写的程序</p>
+<p><img src="http://blog.chasingwind.top/image-20200529161257393.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200529161257393.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>lib目录下 是相关的jar包 其中就有SpringBoot嵌入式的Tomcat以及Tomcat</p>
+<p><img src="http://blog.chasingwind.top/image-20200529161435430.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200529161435430.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p><img src="http://blog.chasingwind.top/image-20200529161601531.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200529161601531.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ol>
+<h3 id="入门程序分析"><a href="#入门程序分析" class="headerlink" title="入门程序分析"></a>入门程序分析</h3><ol>
+<li><p>pom.xml中的<code>spring-boot-starter-parent</code>依赖</p>
+<blockquote>
+<p>我们的项目中的pom.xml中依赖的SpringBoot所有启动器（starter）的父项目</p>
+<p><img src="http://blog.chasingwind.top/image-20200529162943900.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200529162943900.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>点击上图中的artifactId的属性值进入 启动器的父项目中</p>
+<p><img src="http://blog.chasingwind.top/image-20200529163109056.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200529163109056.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>再点击上图中的artifactId  进入到spring-boot-dependencies中 可以看到使用到的依赖</p>
+<p>其中就规定了使用到的依赖的版本信息 而不需要我们再手动配置</p>
+<p>被称为 <strong>SpringBoot的版本仲裁中心</strong></p>
+<p><img src="http://blog.chasingwind.top/image-20200529163246693.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200529163246693.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>以后我们导入依赖默认不需要写版本号</p>
+<p>当然，在dependencies中没有规定的依赖还是需要我们手动配置的</p>
+</blockquote>
+</li>
+<li><p>导入的<code>spring-boot-starter-web</code>依赖</p>
+<ul>
+<li>spring-boot-starter-web：spring-boot场景启动器；帮我们导入了web模块正常运行所依赖的组件；</li>
+</ul>
+<ol>
+<li><p>spring-boot-starters</p>
+<blockquote>
+<p>当我们点击进去之后</p>
+<p>可以发现<code>spring-boot-starter-web</code>依赖的父项目是<code>spring-boot-startes</code>（SpringBoot版本为1.5.9，版本2.3.0中没有这个依赖）</p>
+<p>Spring-boot-starts中有许多模块，详细的介绍看下面的第3点</p>
+<p><img src="http://blog.chasingwind.top/image-20200529165044964.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200529165044964.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>spring的web相关的依赖</p>
+<blockquote>
+<p>同时还依赖web相关</p>
+<p><img src="http://blog.chasingwind.top/image-20200529165316973.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200529165316973.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ol>
+</li>
+<li><p>Spring-boot-starters介绍</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-boot/docs/2.3.0.RELEASE/reference/html/using-spring-boot.html#using-boot-starter">官网文档</a></p>
+<p><img src="http://blog.chasingwind.top/image-20200529165632402.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200529165632402.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>SpringBoot将所有的功能场景都抽取出来，做成一个个的starters（启动器），只需要在项目里面引入这些starter相关场景的所有依赖都会导入进来。要用什么功能就导入什么场景的启动器，其中，版本由SpringBoot统一控制</p>
+</blockquote>
+</li>
+<li><p>主程序类</p>
+<ol>
+<li><p><strong>@SpringBootApplication</strong></p>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/image-20200529165951198.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200529165951198.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><code>@SpringBootApplication</code>:    Spring Boot应用标注在某个类上说明这个类是SpringBoot的主配置类，SpringBoot就应该运行这个类的main方法来启动SpringBoot应用；</p>
+<hr>
+<p>进入到这个注解中 发现其中包含很多注解，其中两个重要的注解见图</p>
+<p><img src="http://blog.chasingwind.top/image-20200530094040105.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200530094040105.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p><strong>@SpringBootConfiguration</strong></p>
+<blockquote>
+<p><code>@SpringBootConfiguration</code>：Spring Boot的配置类；标注在某个类上，表示这是一个Spring Boot的配置类；</p>
+<p>进入到这个注解中  发现其中还有一个我们比较熟悉的注解</p>
+<p><code>@Configuration</code>：标注当前类为配置类，使用注解的方式替换以前的配置文件</p>
+<p><img src="http://blog.chasingwind.top/image-20200530094338212.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200530094338212.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>点进去注解  发现其实**@Configuration** 就是容器中的一个组件</p>
+<p><img src="http://blog.chasingwind.top/image-20200530094634459.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200530094634459.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p><strong>@EnableAutoConfiguration</strong></p>
+<blockquote>
+<p><code>@EnableAutoConfiguration</code>：开启自动配置的功能，以前我们需要配置的东西，SpringBoot帮我们自动配置</p>
+<p>进入到注解中 其中有    </p>
+<p><img src="http://blog.chasingwind.top/image-20200530095339938.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200530095339938.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+<ol>
+<li><p><strong>@AutoConfigurationPackage</strong></p>
+<blockquote>
+<p>注解<code>@AutoConfigurationPackage</code>：自动配置包，作用就是：<strong>将主配置类（<code>@SpringBootApplication</code>标注的类）的所在包及下面所有子包里面的所有组件扫描到Spring容器；</strong></p>
+<p>进入到这个注解中</p>
+<p><img src="http://blog.chasingwind.top/image-20200530095430404.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200530095430404.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>注解<code>@Import(AutoConfigurationPackages.Registrar.class)</code>：Spring的底层注解@Import，给容器中导入一个组件；导入的组件由AutoConfigurationPackages.Registrar.class来判断该导入哪些组件；</p>
+<p>进入到<code>Registrar</code>类中</p>
+<p><img src="http://blog.chasingwind.top/image-20200530100737792.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200530100737792.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>Debug启动 查看获取到的结果</p>
+<p><img src="http://blog.chasingwind.top/image-20200530100841024.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200530100841024.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="http://blog.chasingwind.top/image-20200530101122140.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200530101122140.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>使用IDEA的计算功能  计算参数<code>new PackageImport(metadata).getPackageName()</code></p>
+<p><img src="http://blog.chasingwind.top/image-20200530101234735.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200530101234735.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="http://blog.chasingwind.top/image-20200530101341493.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200530101341493.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>由此可得：<code>@AutoConfigurationPackage</code>注解的作用就是将<strong>主配置类（@SpringBootApplication标注的类）的所在包及下面所有子包</strong>里面的所有组件扫描到Spring容器；</p>
+<p>同时，如果类不在主配置类所在的包及其子包下的话 即使使用了IoC容器的注解  也是无法扫描到的</p>
+</blockquote>
+</li>
+<li><p>@Import(EnableAutoConfigurationImportSelector.class)</p>
+<blockquote>
+<p>给容器中导入EnableAutoConfigurationImportSelector.class这个类选择的组件</p>
+<p>EnableAutoConfigurationImportSelector：导入组件选择器，选择导入哪些组件</p>
+<p>查看他的父类</p>
+<p><img src="http://blog.chasingwind.top/image-20200530103636712.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200530103636712.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>父类中的方法<code>selectImports()</code>  返回一个String数组，其中存储的就是组件的全类名</p>
+<p>作用就是告诉Spring容器导入哪些组件</p>
+<p><img src="http://blog.chasingwind.top/image-20200530103732713.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200530103732713.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>Debug查看数组中有哪些组件</p>
+<p><img src="http://blog.chasingwind.top/image-20200530104039516.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200530104039516.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>发现组件名都是（xxxAutoConfiguration） 自动配置类，作用就是给容器中导入这个场景所需要的组件，并进行自动配置</p>
+<p>有了这些自动配置类，就免去了我们手动编写配置注入组件等工作</p>
+</blockquote>
+</li>
+<li><p>这些自动配置类从哪里得到的</p>
+<blockquote>
+<p>上面的<code>selectImports()</code>  方法中调用的方法<code>getCandidateConfigurations</code> 获取候选的配置文件</p>
+<p><img src="http://blog.chasingwind.top/image-20200530105248489.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200530105248489.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>进入到此方法中  其中调用的方法（第一个参数的值就是EnableAutoConfiguration.class）</p>
+<p><img src="http://blog.chasingwind.top/image-20200530105335250.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200530105335250.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<pre><code class="java">SpringFactoriesLoader.loadFactoryNames(
+        EnableAutoConfiguration.class,getBeanClassLoader());
+</code></pre>
+<p>进入到<code>loadFactoryNames</code></p>
+<p><img src="http://blog.chasingwind.top/image-20200530110237948.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200530110237948.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>那么 这个第一步中的资源 在哪里呢</p>
+<p><img src="http://blog.chasingwind.top/image-20200530110305713.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200530110305713.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>查看类路径下的配置文件</p>
+<p><img src="http://blog.chasingwind.top/image-20200530110712978.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200530110712978.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>仔细观察发现  这里的自动配置的类与我们之前Debug时候的<code>selectImports</code>方法获取的组件的数组是一样的</p>
+<p><img src="http://blog.chasingwind.top/image-20200530110848738.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200530110848738.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>所以<code>SpringFactoriesLoader.loadFactoryNames</code>这个方法的作用就是从类路径下的META-INF/spring.factories中获取EnableAutoConfiguration指定的工厂名。</p>
+<p>在此基础之上，然后将这些获取到的工厂名作为自动配置类导入到容器中，自动配置类就生效，帮我们进行自动配置工作；以前我们需要自己配置的东西，自动配置类都帮我们实现；</p>
+<hr>
+<p>这些自动配置类所在的包</p>
+<p><img src="http://blog.chasingwind.top/image-20200530111655127.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200530111655127.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="http://blog.chasingwind.top/image-20200530111707766.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200530111707766.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>各个注解之间的关系</p>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/image-20200603110020500.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200603110020500.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ol>
+<h3 id="快速创建SpringBoot应用"><a href="#快速创建SpringBoot应用" class="headerlink" title="快速创建SpringBoot应用"></a>快速创建SpringBoot应用</h3><ol>
+<li><p>选择使用Spring Initializer创建项目，并选择JDK版本</p>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/image-20200530141800307.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200530141800307.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>设置相关的信息</p>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/image-20200530142114374.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200530142114374.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>选择需要使用的模块</p>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/image-20200530142317904.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200530142317904.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>设置项目名，就可以完成整个项目的创建</p>
+</li>
+<li><p>查看pom文件</p>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/image-20200530142847688.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200530142847688.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>测试</p>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/image-20200530143255560.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200530143255560.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="http://blog.chasingwind.top/image-20200530143145067.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200530143145067.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>删除用不到的文件</p>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/image-20200530143526267.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200530143526267.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>在测试的Controller中</p>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/image-20200530143921359.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200530143921359.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>上面的两个注解可以使用一个注解代替</p>
+<p><img src="http://blog.chasingwind.top/image-20200530144007601.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200530144007601.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>点进去查看</p>
+<p><img src="http://blog.chasingwind.top/image-20200530144032678.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200530144032678.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>查看项目的资源文件夹（resources）</p>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/image-20200530144447534.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200530144447534.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>static：保存所有的静态资源； js css  images；</p>
+<p>templates：保存所有的模板页面；（Spring Boot默认jar包使用嵌入式的Tomcat，默认不支持JSP页面）；可以使用模板引擎（freemarker、thymeleaf）；</p>
+<p>application.properties：Spring Boot应用的配置文件；可以修改一些默认设置；</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="SpringBoot配置"><a href="#SpringBoot配置" class="headerlink" title="SpringBoot配置"></a>SpringBoot配置</h2><h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><ul>
+<li>SpringBoot使用一个全局配置文件，在resources目录下，<strong>配置文件的名称是固定的，但是有两种文件格式都可以使用</strong><ol>
+<li>application.properties</li>
+<li>application.yml</li>
+</ol>
+</li>
+<li>配置文件的作用是<strong>修改SpringBoot自动配置的默认值</strong></li>
+</ul>
+<h4 id="YAML简介"><a href="#YAML简介" class="headerlink" title="YAML简介"></a>YAML简介</h4><ul>
+<li><p>YAML：YAML <strong>Ain’t</strong> Markup Language</p>
+<ul>
+<li>YAML  <strong>A</strong> Markup Language：是一个标记语言</li>
+<li>YAML   <strong>isn’t</strong> Markup Language：不是一个标记语言；</li>
+</ul>
+</li>
+<li><p>XML和YAML对比</p>
+<blockquote>
+<p>YAML</p>
+<pre><code class="yaml">server:
+  port: 8081
+</code></pre>
+<p>XML</p>
+<pre><code class="xml">&lt;server&gt;
+    &lt;port&gt;8081&lt;/port&gt;
+&lt;/server&gt;
+</code></pre>
+<hr>
+<p>YAML：<strong>以数据为中心</strong>，比json、xml等更适合做配置文件，不用带标签名；</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="YAML基本语法"><a href="#YAML基本语法" class="headerlink" title="YAML基本语法"></a>YAML基本语法</h4><ol>
+<li><p>基本语法</p>
+<p>key:（空格） value  来表示一对键值对（必须有空格）</p>
+<p>以空格的缩进来表示层级关系，只要是左对齐的一列数据，都是同一层级的</p>
+<blockquote>
+<pre><code class="yaml">server: 
+ port: 8081
+ path: /hello
+</code></pre>
+<p>这里的port和path表示的就是同一层级</p>
+<p>同时 属性和值都是大小写敏感的</p>
+</blockquote>
+</li>
+<li><p>值的分类</p>
+<ol>
+<li><p>字面量：普通的值（数字，字符串，布尔类型）</p>
+<blockquote>
+<p>key：value，字面值直接写</p>
+<p>字符串类型不需要写引号，如果写的话，单引号和双引号的表示意义是不一样的</p>
+<p>单引号：会转义特殊字符，<strong>特殊字符最终只是一个普通的字符串数据</strong></p>
+<pre><code>            name:   ‘zhangsan \n lisi’：输出；zhangsan **\n**  lisi
+</code></pre>
+<p>双引号：不会转义字符串里面的特殊字符；特<strong>殊字符会作为本身想表示的意思</strong></p>
+<pre><code>            name:   &quot;zhangsan \n lisi&quot;：输出；zhangsan **换行**  lisi
+</code></pre>
+</blockquote>
+</li>
+<li><p>对象、Map（键值对）</p>
+<blockquote>
+<p>缩进写法</p>
+<pre><code class="yaml">friends:
+        lastName: zhangsan
+        age: 20
+</code></pre>
+<p>行内写法</p>
+<pre><code class="yaml">friends: &#123;lastName: zhangsan,age: 18&#125;
+</code></pre>
+</blockquote>
+</li>
+<li><p>数组（List、Set）</p>
+<blockquote>
+<p>缩进写法</p>
+<pre><code class="yaml">pets:
+ - cat
+ - dog
+ - pig
+</code></pre>
+<p>行内写法</p>
+<pre><code class="yaml">pets: [cat,dog,pig]
+</code></pre>
+</blockquote>
+</li>
+</ol>
+</li>
+</ol>
+<h4 id="使用YAML配置文件注入值"><a href="#使用YAML配置文件注入值" class="headerlink" title="使用YAML配置文件注入值"></a>使用YAML配置文件注入值</h4><ol>
+<li><p>创建一个对象，其中包含各种类型的数据</p>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/image-20200530165851852.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200530165851852.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="http://blog.chasingwind.top/image-20200530165907888.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200530165907888.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>编写application.yml，其中设置person的各种属性的值</p>
+<blockquote>
+<p>导入配置文件处理器，以便在编写配置文件的时候有提示信息  在下面的第3步配置完成后 重新启动SpringBoot的主程序才能有提示</p>
+<pre><code class="xml">     &lt;!--导入配置文件处理器，配置文件进行绑定就会有提示--&gt;
+     &lt;dependency&gt;
+         &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+         &lt;artifactId&gt;spring-boot-configuration-processor&lt;/artifactId&gt;
+         &lt;optional&gt;true&lt;/optional&gt;
+     &lt;/dependency&gt;
+</code></pre>
+<p><img src="http://blog.chasingwind.top/image-20200530170643032.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200530170643032.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>将配置文件中的属性值映射到Person中</p>
+<blockquote>
+<p>由于这个配置文件是SpringBoot的全局配置文件，我们要怎样把其中的属性值映射到Person类中的属性上呢？</p>
+<ul>
+<li>@ConfigurationProperties：告诉SpringBoot将本类中的所有属性和配置文件中相关的配置进行绑定；</li>
+<li>参数prefix = “xxxx” 将配置文件中的xxx属性（第一层级）下的值进行一一映射，因为配置文件中可能不止一个配置信息，比如上面的配置中包含server和person，所以需要指定注入哪个数据</li>
+</ul>
+<p><img src="http://blog.chasingwind.top/image-20200530171205770.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200530171205770.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>同时 只有在容器中的组件才能使用Spring中提供的组件</p>
+<p>所以这个类还必须加入到容器中</p>
+<p><img src="http://blog.chasingwind.top/image-20200530171958256.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200530171958256.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>测试 获取设置的属性值</p>
+<blockquote>
+<p>可以正确获取到属性值</p>
+<p><img src="http://blog.chasingwind.top/image-20200530172630274.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200530172630274.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ol>
+<h4 id="使用properties配置文件注入值"><a href="#使用properties配置文件注入值" class="headerlink" title="使用properties配置文件注入值"></a>使用properties配置文件注入值</h4><ol>
+<li><p>编写配置文件，设置属性值</p>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/image-20200530175059550.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200530175059550.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>运行测试类</p>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/image-20200530175134931.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200530175134931.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>发现中文乱码</p>
+</blockquote>
+</li>
+<li><p>解决中文乱码的问题</p>
+<blockquote>
+<p>由于IDEA默认使用的是utf-8</p>
+<p>而properties之前使用的都是ASCII码</p>
+<p>所以修改一下运行时的编码方式就可以了</p>
+<p>表示的是需不需要把properties文件在运行的时候转换为ASCII码</p>
+<p><img src="http://blog.chasingwind.top/image-20200530175428215.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200530175428215.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>重新测试</p>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/image-20200530175832971.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200530175832971.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ol>
+<h4 id="使用-Value注解的方式注入值"><a href="#使用-Value注解的方式注入值" class="headerlink" title="使用@Value注解的方式注入值"></a>使用@Value注解的方式注入值</h4><ol>
+<li><p>@Value注解</p>
+<blockquote>
+<p>以前在xml文件中  为属性注入值</p>
+<pre><code class="xml">&lt;bean class=&quot;Person&quot;&gt;
+  &lt;property name=&quot;lastName&quot; value=&quot;字面量/$&#123;key&#125;从环境变量、配置文件中获取值/#&#123;SpEL&#125;&quot;&gt;&lt;/property&gt;
+&lt;/bean&gt;
+</code></pre>
+<hr>
+<p>在类中使用的话</p>
+<p><img src="http://blog.chasingwind.top/image-20200530194547972.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200530194547972.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>@Value和@ConfigurationProperties对比</p>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/configuration.png" class="lazyload" data-srcset="http://blog.chasingwind.top/configuration.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+<blockquote>
+<p>松散语法：</p>
+<p>比如为Person类中的成员变量firstName注入值</p>
+<p><img src="http://blog.chasingwind.top/image-20200530195621499.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200530195621499.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>以下三种方式都是可以的  </p>
+<p><img src="http://blog.chasingwind.top/image-20200530195322043.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200530195322043.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="http://blog.chasingwind.top/image-20200530195353363.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200530195353363.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="http://blog.chasingwind.top/image-20200530195500001.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200530195500001.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>JSR303数据校验</p>
+<p>首先 加入依赖</p>
+<pre><code class="xml">      &lt;!--添加JSR303依赖 用于校验功能--&gt;
+     &lt;dependency&gt;
+         &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+         &lt;artifactId&gt;spring-boot-starter-validation&lt;/artifactId&gt;
+     &lt;/dependency&gt;
+</code></pre>
+<p>然后 在类上面使用@Validated注解  在需要校验的参数上使用需要校验的类型</p>
+<p>比如 我们在firstName上使用注解@Email  就会对注入的值进行校验 当发现注入的值不是邮箱类型的时候  就会报错<br><img src="http://blog.chasingwind.top/image-20200530201843952.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200530201843952.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>两个注解我们如何进行选择</p>
+<blockquote>
+<ul>
+<li><p>我们只是在某个业务逻辑中需要获取一下配置文件中的某项值，使用@Value；</p>
+</li>
+<li><p>我们专门编写了一个javaBean来和配置文件进行映射，我们就直接使用@ConfigurationProperties；</p>
+</li>
+</ul>
+</blockquote>
+</li>
+</ol>
+<h4 id="PropertySource和-ImportResource"><a href="#PropertySource和-ImportResource" class="headerlink" title="@PropertySource和@ImportResource"></a>@PropertySource和@ImportResource</h4><p>在前面为Person类注入的时候，使用的注解@ConfigurationProperties默认使用的是全局配置文件，但是这个全局配置文件中并不适合把所有的配置信息都放在里面。所以我们可以把与SpringBoot无关的配置单独放在其他的配置文件中，然后使用下面的注解指定配置文件对数据进行注入。</p>
+<ol>
+<li><p>@PropertySource：加载指定的配置文件</p>
+<blockquote>
+<p>我们把application.yml中的配置删除之后，将其中的配置放在一个新的配置文件中</p>
+<p><img src="http://blog.chasingwind.top/image-20200530204713438.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200530204713438.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>@ImportResource：导入Spring的配置文件，让配置文件里面的内容生效；此注解标注在一个配置类上</p>
+<blockquote>
+<p>SpringBoot中没有Spring的配置文件，同时我们自己编写的配置文件也不能使用</p>
+<p>之前我们使用配置文件的方式向IoC容器中加入组件</p>
+<p><img src="http://blog.chasingwind.top/image-20200530210523523.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200530210523523.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>测试查看IoC容器中没有注入的组件</p>
+<p><img src="http://blog.chasingwind.top/image-20200530210615680.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200530210615680.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p><strong>在配置类上使用@ImportSource</strong> 测试 发现IoC容器中已经注入了我们需要的组件</p>
+<p><img src="http://blog.chasingwind.top/image-20200530210803671.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200530210803671.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>使用配置类来实现给容器中添加组件</p>
+<blockquote>
+<p>SpringBoot并不推荐使用@ImportSource来实现组件的注入，而更加推荐使用配置类来实现 </p>
+<p>把@ImportSource注解注释掉之后</p>
+<p>创建config配置类文件夹，创建配置类，使用@Bean注解将方法的返回值作为对象添加到IoC容器中，发现成功在IoC容器中注入组件了</p>
+<p><img src="http://blog.chasingwind.top/image-20200530212011435.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200530212011435.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ol>
+<h4 id="配置文件占位符"><a href="#配置文件占位符" class="headerlink" title="配置文件占位符"></a>配置文件占位符</h4><ol>
+<li><p>随机数</p>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/image-20200530220237819.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200530220237819.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p><img src="http://blog.chasingwind.top/image-20200530220301477.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200530220301477.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>测试</p>
+<p><img src="http://blog.chasingwind.top/image-20200530220345647.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200530220345647.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>使用占位符获取在此之前已经配置的值，如果没有的话使用：指定默认值</p>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/image-20200530220503017.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200530220503017.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>测试</p>
+<p><img src="http://blog.chasingwind.top/image-20200530220535288.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200530220535288.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ol>
+<h3 id="配置文件的加载顺序"><a href="#配置文件的加载顺序" class="headerlink" title="配置文件的加载顺序"></a>配置文件的加载顺序</h3><h4 id="Profile"><a href="#Profile" class="headerlink" title="Profile"></a>Profile</h4><p>Profile是Spring对不同环境提供不同配置功能的支持，可以通过激活、指定参数等方式快速切换环境，比如我们在项目中可能使用到的有开发环境，生产环境以及线上环境，而这些配置是不同的，那么就可以使用下面的方式来进行环境的切换</p>
+<ol>
+<li><p>多个profile+激活指定的profile</p>
+<blockquote>
+<p>我们可以在resources目录下编写多个生产环境的profile文件，其中，profile的命名规则如下：<strong>application-xxx.properties</strong>或者<strong>application-xxx.yml</strong></p>
+<p><img src="http://blog.chasingwind.top/image-20200530222000037.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200530222000037.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>并在主配置文件中指定需要使用的profile是哪一个</p>
+<p><img src="http://blog.chasingwind.top/image-20200530222140336.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200530222140336.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>yml多个文档块+激活指定的profile</p>
+<blockquote>
+<p>文档块：yml文件中使用<code>---</code>分隔开的配置信息</p>
+<p><img src="http://blog.chasingwind.top/image-20200530222649204.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200530222649204.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>激活指定的profile 其中的配置才能生效</p>
+<p><img src="http://blog.chasingwind.top/image-20200530222828184.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200530222828184.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>命令行的方式指定</p>
+<blockquote>
+<p>对于已经打成jar包的 可以在使用命令行运行的时候指定profile</p>
+<p>java -jar spring-boot-02-config-0.0.1-SNAPSHOT.jar –spring.profiles.active=xxx（比如：dev）；</p>
+<hr>
+<p>在测试的时候，配置传入命令行参数</p>
+<p><img src="http://blog.chasingwind.top/image-20200530224051624.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200530224051624.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>使用命令行的方式会覆盖之前的激活的profile中的配置</p>
+</blockquote>
+</li>
+<li><p>虚拟机参数</p>
+<blockquote>
+<p>-D是固定开头</p>
+<p><img src="http://blog.chasingwind.top/image-20200530224303198.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200530224303198.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ol>
+<h4 id="配置文件的加载位置以及优先级"><a href="#配置文件的加载位置以及优先级" class="headerlink" title="配置文件的加载位置以及优先级"></a>配置文件的加载位置以及优先级</h4><ul>
+<li><p>SpringBoot启动会扫描以下位置的application.properties或者application.yml文件作为Spring Boot的默认配置文件</p>
+<ol>
+<li>–file:./config/：项目文件夹下的config文件夹下的配置文件</li>
+<li>–file:./：项目文件夹下的配置文件</li>
+<li>–classpath:/config/：类路径下的config文件夹下的配置文件</li>
+<li>–classpath:/：类路径下的配置文件</li>
+</ol>
+<blockquote>
+<p><strong>优先级由高到底，高优先级的配置会覆盖低优先级的配置；同时，所有的配置文件之间是互补的关系。</strong></p>
+<p>这里并不是说 高优先级中有的配置就不会再去加载低优先级的配置了</p>
+<p>SpringBoot会将所有优先级的配置加载进来，如果有相同的配置信息的话，使用的是高优先级中的配置；</p>
+<p>如果低优先级中有的配置在高优先级中没有的话，那么这个低优先级中的配置也会生效，也就是说这些配置文件之间是<strong>互补</strong>的关系。</p>
+<p><img src="http://blog.chasingwind.top/image-20200530225215879.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200530225215879.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>还可以运行jar包的时候使用spring.config.location来改变默认的配置文件的位置</p>
+<blockquote>
+<p>在运维的时候可能使用的比较多 我们在服务器的本地编写好配置文件</p>
+<p>在运行项目的jar包的时候改变默认的配置文件</p>
+<p>比如，</p>
+<p>java -jar 项目名.jar –spring.config.location=配置文件所在的磁盘路径/application.properties</p>
+<hr>
+<p>同样的，<strong>指定配置文件和默认加载的这些配置文件共同起作用形成互补配置；</strong></p>
+</blockquote>
+</li>
+</ul>
+<h4 id="外部配置加载顺序"><a href="#外部配置加载顺序" class="headerlink" title="外部配置加载顺序"></a>外部配置加载顺序</h4><ul>
+<li><p>在上面的配置中，都是在开发的时候指定的配置文件，当我们开发好之后也是可以通过在jar包外指定配置文件的</p>
+</li>
+<li><p>SpringBoot也可以从以下位置加载配置；高优先级的配置覆盖低优先级的配置，所有的配置会形成互补配置</p>
+</li>
+<li><p>优先级从高到低</p>
+<ol>
+<li><p><strong>命令行参数</strong></p>
+<blockquote>
+<p>项目打包的时候 只打包src目录下的文件 而项目下的除了src目录中的内容是不会打包的  </p>
+<p>那么可能就存在配置文件在这些目录中的情况  这样的话 就不会生效了</p>
+<p>可以使用命令行参数的方式改变配置，比如，修改端口号和访问路径</p>
+<p><code>java -jar 项目名.jar --server.port=8087  --server.context-path=/abc</code></p>
+<p>多个配置用空格分开； <code>--配置项=值</code></p>
+</blockquote>
+</li>
+<li><p>来自java:comp/env的JNDI属性</p>
+</li>
+<li><p>Java系统属性（System.getProperties()）</p>
+</li>
+<li><p>操作系统环境变量</p>
+</li>
+<li><p>RandomValuePropertySource配置的random.*属性值</p>
+</li>
+<li><p><strong>jar包外部的application-{profile}.properties或application.yml(带spring.profile)配置文件</strong></p>
+</li>
+<li><p><strong>jar包内部的application-{profile}.properties或application.yml(带spring.profile)配置文件</strong></p>
+</li>
+<li><p><strong>jar包外部的application.properties或application.yml(不带spring.profile)配置文件</strong></p>
+</li>
+<li><p><strong>jar包内部的application.properties或application.yml(不带spring.profile)配置文件</strong></p>
+<blockquote>
+<p>6 7 8 9 如何记？</p>
+<p>优先加载带profile的，都有perofile的，优先使用jar包外的application.properties</p>
+<p>jar包外的配置文件，二者在同一个目录下</p>
+<p><img src="http://blog.chasingwind.top/image-20200530232909549.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200530232909549.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>运行的时候直接使用<code>java -jar 项目名.jar</code> ，不需要输入任何参数，那么优先使用的配置文件就是这个外部的application.properties</p>
+</blockquote>
+</li>
+<li><p>@Configuration注解类上的@PropertySource</p>
+</li>
+<li><p>通过SpringApplication.setDefaultProperties指定的默认属性</p>
+</li>
+</ol>
+</li>
+</ul>
+<h3 id="自动配置原理（☆☆☆☆☆）"><a href="#自动配置原理（☆☆☆☆☆）" class="headerlink" title="自动配置原理（☆☆☆☆☆）"></a>自动配置原理（☆☆☆☆☆）</h3><p>在配置文件application.properties和application.yml中可以配置哪些属性呢？</p>
+<ul>
+<li>可以参考官方文档中给出的<a target="_blank" rel="noopener" href="https://docs.spring.io/spring-boot/docs/2.3.0.RELEASE/reference/html/appendix-application-properties.html#common-application-properties">配置</a></li>
+<li>其实能写在配置文件中的配置都是有依据的，通过对自动配置原理进行分析可以得知</li>
+</ul>
+<h4 id="自动配置原理分析（重点）"><a href="#自动配置原理分析（重点）" class="headerlink" title="自动配置原理分析（重点）"></a>自动配置原理分析（重点）</h4><ol>
+<li><p>SpringBoot启动的时候加载主配置类，开启了自动配置功能**@EnableAutoConfiguration**</p>
+<blockquote>
+<p><strong>@EnableAutoConfiguration</strong>的功能</p>
+<p><img src="http://blog.chasingwind.top/image-20200531140440441.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200531140440441.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<ul>
+<li><p>@AutoConfigurationPackage：将SpringBoot主程序所在的包及其子包中的组件扫描进IoC容器中</p>
+</li>
+<li><p>@Import(AutoConfigurationImportSelector.class)：使用AutoConfigurationImportSelector为容器中导入组件</p>
+<ol>
+<li><p>AutoConfigurationImportSelector类中的方法selectImports</p>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/image-20200531141426675.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200531141426675.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>selectImports方法调用同一个类中的getCandidateConfigurations方法</p>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/image-20200531141505153.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200531141505153.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>getCandidateConfigurations方法获取候选配置,其中使用<code>SpringFactoriesLoader.loadFactoryNames(getSpringFactoriesLoaderFactoryClass(),getBeanClassLoader());</code>来获取配置</p>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/image-20200531141613793.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200531141613793.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p><code>SpringFactoriesLoader.loadFactoryNames(getSpringFactoriesLoaderFactoryClass(),getBeanClassLoader());</code></p>
+<blockquote>
+<p>SpringFactoriesLoader.loadFactoryNames()<br>扫描所有jar包类路径下  META-INF/spring.factories<br>把扫描到的这些文件的内容包装成properties对象</p>
+<p><img src="http://blog.chasingwind.top/image-20200531142051400.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200531142051400.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>在第4步已经将META-INF/spring.factories中的内容包装成Properties对象之后</p>
+<blockquote>
+<p>从properties中获取到EnableAutoConfiguration.class类（类名）对应的值，然后把他们添加在容器中<br>查看META-INF/spring.factories中的EnableAutoConfiguration.class类</p>
+<p><img src="http://blog.chasingwind.top/image-20200531142520531.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200531142520531.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>查看这些值</p>
+<blockquote>
+<p>都是xxxxAutoConfiguration，也就是自动配置类，这样的每一个类都是一个组件，被加入到容器中，进行自动配置</p>
+<p><img src="http://blog.chasingwind.top/image-20200531143128874.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200531143128874.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ol>
+</li>
+</ul>
+<hr>
+<p>一句话总结：<code>@EnableAutoConfiguration</code>注解的功能就是，<strong>将类路径下  META-INF/spring.factories 里面配置的所有EnableAutoConfiguration的值加入到了容器中；之后，完成自动配置的功能</strong></p>
+</blockquote>
+</li>
+<li><p>每一个自动配置类完成自动配置的功能</p>
+<ul>
+<li><p>这里以<strong>HttpEncodingAutoConfiguration（Http编码自动配置）</strong>为例解释自动配置原理</p>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/image-20200531144133936.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200531144133936.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>进入到这个自动配置类中</p>
+<blockquote>
+<p>首先看类上面的注解</p>
+<p><img src="http://blog.chasingwind.top/image-20200531144223112.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200531144223112.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>@Configuration：表示当前类是一个配置类，代替我们以前使用的配置文件，可以向容器中添加组件</p>
+<hr>
+<p>@EnableConfigurationProperties(ServerProperties.class)：启用ServerProperties.class类的ConfigurationProperties功能，<strong>并将配置文件中的值和ServerProperties的属性绑定起来。并且把ServerProperties加入到IoC容器中</strong></p>
+<p>查看ServerProperties.class类：</p>
+<p>其中的<code>@ConfigurationProperties</code>注解的功能就是：<strong>从配置文件中获取指定的值和当前类中的属性进行绑定</strong></p>
+<p><img src="http://blog.chasingwind.top/image-20200531145132595.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200531145132595.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>所以说，<strong>在配置文件中可以进行的所有的配置都可以追溯到某一个Properties类中，比如这里的（ServerProperties类）</strong></p>
+<hr>
+<p>@ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)：判断当前应用是否是Web应用，如果是的话，那么这个配置类就会生效；否则不生效</p>
+<blockquote>
+<p>底层使用的是Spring的@Conditional注解，根据不同的条件判断当前配置是否生效，如果满足指定的条件，整个配置类里面的配置就会生效； </p>
+<p><img src="http://blog.chasingwind.top/image-20200531145940724.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200531145940724.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+<hr>
+<p>@ConditionalOnClass(CharacterEncodingFilter.class)：判断当前项目有没有CharacterEncodingFilter这个类以此来决定是否启用这个自动配置类；此类是SpringMVC中进行乱码解决的过滤器；</p>
+<hr>
+<p>@ConditionalOnProperty(prefix = “server.servlet.encoding”, value = “enabled”, matchIfMissing = true)：判断配置文件中是否存在某个配置  spring.http.encoding.enabled（prefix+value）；如果不存在，判断也是成立的（matchIfMissing = true）</p>
+</blockquote>
+</li>
+<li><p>一句话总结：自动配置类会根据当前不同的条件判断，决定这个配置类是否生效。</p>
+<blockquote>
+<p>一旦这个配置类生效，这个配置类就会给容器中添加各种组件；这些组件的属性是从对应的properties类中获取的，这些类里面的每一个属性又是和配置文件绑定的；</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>SpringBoot的总结</p>
+<ol>
+<li><p><strong>SpringBoot启动会加载大量的自动配置类</strong></p>
+</li>
+<li><p><strong>我们看我们需要的功能有没有SpringBoot默认写好的自动配置类；</strong></p>
+</li>
+<li><p><strong>如果有对应的自动配置类，我们再来看这个自动配置类中到底配置了哪些组件；（只要我们要用的组件有，我们就不需要再来配置了）</strong></p>
+</li>
+<li><p><strong>给容器中自动配置类添加组件的时候，会从对应的xxxProperties类中获取某些属性。这些属性我们就可以在配置文件中进行配置；</strong></p>
+</li>
+<li><p>通过分析，我们可以看到每一个组件的命名都是统一的</p>
+<blockquote>
+<p>xxxxAutoConfigurartion：自动配置类；给容器中添加组件</p>
+<p>xxxxProperties:封装配置文件中相关属性；</p>
+</blockquote>
+</li>
+</ol>
+</li>
+</ol>
+<h4 id="Conditional注解"><a href="#Conditional注解" class="headerlink" title="@Conditional注解"></a>@Conditional注解</h4><ul>
+<li><p>在上面分析的过程中，有很多@ConditionalOnXxx注解，底层使用的都是Spring的@Conditional注解，表示必须是@Conditional指定的条件成立，才给容器中添加组件，配置里面的所有内容才生效；</p>
+</li>
+<li><p>常见的@ConditionalOnXxx注解</p>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/condition.png" class="lazyload" data-srcset="http://blog.chasingwind.top/condition.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="Conditional注解"></p>
+</blockquote>
+</li>
+<li><p>META-INF/spring.factories中的那么多自动配置类并不是都生效的，在这些自动配置类上几乎都有@ConditionalOnXxx注解进行条件的判断，满足的话才能生效</p>
+</li>
+<li><p>那么，我们怎么知道哪些自动配置类生效了？</p>
+<blockquote>
+<p>启用SpringBoot的Debug模式生成自动配置报告来了解哪些自动配置类生效了，哪些没有生效</p>
+<p>在配置文件中配置Debug模式</p>
+<p><img src="http://blog.chasingwind.top/image-20200531153200943.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200531153200943.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>启动SpringBoot主程序，查看控制台</p>
+<p>启用的：</p>
+<p><img src="http://blog.chasingwind.top/image-20200531153310647.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200531153310647.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>没有启用的：</p>
+<p><img src="http://blog.chasingwind.top/image-20200531153318229.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200531153318229.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>不满足条件的：</p>
+<p><img src="http://blog.chasingwind.top/image-20200531153400120.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200531153400120.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ul>
+
+  
+  
+    
+    <div class='footer'>
+      
+      
+      
+      
+    </div>
+  
+  
+    
+
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-02-08T16:09:27+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2021年2月8日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Spring/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Spring</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/SpringBoot%E5%85%A5%E9%97%A8/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>SpringBoot入门</p></a></div>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.chasingwind.top/2020/07/03/SpringBoot%E5%9F%BA%E7%A1%80/&title=SpringBoot基础 - 追风少年&summary=本节介绍了SpringBoot的基础内容，包括对SpringBoot的简介，以及配置的介绍。主要包括SpringBoot是如何实现自动配置的，这是必须要掌握的内容。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://www.chasingwind.top/2020/07/03/SpringBoot%E5%9F%BA%E7%A1%80/&title=SpringBoot基础 - 追风少年&summary=本节介绍了SpringBoot的基础内容，包括对SpringBoot的简介，以及配置的介绍。主要包括SpringBoot是如何实现自动配置的，这是必须要掌握的内容。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.chasingwind.top/2020/07/03/SpringBoot%E5%9F%BA%E7%A1%80/&title=SpringBoot基础 - 追风少年&summary=本节介绍了SpringBoot的基础内容，包括对SpringBoot的简介，以及配置的介绍。主要包括SpringBoot是如何实现自动配置的，这是必须要掌握的内容。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </div>
+
+
+  
+  
+
+  
+    <div class="prev-next">
+      
+        <a class='prev' href='/2020/07/03/SpringBoot%E6%97%A5%E5%BF%97/'>
+          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>SpringBoot日志</p>
+          <p class='content'>SpringBoot的日志框架包含多种多样，我们在比较各种日志门面和日志实现之后，一般选用SLF4J来作为日志门面实现系统的日志功能，我们需要理解日志门面和日志实现之间的区别。
+
+
+
+
+日志框架...</p>
+        </a>
+      
+      
+        <a class='next' href='/2020/07/03/ElasticSearch/'>
+          <p class='title'>ElasticSearch<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>一个基于Lucene开发的全文检索服务器。简称es,es是一个开源的高扩展性的分布式全文检索引擎，实时性的存储、检索数据是它的最大的特点。
+
+
+
+
+ElasticSearch基本介绍
+Elast...</p>
+        </a>
+      
+    </div>
+  
+</article>
+
+
+  
+
+  <article class="post white-box reveal shadow" id="comments">
+    <p ct><i class='fas fa-comments'></i> 评论</p>
+    
+    <div id="valine_container" class="valine_thread">
+  <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+</div>
+
+  </article>
+
+
+
+
+
+
+</div>
+<aside class='l_side'>
+  
+  
+    
+    
+
+
+
+  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#SpringBoot%E7%AE%80%E4%BB%8B"><span class="toc-text">SpringBoot简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%A5%E9%97%A8%E7%A8%8B%E5%BA%8F"><span class="toc-text">入门程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2%E7%A8%8B%E5%BA%8F"><span class="toc-text">部署程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%A5%E9%97%A8%E7%A8%8B%E5%BA%8F%E5%88%86%E6%9E%90"><span class="toc-text">入门程序分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E5%88%9B%E5%BB%BASpringBoot%E5%BA%94%E7%94%A8"><span class="toc-text">快速创建SpringBoot应用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SpringBoot%E9%85%8D%E7%BD%AE"><span class="toc-text">SpringBoot配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-text">配置文件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#YAML%E7%AE%80%E4%BB%8B"><span class="toc-text">YAML简介</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#YAML%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95"><span class="toc-text">YAML基本语法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8YAML%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E6%B3%A8%E5%85%A5%E5%80%BC"><span class="toc-text">使用YAML配置文件注入值</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8properties%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E6%B3%A8%E5%85%A5%E5%80%BC"><span class="toc-text">使用properties配置文件注入值</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-Value%E6%B3%A8%E8%A7%A3%E7%9A%84%E6%96%B9%E5%BC%8F%E6%B3%A8%E5%85%A5%E5%80%BC"><span class="toc-text">使用@Value注解的方式注入值</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#PropertySource%E5%92%8C-ImportResource"><span class="toc-text">@PropertySource和@ImportResource</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%8D%A0%E4%BD%8D%E7%AC%A6"><span class="toc-text">配置文件占位符</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E7%9A%84%E5%8A%A0%E8%BD%BD%E9%A1%BA%E5%BA%8F"><span class="toc-text">配置文件的加载顺序</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Profile"><span class="toc-text">Profile</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E7%9A%84%E5%8A%A0%E8%BD%BD%E4%BD%8D%E7%BD%AE%E4%BB%A5%E5%8F%8A%E4%BC%98%E5%85%88%E7%BA%A7"><span class="toc-text">配置文件的加载位置以及优先级</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%96%E9%83%A8%E9%85%8D%E7%BD%AE%E5%8A%A0%E8%BD%BD%E9%A1%BA%E5%BA%8F"><span class="toc-text">外部配置加载顺序</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE%E5%8E%9F%E7%90%86%EF%BC%88%E2%98%86%E2%98%86%E2%98%86%E2%98%86%E2%98%86%EF%BC%89"><span class="toc-text">自动配置原理（☆☆☆☆☆）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90%EF%BC%88%E9%87%8D%E7%82%B9%EF%BC%89"><span class="toc-text">自动配置原理分析（重点）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Conditional%E6%B3%A8%E8%A7%A3"><span class="toc-text">@Conditional注解</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+
+		  
+		  <!--此文件用来存放一些不方便取值的变量-->
+<!--思路大概是将值藏到重加载的区域内-->
+
+<script>
+  window.pdata={}
+  pdata.ispage=true;
+  pdata.postTitle="SpringBoot基础";
+  pdata.commentPath="";
+  pdata.commentPlaceholder="";
+  // header 这里无论是否开启pjax都需要
+  var l_header=document.getElementById("l_header");
+  
+  l_header.classList.remove("show");
+  
+  
+    // cover
+    var cover_wrapper=document.querySelector('.cover-wrapper');
+    
+    cover_wrapper.id="half";
+    cover_wrapper.style.display="";
+    
+  
+</script>
+
+        </div>
+        
+  
+  <footer class="footer clearfix">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+  
+    <meting-js
+      theme='#1BCDFC'
+      volume='0.7'
+      loop='all'
+      order='list'
+      fixed='false'
+      list-max-height='320px'
+      server='netease'
+      type='playlist'
+      id='754595573'
+      list-folded='true'>
+    </meting-js>
+  
+
+
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+          
+            
+          
+            
+          
+        </div>
+      
+    
+      
+        
+          <div><p><span id="lc-sv">本站总访问量为 <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span> 次</span> <span id="lc-uv">访客数为 <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span> 人</span></p>
+</div>
+        
+      
+    
+      
+        本站使用
+        <a href="https://github.com/volantis-x/hexo-theme-volantis/tree/4.3.1" target="_blank" class="codename">Volantis</a>
+        作为主题
+      
+    
+      
+        
+          <div><p><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">网站备案号：皖ICP备19016733号</a></p>
+</div>
+        
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="/">Copyright © 2018-2021 ChasingWind</a></p>
+
+        </div>
+      
+    
+  </footer>
+
+
+        <a id="s-top" class="fas fa-arrow-up fa-fw" href="javascript:void(0)"></a>
+      </div>
+    </div>
+    <div>
+      <script>
+/************这个文件存放不需要重载的全局变量和全局函数*********/
+window.volantis={};
+window.volantis.loadcss=document.getElementById("loadcss");
+/******************** Pjax ********************************/
+function VPjax(){
+	this.list=[] // 存放回调函数
+	this.start=()=>{
+	  for(var i=0;i<this.list.length;i++){
+		this.list[i].run();
+	  }
+	}
+	this.push=(fn,name)=>{
+		var f=new PjaxItem(fn,name);
+		this.list.push(f);
+	}
+	// 构造一个可以run的对象
+	function PjaxItem(fn,name){
+		// 函数名称
+		this.name = name || fn.name
+		// run方法
+		this.run=()=>{
+			fn()
+		}
+	}
+}
+volantis.pjax={}
+volantis.pjax.method={
+	complete: new VPjax(),
+	error: new VPjax(),
+	send: new VPjax()
+}
+volantis.pjax={
+	...volantis.pjax,
+	push: volantis.pjax.method.complete.push,
+	error: volantis.pjax.method.error.push,
+	send: volantis.pjax.method.send.push
+}
+/********************脚本懒加载函数********************************/
+// 已经加入了setTimeout
+function loadScript(src, cb) {
+	setTimeout(function() {
+		var HEAD = document.getElementsByTagName('head')[0] || document.documentElement;
+		var script = document.createElement('script');
+		script.setAttribute('type','text/javascript');
+		if (cb) script.onload = cb;
+		script.setAttribute('src', src);
+		HEAD.appendChild(script);
+	});
+}
+//https://github.com/filamentgroup/loadCSS
+var loadCSS = function( href, before, media, attributes ){
+	var doc = window.document;
+	var ss = doc.createElement( "link" );
+	var ref;
+	if( before ){
+		ref = before;
+	}
+	else {
+		var refs = ( doc.body || doc.getElementsByTagName( "head" )[ 0 ] ).childNodes;
+		ref = refs[ refs.length - 1];
+	}
+	var sheets = doc.styleSheets;
+	if( attributes ){
+		for( var attributeName in attributes ){
+			if( attributes.hasOwnProperty( attributeName ) ){
+				ss.setAttribute( attributeName, attributes[attributeName] );
+			}
+		}
+	}
+	ss.rel = "stylesheet";
+	ss.href = href;
+	ss.media = "only x";
+	function ready( cb ){
+		if( doc.body ){
+			return cb();
+		}
+		setTimeout(function(){
+			ready( cb );
+		});
+	}
+	ready( function(){
+		ref.parentNode.insertBefore( ss, ( before ? ref : ref.nextSibling ) );
+	});
+	var onloadcssdefined = function( cb ){
+		var resolvedHref = ss.href;
+		var i = sheets.length;
+		while( i-- ){
+			if( sheets[ i ].href === resolvedHref ){
+				return cb();
+			}
+		}
+		setTimeout(function() {
+			onloadcssdefined( cb );
+		});
+	};
+	function loadCB(){
+		if( ss.addEventListener ){
+			ss.removeEventListener( "load", loadCB );
+		}
+		ss.media = media || "all";
+	}
+	if( ss.addEventListener ){
+		ss.addEventListener( "load", loadCB);
+	}
+	ss.onloadcssdefined = onloadcssdefined;
+	onloadcssdefined( loadCB );
+	return ss;
+};
+</script>
+<script>
+  
+  loadCSS("https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14/css/all.min.css", window.volantis.loadcss);
+  
+  
+  
+  
+</script>
+<!-- required -->
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5/dist/jquery.min.js"></script>
+
+<script>
+  function pjax_fancybox() {
+    $(".md .gallery").find("img").each(function () { //渲染 fancybox
+      var element = document.createElement("a"); // a 标签
+      $(element).attr("class", "fancybox");
+      $(element).attr("pjax-fancybox", "");  // 过滤 pjax
+      $(element).attr("href", $(this).attr("src"));
+      if ($(this).attr("data-original")) {
+        $(element).attr("href", $(this).attr("data-original"));
+      }
+      $(element).attr("data-fancybox", "images");
+      var caption = "";   // 描述信息
+      if ($(this).attr('alt')) {  // 判断当前页面是否存在描述信息
+        $(element).attr('data-caption', $(this).attr('alt'));
+        caption = $(this).attr('alt');
+      }
+      var div = document.createElement("div");
+      $(div).addClass("fancybox");
+      $(this).wrap(div); // 最外层套 div ，其实主要作用还是 class 样式
+      var span = document.createElement("span");
+      $(span).addClass("image-caption");
+      $(span).text(caption); // 加描述
+      $(this).after(span);  // 再套一层描述
+      $(this).wrap(element);  // 最后套 a 标签
+    })
+    $(".md .gallery").find("img").fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+      closeClick: true,
+      helpers: {
+        overlay: {closeClick: true}
+      },
+      buttons: [
+        "zoom",
+        "close"
+      ]
+    });
+  };
+  function SCload_fancybox() {
+    if ($(".md .gallery").find("img").length == 0) return;
+    loadCSS("https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css", document.getElementById("loadcss"));
+    loadScript('https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', pjax_fancybox)
+  };
+  $(function () {
+    SCload_fancybox();
+  });
+  function Pjax_SCload_fancybox(){
+	if (typeof $.fancybox == "undefined") {
+	 SCload_fancybox();
+    } else {
+	 pjax_fancybox();
+    }
+  }
+  volantis.pjax.push(Pjax_SCload_fancybox)
+  volantis.pjax.send(()=>{
+      if (typeof $.fancybox != "undefined") {
+        $.fancybox.close();    // 关闭弹窗
+      }
+  },'fancybox')
+</script>
+
+
+<!-- internal -->
+
+  
+  
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js"></script>
+
+    <script type="text/javascript">
+        var imgs=["https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/001.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/002.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/003.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/004.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/005.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/006.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/012.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/016.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/019.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/025.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/033.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/034.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/035.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/038.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/039.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/042.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/046.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/051.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/052.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/054.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/056.jpg"];
+        if ('true' == 'true') {
+          function shuffle(arr){
+            /*From countercurrent-time*/
+            var n = arr.length;
+            while(n--) {
+              var index = Math.floor(Math.random() * n);
+              var temp = arr[index];
+              arr[index] = arr[n];
+              arr[n] = temp;
+            }
+          }
+          shuffle(imgs);
+        }
+	  function Pjax_backstretch(){
+        
+          $.backstretch(
+            imgs,
+          {
+            duration: "10000",
+            fade: "1500"
+          });
+        
+	  }
+	  loadScript("https://cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js",Pjax_backstretch)
+    </script>
+  
+
+
+
+  
+  
+
+  <div id="rightmenu-wrapper">
+    <ul class="list-v rightmenu" id="rightmenu-content">
+      <li class='option'>
+        <a class='vlts-menu opt fix-cursor-default' id='menu-copy-text' onclick="document.execCommand('copy')"><i class='fa fa-copy fa-fw'></i>复制文本</a>
+        <hr id='hr-text'>
+        <a class='vlts-menu opt fix-cursor-default' id='menu-copy-href'><i class='fa fa-link fa-fw'></i>复制链接</a>
+        <a class='vlts-menu opt fix-cursor-default' id='menu-open-href'><i class='fa fa-external-link-square-alt fa-fw'></i>在新标签页打开</a>
+        <hr id='hr-href'>
+        <a class='vlts-menu opt fix-cursor-default' id='menu-copy-src'><i class='fa fa-image fa-fw'></i>复制图片地址</a>
+        <hr id='hr-src'>
+      </li>
+      
+        <li class='navigation'>
+          <a class='nav icon-only fix-cursor-default' onclick='history.back()'><i class='fa fa-arrow-left fa-fw'></i></a>
+          <a class='nav icon-only fix-cursor-default' onclick='history.forward()'><i class='fa fa-arrow-right fa-fw'></i></a>
+          <a class='nav icon-only fix-cursor-default' onclick='window.location.reload()'><i class='fa fa-redo fa-fw'></i></a>
+          <a class='nav icon-only fix-cursor-default' href='/'><i class='fa fa-home fa-fw'></i></a>
+        </li>
+      
+      <hr>
+      
+        
+      
+        
+          
+    <li>
+      <a class='vlts-menu fix-cursor-default toggle-mode-btn' 
+        
+        
+        
+        >
+        <i class='fas fa-moon fa-fw'></i> Dark mode
+      </a>
+    </li>
+  
+        
+      
+        
+          <hr>
+        
+      
+        
+          <li class='music name'>
+            <p class='nav music-title fix-cursor-default'></p>
+          </li>
+          <li class='music ctrl'>
+            <a class='nav icon-only backward fix-cursor-default' onclick='aplayerBackward()'><i class='fa fa-step-backward fa-fw'></i></a>
+            <a class='nav icon-only toggle fix-cursor-default' onclick='aplayerToggle()'><i class='fa fa-play fa-fw'></i></a>
+            <a class='nav icon-only forward fix-cursor-default' onclick='aplayerForward()'><i class='fa fa-step-forward fa-fw'></i></a>
+          </li>
+          <li class='music volume'>
+            <a class='nav volume'>
+              <div class="aplayer-volume-bar-wrap">
+                <div class="aplayer-volume-bar fix-cursor-pointer">
+                  <div class="aplayer-volume"></div>
+                  <i class='left fa fa-volume-off fa-fw'></i>
+                  <i class='right fa fa-volume-up fa-fw'></i>
+                </div>
+              </div>
+            </a>
+          </li>
+        
+      
+    </ul>
+  </div>
+
+  <script>
+    window.document.oncontextmenu = function (event) {
+      if (event.ctrlKey) return true;
+      if (/Android|webOS|BlackBerry/i.test(navigator.userAgent)) return true;
+      return popMenu(event);
+    };
+    document.addEventListener("click", function (event) {
+      var mymenu = document.getElementById('rightmenu-wrapper');
+      mymenu.style.display = "none";
+    });
+    function popMenu(event) {
+      var mymenu = document.getElementById('rightmenu-wrapper');
+      var menuContent = document.getElementById('rightmenu-content');
+      var screenWidth = document.documentElement.clientWidth || document.body.clientWidth;
+      var screenHeight = document.documentElement.clientHeight || document.body.clientHeight;
+      mymenu.style.left = event.clientX + "px"; // 获取鼠标位置
+      mymenu.style.top = event.clientY + "px";
+      mymenu.style.display = 'block';
+      if (event.clientX * 2 > screenWidth) {
+        menuContent.classList.add('left');
+      } else {
+        menuContent.classList.remove('left');
+      }
+      if (event.clientY * 2 > screenHeight) {
+        menuContent.classList.add('top');
+      } else {
+        menuContent.classList.remove('top');
+      }
+
+      let hrText = document.getElementById('hr-text');
+      let hrSrc = document.getElementById('hr-src');
+      let hrHref = document.getElementById('hr-href');
+
+      // 选中图片
+      let copySrc = document.getElementById('menu-copy-src');
+      if (copySrc != undefined) {
+        if (event.target.currentSrc) {
+          copySrc.style.display = 'block';
+          copySrc.addEventListener("click", function (e) {
+            copyString(event.target.currentSrc);
+          },{once: true});
+          hrSrc.style.display = 'block';
+        } else {
+          copySrc.style.display = 'none';
+          hrSrc.style.display = 'none';
+        }
+      }
+
+      // 选中按钮
+      // 判断是不是按钮
+      let href = '';
+      if (event.path) {
+        for (i = 0; i < event.path.length; i++) {
+          if (event.path[i].href != undefined && event.path[i].href.length > 0) {
+            href = event.path[i].href;
+          }
+        }
+      }
+
+      let copyText = document.getElementById('menu-copy-text');
+      copyText.style.display = 'none';
+      hrText.style.display = 'none';
+      if (href.length == 0) {
+        // 选中文本
+        if (window.getSelection().toString()) {
+          if ('' == 'true') {
+            copyText.style.display = 'block';
+            hrText.style.display = 'block';
+          }
+        }
+      }
+
+      // 在新标签页打开
+      let openHref = document.getElementById('menu-open-href');
+      if (openHref != undefined) {
+        if (href.length > 0) {
+          openHref.style.display = 'block';
+          openHref.addEventListener("click", function (e) {
+            window.open(href);
+          },{once: true});
+          hrHref.style.display = 'block';
+        } else {
+          openHref.style.display = 'none';
+          hrHref.style.display = 'none';
+        }
+      }
+      // 复制链接
+      let copyHref = document.getElementById('menu-copy-href');
+      if (copyHref != undefined) {
+        if (href.length > 0) {
+          copyHref.style.display = 'block';
+          copyHref.addEventListener("click", function (e) {
+            copyString(href);
+          },{once: true});
+        } else {
+          copyHref.style.display = 'none';
+        }
+      }
+      // 有音乐播放器 see: layout/_third-party/aplayer/script.ejs
+      
+      if(volantis.APlayerLoaded){ // APlayer加载完成？
+        // 如果有aplayer，初始化一下
+        checkAPlayer();
+      }
+      
+      return false; // 该行代码确保系统自带的右键菜单不会被调出
+    }
+    function hideMenu() {
+      document.getElementById('rightmenu-wrapper').style.display = 'none';
+    }
+    function copyString(str) {
+      const input = document.createElement('input');
+      input.setAttribute('readonly', 'readonly');
+      document.body.appendChild(input);
+      input.setAttribute('value', str);
+      input.select();
+      document.execCommand('copy');
+      document.body.removeChild(input);
+    }
+    document.execCommand('click');
+  </script>
+
+
+
+
+<script>
+  function loadIssuesJS() {
+    if ($(".md").find(".issues-api").length == 0) return;
+	
+	  loadScript('/js/issues.js');
+	
+  };
+  $(function () {
+    loadIssuesJS();
+  });
+  volantis.pjax.push(()=>{
+	if (typeof IssuesAPI == "undefined") {
+	  loadIssuesJS();
+	}
+  },"IssuesJS")
+</script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 0
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    lazyLoadInstance.update();
+  });
+  document.addEventListener('pjax:complete', function () {
+    lazyLoadInstance.update();
+  });
+</script>
+
+
+
+
+  
+
+<script>
+  window.FPConfig = {
+	delay: 0,
+	ignoreKeywords: [],
+	maxRPS: 5,
+	hoverDelay: 25
+  };
+</script>
+<script defer src="https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"></script>
+
+
+
+
+
+
+
+
+
+  <script>
+  let APlayerController = new Object();
+  APlayerController.id = '754595573';  // 设定全局音乐播放ID
+  APlayerController.volume = '0.7';
+  APlayerController.autoPlay = 'false';
+  loadCSS("https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css", window.volantis.loadcss);
+  // APlayer 需要在  MetingJS 之前加载
+  loadScript("https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js")
+  window.volantis.APlayerLoaded=0 // APlayer加载完成状态
+  var checkAPlayer = setInterval(function () {
+    if (!window.APlayer) return // APlayer加载完成？
+	  if ($("#safearea").css("display")!="block") return // 文章内容加载完成？ see: source/css/first.styl
+    clearInterval(checkAPlayer)
+	  if (!window.volantis.APlayerLoaded&&!window.MetingJSElement){ // APlayer只能加载一次
+      window.volantis.APlayerLoaded=1 // APlayer加载完成
+      loadScript("https://cdn.jsdelivr.net/npm/meting@2.0/dist/Meting.min.js") // 加载 MetingJS
+	  }
+  }, 2500) // 按照网速调节差分2.5s
+  // rightmenu see: layout/_partial/rightmenu.ejs
+
+  
+    loadScript("/js/aplayer.js")
+  
+
+</script>
+
+
+
+
+  
+  
+<script src="/js/valine.js"></script>
+
+
+<script>
+  function emoji(path, idx, ext) {
+    return path + "/" + path + "-" + idx + "." + ext;
+  }
+  var emojiMaps = {};
+  for (var i = 1; i <= 54; i++) {
+    emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+  }
+  for (var i = 1; i <= 101; i++) {
+    emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+  }
+  for (var i = 1; i <= 116; i++) {
+    emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+  }
+  for (var i = 1; i <= 125; i++) {
+    emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+  }
+  for (var i = 1; i <= 4; i++) {
+    emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+  }
+  function pjax_valine() {
+    if(!document.querySelectorAll("#valine_container")[0])return;
+    let pagePlaceholder = pdata.commentPlaceholder || "快来评论吧~";
+    let path = pdata.commentPath;
+    if (path.length == 0) {
+      let defaultPath = '';
+      path = defaultPath || decodeURI(window.location.pathname);
+    }
+    var valine = new Valine();
+    valine.init(Object.assign({"path":null,"placeholder":"快来评论吧~","appId":null,"appKey":null,"meta":["nick","mail","link"],"requiredFields":["nick","mail"],"enableQQ":true,"recordIP":false,"avatar":"robohash","pageSize":10,"lang":"zh-cn","highlight":true,"mathJax":false}, {
+      el: '#valine_container',
+      path: path,
+      placeholder: pagePlaceholder,
+      emojiCDN: 'https://cdn.jsdelivr.net/gh/volantis-x/cdn-emoji/valine/',
+      emojiMaps: emojiMaps,
+    }))
+  }
+  $(function () {
+    pjax_valine();
+  });
+  volantis.pjax.push(pjax_valine);
+</script>
+
+
+
+
+
+
+  
+<script src="/js/app.js"></script>
+
+
+
+<!-- optional -->
+
+  <script>
+const SearchServiceimagePath="https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@master/img/";
+const ROOT =  ("/" || "/").endsWith('/') ? ("/" || "/") : ("//" || "/" );
+
+$('.input.u-search-input').one('focus',function(){
+	
+		loadScript('/js/search/hexo.js',setSearchService);
+	
+})
+
+function listenSearch(){
+  
+    customSearch = new HexoSearch({
+      imagePath: SearchServiceimagePath
+    });
+  
+}
+function setSearchService() {
+	listenSearch();
+	
+		document.addEventListener("pjax:success", listenSearch);
+	
+}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  <script defer>
+
+  const LCCounter = {
+    app_id: 'geHH6vdoVq9LpPQTAtb6CxW5-gzGzoHsz',
+    app_key: 'NqX0R9487fsiAaloOO5VxE4u',
+    custom_api_server: '',
+
+    // 查询存储的记录
+    getRecord(Counter, url, title) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({url})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {url, title: title, times: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    },
+
+    // 发起自增请求
+    increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    },
+
+    // 构建自增请求体
+    buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "times": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    },
+
+    // 校验是否为有效的 UV
+    validUV() {
+      var key = 'LeanCloudUVTimestamp';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    },
+
+    addCount(Counter) {
+      var enableIncr = '' === 'true' && window.location.hostname !== 'localhost';
+      enableIncr = true;
+      var getterArr = [];
+      var incrArr = [];
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#lc-sv');
+      if (pvCtn || enableIncr) {
+        var pvGetter = this.getRecord(Counter, 'https://www.chasingwind.top' + '/#lc-sv', 'Visits').then((record) => {
+          incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-sv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + 1;
+              if (pvCtn) {
+                pvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#lc-uv');
+      if (uvCtn || enableIncr) {
+        var uvGetter = this.getRecord(Counter, 'https://www.chasingwind.top' + '/#lc-uv', 'Visitors').then((record) => {
+          var vuv = this.validUV();
+          vuv && incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-uv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + (vuv ? 1 : 0);
+              if (uvCtn) {
+                uvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 请求文章的浏览数，如果是当前页面就自增
+      var allPV = document.querySelectorAll('#lc-pv');
+      if (allPV.length > 0 || enableIncr) {
+        for (i = 0; i < allPV.length; i++) {
+          let pv = allPV[i];
+          let title = pv.getAttribute('data-title');
+          var url = 'https://www.chasingwind.top' + pv.getAttribute('data-path');
+          if (url) {
+            var viewGetter = this.getRecord(Counter, url, title).then((record) => {
+              // 是当前页面就自增
+              let curPath = window.location.pathname;
+              if (curPath.includes('index.html')) {
+                curPath = curPath.substring(0, curPath.lastIndexOf('index.html'));
+              }
+              if (pv.getAttribute('data-path') == curPath) {
+                incrArr.push(this.buildIncrement(record.objectId));
+              }
+              if (pv) {
+                var ele = pv.querySelector('#lc-pv #number');
+                if (ele) {
+                  if (pv.getAttribute('data-path') == curPath) {
+                    ele.innerText = (record.times || 0) + 1;
+                  } else {
+                    ele.innerText = record.times || 0;
+                  }
+                  pv.style.display = 'inline';
+                }
+              }
+            });
+            getterArr.push(viewGetter);
+          }
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && this.increment(Counter, incrArr);
+        })
+      }
+
+    },
+
+
+    fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': this.app_id,
+            'X-LC-Key': this.app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      this.addCount(Counter);
+    },
+
+    refreshCounter() {
+      var api_server = this.app_id.slice(-9) !== '-MdYXbMMI' ? this.custom_api_server : `https://${ this.app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+      if (api_server) {
+        this.fetchData(api_server);
+      } else {
+        fetch('https://app-router.leancloud.cn/2/route?appId=' + this.app_id)
+          .then(resp => resp.json())
+          .then(({api_server}) => {
+            this.fetchData('https://' + api_server);
+          });
+      }
+    }
+
+  };
+
+  LCCounter.refreshCounter();
+
+  document.addEventListener('pjax:complete', function () {
+    LCCounter.refreshCounter();
+  });
+</script>
+
+
+
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/Colsrch/CDN@master/judge_time/js.js"></script>
+<script>
+const rootElement = document.documentElement;
+const darkModeStorageKey = "user-color-scheme";
+const rootElementDarkModeAttributeName = "data-user-color-scheme";
+
+const setLS = (k, v) => {
+    localStorage.setItem(k, v);
+};
+
+const removeLS = (k) => {
+    localStorage.removeItem(k);
+};
+
+const getLS = (k) => {
+    return localStorage.getItem(k);
+};
+
+const getModeFromCSSMediaQuery = () => {
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
+};
+
+const resetRootDarkModeAttributeAndLS = () => {
+  rootElement.removeAttribute(rootElementDarkModeAttributeName);
+  removeLS(darkModeStorageKey);
+};
+
+const validColorModeKeys = {
+  dark: true,
+  light: true,
+};
+
+const applyCustomDarkModeSettings = (mode) => {
+  const currentSetting = mode || getLS(darkModeStorageKey);
+
+  if (currentSetting === getModeFromCSSMediaQuery()) {
+    resetRootDarkModeAttributeAndLS();
+  } else if (validColorModeKeys[currentSetting]) {
+    rootElement.setAttribute(rootElementDarkModeAttributeName, currentSetting);
+  } else {
+    resetRootDarkModeAttributeAndLS();
+  }
+};
+
+const invertDarkModeObj = {
+  dark: "light",
+  light: "dark",
+};
+
+/**
+ * get target mode
+ */
+const toggleCustomDarkMode = () => {
+  let currentSetting = getLS(darkModeStorageKey);
+
+  if (validColorModeKeys[currentSetting]) {
+    currentSetting = invertDarkModeObj[currentSetting];
+  } else if (currentSetting === null) {
+    currentSetting = invertDarkModeObj[getModeFromCSSMediaQuery()];
+  } else {
+    return;
+  }
+  setLS(darkModeStorageKey, currentSetting);
+  return currentSetting;
+};
+
+/**
+ * bind click event for toggle button
+ */
+var btn=$("#wrapper .toggle-mode-btn,#rightmenu-wrapper .toggle-mode-btn");
+function bindToggleButton() {
+    btn.on('click',(e) => {
+      const mode = toggleCustomDarkMode();
+      applyCustomDarkModeSettings(mode);
+    });
+}
+
+applyCustomDarkModeSettings();
+document.addEventListener("DOMContentLoaded", bindToggleButton);
+volantis.pjax.push(bindToggleButton);
+volantis.pjax.send(()=>{
+	btn.unbind('click');
+},'toggle-mode-btn-unbind');
+
+// 自动夜间模式
+if (navigator.geolocation) {   //获取地理位置 用于判断日出日落时间
+    navigator.geolocation.getCurrentPosition(
+      function (position) {
+        var res = computeSunRiseSunSet(position.coords.latitude, position.coords.longitude, 8);
+        console.log(res.str)
+        adjust_time(res.strSunRise, res.strSunSet, "08:00", "12:00", "14:00", "23:00")
+      },
+      function (e) {
+        adjust_time("7:00", "17:30", "08:00", "12:00", "14:00", "23:00")  //未允许获取地理位置时，使用默认时间
+        console.log("未允许获取地理位置，使用默认配置时间")
+        throw (e.message);
+      }
+    )
+  }
+function adjust_time(beginTime, endTime, morningTime, noonTime, afternoonTime, nightTime) {
+  const rootElement = document.documentElement;
+  var strb = beginTime.split(":");
+  if (strb.length != 2) {
+    return false;
+  }
+
+  var stre = endTime.split(":");
+  if (stre.length != 2) {
+    return false;
+  }
+
+  var strmorning = morningTime.split(":");   //12点
+  if (stre.length != 2) {
+    return false;
+  }
+
+  var strnoon = noonTime.split(":");   //12点
+  if (stre.length != 2) {
+    return false;
+  }
+
+  var strafternoon = afternoonTime.split(":");   //13点
+  if (stre.length != 2) {
+    return false;
+  }
+
+  var strnight = nightTime.split(":");   //23点
+  if (stre.length != 2) {
+    return false;
+  }
+
+  var b = new Date();
+  var e = new Date();
+  var n = new Date();
+  var morning = new Date();
+  var noon = new Date();
+  var afternoon = new Date();
+  var night = new Date();
+
+  b.setHours(strb[0]);
+  b.setMinutes(strb[1]);
+  e.setHours(stre[0]);
+  e.setMinutes(stre[1]);
+  morning.setHours(strmorning[0]);
+  morning.setMinutes(strmorning[1]);
+  noon.setHours(strnoon[0]);
+  noon.setMinutes(strnoon[1]);
+  afternoon.setHours(strafternoon[0]);
+  afternoon.setMinutes(strafternoon[1]);
+  night.setHours(strnight[0]);
+  night.setMinutes(strnight[1]);
+
+
+  $.getJSON("https://v1.hitokoto.cn", function (hitokoto) {
+    //在这里面处理获得的数据
+    if (n.getTime() - b.getTime() > 0 && n.getTime() - e.getTime() < 0) {
+      var daytimetitle = ''
+      var daytimemessage = ''
+      if (n.getTime() - morning.getTime() < 0) {
+        // 早上
+        daytimetitle = '早安'
+      }
+      else if (n.getTime() - noon.getTime() < 0) {
+        // 上午
+        daytimetitle = '上午好'
+      }
+      else if (n.getTime() - afternoon.getTime() < 0) {
+        // 中午
+        daytimetitle = '中午好'
+        daytimemessage = '<br>要注意休息哦~'
+      }
+      else {
+        // 下午
+        daytimetitle = '下午好'
+      }
+      // 判断是否已经开启夜间模式
+      if (rootElement.getAttribute('data-user-color-scheme', 'dark')) {
+        // 已开启夜间模式，修改按钮状态
+        $.message({ title: '操作通知', message: daytimetitle + '，已自动为您切换为日间模式。<br>' + hitokoto.hitokoto + daytimemessage, type: 'success' });
+        const mode = toggleCustomDarkMode();
+        applyCustomDarkModeSettings(mode);
+      }
+      else {
+        // 未开启夜间模式，不执行操作
+        $.message({ title: daytimetitle, message: hitokoto.hitokoto + daytimemessage, type: 'info' });
+        return true;
+      }
+    } else {
+      // 晚上
+      var nighttitle = ''
+      var nightmessage = ''
+      if (night.getTime() - n.getTime() < 0 || n.getTime() - b.getTime() < 0) {
+        nighttitle = '夜深了'
+        nightmessage = '<br>该睡觉啦~'
+      }
+      else {
+        nighttitle = '晚上好'
+        nightmessage = '<br>吃晚饭了吗？要注意眼睛哦。'
+      }
+      // 判断是否已经开启夜间模式
+      if (rootElement.getAttribute('data-user-color-scheme', 'dark')) {
+        // 已开启夜间模式，不执行操作
+        $.message({ title: nighttitle, message: hitokoto.hitokoto + nightmessage, type: 'info' });
+        return true;
+      }
+      else {
+        // 未开启夜间模式，修改按钮状态
+        $.message({ title: '操作通知', message: nighttitle + '，已自动为您切换为夜间模式。<br>' + hitokoto.hitokoto + nightmessage, type: 'success' });
+        const mode = toggleCustomDarkMode();
+        applyCustomDarkModeSettings(mode);
+      }
+    }
+  });
+}
+</script>
+
+
+
+
+
+
+
+
+<script>
+function listennSidebarTOC() {
+  const navItems = document.querySelectorAll(".toc li");
+  if (!navItems.length) return;
+  const sections = [...navItems].map((element) => {
+    const link = element.querySelector(".toc-link");
+    const target = document.getElementById(
+      decodeURI(link.getAttribute("href")).replace("#", "")
+    );
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      window.scrollTo({
+		top: target.offsetTop + 100,
+		
+		behavior: "smooth"
+		
+	  });
+    });
+    return target;
+  });
+
+  function activateNavByIndex(target) {
+    if (target.classList.contains("active-current")) return;
+
+    document.querySelectorAll(".toc .active").forEach((element) => {
+      element.classList.remove("active", "active-current");
+    });
+    target.classList.add("active", "active-current");
+    let parent = target.parentNode;
+    while (!parent.matches(".toc")) {
+      if (parent.matches("li")) parent.classList.add("active");
+      parent = parent.parentNode;
+    }
+  }
+
+  function findIndex(entries) {
+    let index = 0;
+    let entry = entries[index];
+    if (entry.boundingClientRect.top > 0) {
+      index = sections.indexOf(entry.target);
+      return index === 0 ? 0 : index - 1;
+    }
+    for (; index < entries.length; index++) {
+      if (entries[index].boundingClientRect.top <= 0) {
+        entry = entries[index];
+      } else {
+        return sections.indexOf(entry.target);
+      }
+    }
+    return sections.indexOf(entry.target);
+  }
+
+  function createIntersectionObserver(marginTop) {
+    marginTop = Math.floor(marginTop + 10000);
+    let intersectionObserver = new IntersectionObserver(
+      (entries, observe) => {
+        let scrollHeight = document.documentElement.scrollHeight + 100;
+        if (scrollHeight > marginTop) {
+          observe.disconnect();
+          createIntersectionObserver(scrollHeight);
+          return;
+        }
+        let index = findIndex(entries);
+        activateNavByIndex(navItems[index]);
+      },
+      {
+        rootMargin: marginTop + "px 0px -100% 0px",
+        threshold: 0,
+      }
+    );
+    sections.forEach((element) => {
+      element && intersectionObserver.observe(element);
+    });
+  }
+  createIntersectionObserver(document.documentElement.scrollHeight);
+}
+
+document.addEventListener("DOMContentLoaded", listennSidebarTOC);
+document.addEventListener("pjax:success", listennSidebarTOC);
+</script>
+
+<!-- more -->
+
+ 
+	   
+	    
+
+
+<script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script>
+
+
+<script>
+    var pjax;
+    document.addEventListener('DOMContentLoaded', function () {
+      pjax = new Pjax({
+        elements: 'a[href]:not([href^="#"]):not([href="javascript:void(0)"]):not([pjax-fancybox])',
+        selectors: [
+          "title",
+          
+          "#pjax-container",
+          "#pjax-header-nav-list"
+        ],
+        cacheBust: false,   // url 地址追加时间戳，用以避免浏览器缓存
+        timeout: 5000
+      });
+    });
+
+    document.addEventListener('pjax:send', function (e) {
+      //window.stop(); // 相当于点击了浏览器的停止按钮
+
+      try {
+        var currentUrl = window.location.pathname;
+        var targetUrl = e.triggerElement.href;
+        var banUrl = [""];
+        if (banUrl[0] != "") {
+          banUrl.forEach(item => {
+            if(currentUrl.indexOf(item) != -1 || targetUrl.indexOf(item) != -1) {
+              window.location.href = targetUrl;
+            }
+          });
+        }
+      } catch (error) {}
+
+      window.subData = null; // 移除标题（用于一二级导航栏切换处）
+
+      volantis.$switcher.removeClass('active'); // 关闭移动端激活的搜索框
+      volantis.$header.removeClass('z_search-open'); // 关闭移动端激活的搜索框
+      volantis.$wrapper.removeClass('sub'); // 跳转页面时关闭二级导航
+
+      // 解绑事件 避免重复监听
+      volantis.$topBtn.unbind('click');
+      $('.menu a').unbind('click');
+      $(window).unbind('resize');
+      $(window).unbind('scroll');
+      $(document).unbind('scroll');
+      $(document).unbind('click');
+      $('body').unbind('click');
+	  // 使用 volantis.pjax.send 方法传入pjax:send回调函数 参见layout/_partial/scripts/global.ejs
+	  volantis.pjax.method.send.start();
+    });
+
+    document.addEventListener('pjax:complete', function () {
+      $('.nav-main').find('.list-v').not('.menu-phone').removeAttr("style",""); // 移除小尾巴的移除
+      $('.menu-phone.list-v').removeAttr("style",""); // 移除小尾巴的移除
+      $('script[data-pjax], .pjax-reload script').each(function () {
+        $(this).parent().append($(this).remove());
+      });
+      try{
+		// 使用 volantis.pjax.push 方法传入重载函数 参见layout/_partial/scripts/global.ejs
+		volantis.pjax.method.complete.start();
+      } catch (e) {
+        console.log(e);
+      }
+    });
+
+    document.addEventListener('pjax:error', function (e) {
+	  // 使用 volantis.pjax.error 方法传入pjax:error回调函数 参见layout/_partial/scripts/global.ejs
+	  volantis.pjax.method.error.start();
+      window.location.href = e.triggerElement.href;
+    });
+</script>
+ 
+	  
+    </div>
+  </body>
+</html>

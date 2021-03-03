@@ -1,0 +1,2928 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/tree/4.3.1'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <link rel="preload" href="/css/first.css" as="style">
+  
+
+  <!-- 页面元数据 -->
+  
+  <title>SpringBoot与Web开发 - 追风少年</title>
+  
+    <meta name="keywords" content="Web,SpringBoot">
+  
+
+  
+    <meta name="description" content="本节介绍了SpringBoot开发Web的流程，使用模板引擎来开发前端页面，动态展示后台返回的数据，再次加深SpringMVC自动配置和扩展，理解SpringBoot默认配置的思想，掌握SpringBoot的错误处理机制，以及配置嵌入式的Servlet容器等等。">
+  
+
+  <!-- feed -->
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  
+    <link rel="shortcut icon" type='image/x-icon' href="https://blog.chasingwind.top/creative-idea.png">
+  
+
+  <!-- import link -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/first.css">
+
+  
+
+  
+  <link rel="stylesheet" href="/css/style.css" media="print" onload="this.media='all';this.onload=null">
+  <noscript><link rel="stylesheet" href="/css/style.css"></noscript>
+  
+
+  <script id="loadcss"></script>
+
+  
+<script>
+if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode))
+    document.write(
+	'<style>'+
+		'html{'+
+			'overflow-x: hidden !important;'+
+			'overflow-y: hidden !important;'+
+		'}'+
+		'.kill-ie{'+
+			'text-align:center;'+
+			'height: 100%;'+
+			'margin-top: 15%;'+
+			'margin-bottom: 5500%;'+
+		'}'+
+	'</style>'+
+    '<div class="kill-ie">'+
+        '<h1><b>抱歉，您的浏览器无法访问本站</b></h1>'+
+        '<h3>微软已经于2016年终止了对 Internet Explorer (IE) 10 及更早版本的支持，<br/>'+
+        '继续使用存在极大的安全隐患，请使用当代主流的浏览器进行访问。</h3><br/>'+
+        '<a target="_blank" rel="noopener" href="https://www.microsoft.com/zh-cn/WindowsForBusiness/End-of-IE-support"><strong>了解详情 ></strong></a>'+
+    '</div>');
+</script>
+
+
+<noscript>
+	<style>
+		html{
+			overflow-x: hidden !important;
+			overflow-y: hidden !important;
+		}
+		.kill-noscript{
+			text-align:center;
+			height: 100%;
+			margin-top: 15%;
+			margin-bottom: 5500%;
+		}
+	</style>
+    <div class="kill-noscript">
+        <h1><b>抱歉，您的浏览器无法访问本站</b></h1>
+        <h3>本页面需要浏览器支持（启用）JavaScript</h3><br/>
+        <a target="_blank" rel="noopener" href="https://www.baidu.com/s?wd=启用JavaScript"><strong>了解详情 ></strong></a>
+    </div>
+</noscript>
+
+</head>
+
+  <body>
+    
+
+<header id="l_header" class="l_header always shadow floatable blur "  >
+  <div class='container'>
+  <div id='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h m-phone' id="pjax-header-nav-list">
+        <li><a id="s-comment" class="fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a id="s-toc" class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+            <img no-lazy class='logo' src='https://blog.chasingwind.top/blogavater.jpeg'/>
+          
+          
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h m-pc'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              
+                <li>
+                  <a class="menuitem flat-box">
+                    <i class='fas fa-compact-disc fa-fw music'></i>背景音乐
+                  </a>
+                  <ul class="list-v">
+                    <li>
+                      <div class="aplayer-container">
+                        
+
+  
+    <meting-js
+      theme='#1BCDFC'
+      volume='0.7'
+      loop='all'
+      order='list'
+      fixed='false'
+      list-max-height='320px'
+      server='netease'
+      type='playlist'
+      id='754595573'
+      list-folded='true'>
+    </meting-js>
+  
+
+
+                      </div>
+                    </li>
+                  </ul>
+                <li>
+              
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="看点什么呢..." />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h m-phone'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+    <div id="l_body">
+      <div id="l_cover">
+  
+    
+        <div id="half" class='cover-wrapper post search' style="display: ;">
+          
+            <div id='cover-backstretch'></div>
+          
+          <div class='cover-body'>
+  <div class='top'>
+    
+    
+      <p class="title">ChasingWind</p>
+    
+    
+      <p class="subtitle">向死而生，反求诸己</p>
+    
+  </div>
+  <div class='bottom'>
+    
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <input type="text" class="input u-search-input" placeholder="会搜到什么呢~" />
+          <i class="icon fas fa-search fa-fw"></i>
+        </form>
+      </div>
+    
+    <div class='menu navigation'>
+      <div class='list-h'>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+          <div id="scroll-down" style="display: none;"><i class="fa fa-chevron-down scroll-down-effects"></i></div>
+        </div>
+    
+  
+  </div>
+
+      <div id="safearea">
+        <div class="body-wrapper" id="pjax-container">
+          
+
+<div class='l_main'>
+  <article class="article post white-box reveal md shadow article-type-post" id="post" itemscope itemprop="blogPost">
+  
+
+
+  
+    <div class='headimg-div'>
+      <a class='headimg-a'>
+        <img class='headimg' src='http://blog.chasingwind.top/SpringBoot.png'/>
+      </a>
+    </div>
+  
+  <div class="article-meta" id="top">
+    
+    
+    
+      <h1 class="title">
+        SpringBoot与Web开发
+      </h1>
+      <div class='new-meta-box'>
+        
+          
+            
+<div class='new-meta-item author'>
+  <a class='author' href="/about/" rel="nofollow">
+    <img no-lazy src="https://blog.chasingwind.top/blogavater.jpeg">
+    <p>ChasingWind</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class='new-meta-item category'>
+    <a class='notlink'>
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <a class="category-link" href="/categories/SpringBoot/">SpringBoot</a>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：2020年7月3日</p>
+  </a>
+</div>
+
+          
+        
+          
+            <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-02-08T16:12:47+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2021年2月8日</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+
+          
+        
+          
+            
+  <div class="new-meta-item browse leancloud">
+    <a class='notlink'>
+      
+      <div id="lc-pv" data-title="SpringBoot与Web开发" data-path="/2020/07/03/SpringBoot%E4%B8%8EWeb%E5%BC%80%E5%8F%91/">
+        <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
+        <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+        次浏览
+      </div>
+    </a>
+  </div>
+
+
+          
+        
+      </div>
+    
+  </div>
+
+
+  
+  
+  <p>本节介绍了SpringBoot开发Web的流程，使用模板引擎来开发前端页面，动态展示后台返回的数据，再次加深SpringMVC自动配置和扩展，理解SpringBoot默认配置的思想，掌握SpringBoot的错误处理机制，以及配置嵌入式的Servlet容器等等。</p>
+<a id="more"></a>
+
+
+
+<h1 id="使用SpringBoot开发Web的流程"><a href="#使用SpringBoot开发Web的流程" class="headerlink" title="使用SpringBoot开发Web的流程"></a>使用SpringBoot开发Web的流程</h1><ol>
+<li>创建SpringBoot应用，选择我们需要使用到的模块</li>
+<li>SpringBoot已经帮我们完成了许多默认的配置，我们只需要修改一小部分就可以使用了</li>
+<li>编写自己的业务代码</li>
+</ol>
+<h1 id="SpringBoot对静态资源的映射规则"><a href="#SpringBoot对静态资源的映射规则" class="headerlink" title="SpringBoot对静态资源的映射规则"></a>SpringBoot对静态资源的映射规则</h1><ol>
+<li><p>以前在使用SpringMVC框架的时候，<strong>静态资源</strong>是放在src/main/web-app目录下的，然后配置视图解析器，对方法的返回值进行解析，返回对应的视图</p>
+<blockquote>
+<p>SpringMVC中的静态文件存储的路径</p>
+<p><img src="http://blog.chasingwind.top/image-20200601105820635.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200601105820635.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>但是在SpringBoot中的web项目中并没有这个目录</p>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/image-20200601110257375.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200601110257375.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>那么SpringBoot是怎样将静态资源映射到SpringMVC中的呢？</p>
+</blockquote>
+</li>
+<li><p>查看SpringMVC的自动配置类，当浏览器访问路径是<code>/webjars/**</code></p>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/image-20200601115106291.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200601115106291.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>红框中表示的意思就是</p>
+<p>所有/webjars/下面的请求，都在都去 classpath:/META-INF/resources/webjars/ 找资源</p>
+<hr>
+<p><a target="_blank" rel="noopener" href="http://www.webjars.org/">webjars</a>：以jar包的方式引入静态资源，而不是像以前我们把静态资源文件自己导入到web-app目录下</p>
+<p><img src="http://blog.chasingwind.top/image-20200601115509484.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200601115509484.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>而且导入这些jar包，可以通过使用Maven依赖的方式</p>
+<p>比如，我们导入jquery</p>
+<p><img src="http://blog.chasingwind.top/image-20200601132847304.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200601132847304.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>对比这个目录和前面的SpringMVC找<strong>资源的路径</strong>是一致的</p>
+<p>那么 <strong>请求的路径</strong>就应该是（这里以请求jquery.js文件为例）</p>
+<p><img src="http://blog.chasingwind.top/image-20200601133326149.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200601133326149.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>同时，还可以在配置文件中设置和静态资源有关的参数</p>
+<p><img src="http://blog.chasingwind.top/image-20200601134123372.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200601134123372.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>查看SpringMVC的自动配置类，当浏览器访问路径是<code>/**</code></p>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/image-20200601134507442.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200601134507442.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>进入到这个方法中</p>
+<p><img src="http://blog.chasingwind.top/image-20200601134526015.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200601134526015.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>查看staticPathPattern，得知访问路径是<code>/**</code></p>
+<p><img src="http://blog.chasingwind.top/image-20200601134545134.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200601134545134.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<pre><code class="java">/** 表示访问当前项目的任何资源，如果没有其他的处理器（比如上面的webjars会处理 /webjar/** ）处理，就去图中的位置找资源
+</code></pre>
+<p><img src="http://blog.chasingwind.top/image-20200601135006349.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200601135006349.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>进入<code>getResourceLocations(this.resourceProperties.getStaticLocations())</code>方法中，这个方法就是获取资源路径的</p>
+<p>查看其中的参数  最终看到的路径是</p>
+<p><img src="http://blog.chasingwind.top/image-20200601140155784.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200601140155784.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>另外还有一个是当前项目的根路径<code>/</code></p>
+<p>classpath：类路径，包括main下面的java和resources目录</p>
+<p>所以，可以保存静态资源的目录如下图</p>
+<p><img src="http://blog.chasingwind.top/image-20200601140617682.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200601140617682.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>上面的几个文件夹就是静态资源文件夹，表示，你访问的静态资源的路径如果没有人处理的话，就会去这些路径下找这些静态资源</p>
+<p>比如，静态资源的路径</p>
+<p><img src="http://blog.chasingwind.top/image-20200601140956464.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200601140956464.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>访问路径localhost:/xxx 就会去静态资源文件夹中找xxx</p>
+<p><img src="http://blog.chasingwind.top/image-20200601140930769.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200601140930769.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>配置欢迎页映射</p>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/image-20200601142017495.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200601142017495.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>欢迎页默认的文件名是index.html，在静态资源目录下</p>
+</blockquote>
+</li>
+<li><p>在配置文件中也可以指定我们自己定义的静态文件存放的目录</p>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/image-20200601142926928.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200601142926928.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>这样配置之后，那么SpringBoot中默认的配置的静态资源的路径就失效了</p>
+</blockquote>
+</li>
+</ol>
+<h1 id="模板引擎"><a href="#模板引擎" class="headerlink" title="模板引擎"></a>模板引擎</h1><p>上面的介绍都是<strong>请求的静态资源</strong>，不方便后面展示数据（不像JSP，可以对查出来的数据进行遍历展示），但是SpringBoot默认是jar包的打包方式并且使用的嵌入式的Tomcat，所以默认不支持JSP，这就有了模板引擎。</p>
+<ol>
+<li><p>模板引擎简介</p>
+<blockquote>
+<p>常见的模板引擎</p>
+<p>JSP、Velocity、Freemarker、Thymeleaf</p>
+<hr>
+<p>模板引擎的原理</p>
+<p>解析模板中的表达式，将数据填充进去，生成一个最终的文件</p>
+<p><img src="http://blog.chasingwind.top/image-20200601143851506.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200601143851506.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>Thymeleaf模板引擎</p>
+<ul>
+<li><p>SpringBoot推荐的Thymeleaf；语法更简单，功能更强大；</p>
+</li>
+<li><p>使用Thymelaf</p>
+<ol>
+<li><p>引入依赖</p>
+<blockquote>
+<pre><code class="xml">&lt;!--引入模板引擎Thymeleaf--&gt;
+     &lt;dependency&gt;
+         &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+         &lt;artifactId&gt;spring-boot-starter-thymeleaf&lt;/artifactId&gt;
+     &lt;/dependency&gt;
+</code></pre>
+</blockquote>
+</li>
+<li><p>Thymeleaf如何使用</p>
+<ol>
+<li><p>查看SpringBoot自动配置类中的关于Thymeleaf的类</p>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/image-20200601160803944.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200601160803944.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="http://blog.chasingwind.top/image-20200601160820313.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200601160820313.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>配置类</p>
+<p><img src="http://blog.chasingwind.top/image-20200601160844585.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200601160844585.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>表示的意思就是</p>
+<p><strong>只要我们把HTML页面放在classpath:/templates/，thymeleaf就能自动渲染；</strong></p>
+<p><img src="http://blog.chasingwind.top/image-20200603143143045.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200603143143045.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ul>
+<ol start="2">
+<li><p>Thymeleaf入门<a target="_blank" rel="noopener" href="https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html">官方文档</a></p>
+<ol>
+<li><p>在HTML页面中引入Thymeleaf的命名空间</p>
+<blockquote>
+<p><code>&lt;html lang=&quot;en&quot; xmlns:th=&quot;http://www.thymeleaf.org&quot;&gt;</code></p>
+</blockquote>
+</li>
+<li><p>演示</p>
+<blockquote>
+<p>Controller层</p>
+<p><img src="http://blog.chasingwind.top/image-20200601161920558.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200601161920558.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>加入Thymeleaf组件之后，return不再去static静态资源目录下找对应的页面了</p>
+<p>而是去templates目录下找对应的页面</p>
+<hr>
+<p>success.html页面需要放在templates目录下</p>
+<p><img src="http://blog.chasingwind.top/image-20200601162009913.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200601162009913.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><code>th:text</code>的作用是将标签中的内容设置为表达式中的内容</p>
+<hr>
+<p>访问页面  获取到数据了</p>
+<p><img src="http://blog.chasingwind.top/image-20200601162139954.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200601162139954.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>Thymeleaf的语法规则</p>
+<ol>
+<li><p>th:html的任意属性，用来替换原生属性的值</p>
+<blockquote>
+<p>比如</p>
+<p><img src="http://blog.chasingwind.top/image-20200601162731101.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200601162731101.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>那么我们访问的额页面中的各个属性就是Thymeleaf替换过后的值</p>
+<p><img src="http://blog.chasingwind.top/image-20200601162900572.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200601162900572.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>常用的属性有<br><img src="http://blog.chasingwind.top/image-20200601163654161.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200601163654161.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>表达式语法</p>
+<ol>
+<li><p><code>$&#123;...&#125;</code>：获取变量值，支持OGNL表达式</p>
+<ol>
+<li><p>获取对象的属性、调用方法</p>
+</li>
+<li><p>使用内置的基本对象：</p>
+<blockquote>
+<p><code>ctx</code> : the context object.<br><code>vars</code>: the context variables.<br><code>locale</code> : the context locale.<br><code>request</code> : (only in Web Contexts) the HttpServletRequest object.<br><code>response</code> : (only in Web Contexts) the HttpServletResponse object.<br><code>session </code>: (only in Web Contexts) the HttpSession object.<br>servletContext : (only in Web Contexts) the ServletContext object.</p>
+<hr>
+<p>使用示例：$(seeeion.id)</p>
+</blockquote>
+</li>
+<li><p>内置的一些工具对象</p>
+<blockquote>
+<p><code>execInfo</code> : information about the template being processed.<br><code>messages</code> : methods for obtaining externalized messages inside variables expressions, in the same way as they would be obtained using #{…} syntax.<br><code>uris</code> : methods for escaping parts of URLs/URIs<br><code>conversions</code> : methods for executing the configured conversion service (if any).<br><code>dates</code> : methods for java.util.Date objects: formatting, component extraction, etc.<br><code>calendars </code>: analogous to #dates , but for java.util.Calendar objects.<br><code>numbers</code> : methods for formatting numeric objects.<br><code>strings</code> : methods for String objects: contains, startsWith, prepending/appending, etc.<br><code>objects </code>: methods for objects in general.<br><code>bools</code> : methods for boolean evaluation.<br><code>arrays</code> : methods for arrays.<br><code>lists </code>: methods for lists.<br><code>sets</code> : methods for sets.<br><code>maps</code> : methods for maps.<br><code>aggregates</code> : methods for creating aggregates on arrays or collections.<br><code>ids</code> : methods for dealing with id attributes that might be repeated (for example, as a result of an iteration).</p>
+</blockquote>
+</li>
+</ol>
+</li>
+<li><p><code>*&#123;...&#125;</code>：选择表达式：和<code>$&#123;...&#125;</code>在功能上是一样；</p>
+<blockquote>
+<p><code>*&#123;...&#125;</code>算是在<code>$&#123;...&#125;</code>功能的基础上进行的增强</p>
+<p><img src="http://blog.chasingwind.top/image-20200601165942518.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200601165942518.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>不使用<code>*&#123;...&#125;</code>的话 需要这样写</p>
+<p><img src="http://blog.chasingwind.top/image-20200601170026604.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200601170026604.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p> <code>@&#123;...&#125;</code>：定义URL；</p>
+</li>
+<li><p><code>~&#123;...&#125;</code>：片段引用表达式</p>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h1 id="SpringMVC自动配置以及扩展"><a href="#SpringMVC自动配置以及扩展" class="headerlink" title="SpringMVC自动配置以及扩展"></a>SpringMVC自动配置以及扩展</h1><p>SpringBoot中已经自动配置好了SpringMVC，我们可以直接使用，用法参考<a target="_blank" rel="noopener" href="https://docs.spring.io/spring-boot/docs/2.3.0.RELEASE/reference/html/spring-boot-features.html#boot-features-developing-web-applications">官方文档</a></p>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/image-20200602153425121.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200602153425121.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>SpringBoot对SpringMVC做的自动配置</p>
+<p><img src="http://blog.chasingwind.top/image-20200602153657796.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200602153657796.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+<h2 id="分析SpringBoot对SpringMVC的自动配置"><a href="#分析SpringBoot对SpringMVC的自动配置" class="headerlink" title="分析SpringBoot对SpringMVC的自动配置"></a>分析SpringBoot对SpringMVC的自动配置</h2><p>SpringBoot自动配置好了SpringMVC，以下是SpringBoot对SpringMVC的默认配置：</p>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/image-20200602153657796.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200602153657796.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>SpringMVC的自动配置类<code>WebMvcAutoConfiguration</code></p>
+<p><img src="http://blog.chasingwind.top/image-20200602220359493.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200602220359493.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>其实实现自动配置的功能是他的内部类<code>WebMvcAutoConfigurationAdapter</code>（自动配置适配器）中的方法实现的</p>
+<p><img src="http://blog.chasingwind.top/image-20200602221827033.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200602221827033.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+<p>根据官方文档进行分析</p>
+<ol>
+<li><p>包含<code>ContentNegotiatingViewResolver</code>和<code>BeanNameViewResolver</code>。</p>
+<ul>
+<li><p>自动配置了ViewResolver（视图解析器），视图解析器的作用就是根据方法的返回值得到视图对象（View），视图对象决定如何渲染（转发或者重定向）</p>
+<blockquote>
+<p>可以看到自动配置类中<code>viewResolver</code>方法的返回值就是<code>ContentNegotiatingViewResolver</code>视图解析器对象，上面的注解<code>@Bean</code>将这个对象注入到容器中</p>
+<p>这个方法是自动配置类的内部类中的方法</p>
+<p><img src="http://blog.chasingwind.top/image-20200602220625720.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200602220625720.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>那么<code>ContentNegotiatingViewResolver</code>视图解析器是如何解析视图的呢？</p>
+<p><img src="http://blog.chasingwind.top/image-20200602155335107.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200602155335107.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>先看第1步获取候选的视图对象的方法<code>getCandidateViews(viewName, locale, requestedMediaTypes)</code></p>
+<p><img src="http://blog.chasingwind.top/image-20200602155557544.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200602155557544.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>所以，<code>ContentNegotiatingViewResolver</code>的作用就是：<strong>组合所有的视图解析器的；</strong></p>
+</blockquote>
+<blockquote>
+<p>回到自动配置类的内部类中，查看配置视图解析器的逻辑</p>
+<p>首先，创建了一个视图解析器对象</p>
+<p><img src="http://blog.chasingwind.top/image-20200602160407973.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200602160407973.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>查看这个视图解析器类</p>
+<p>其中用到了视图解析器，那么这些视图解析器是如何获取的呢</p>
+<p><img src="http://blog.chasingwind.top/image-20200602160616298.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200602160616298.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p><img src="http://blog.chasingwind.top/image-20200602160837230.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200602160837230.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="http://blog.chasingwind.top/image-20200602161016252.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200602161016252.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>那么viewSolvers变量中存储的就是所有的视图解析器了</p>
+</blockquote>
+<blockquote>
+<p>所以，如果我们自己需要定制视图解析器的话，<strong>我们就可以向容器中添加一个视图解析器，那么<code>ContentNegotiatingViewResolver</code>就会将这个视图解析器自动组合进来</strong></p>
+<p>测试自己添加视图解析器</p>
+<p><img src="http://blog.chasingwind.top/image-20200602161733759.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200602161733759.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>我们发送的任何请求，都会先经过DispatcherServlet中的doDispatch方法中，在这个方法处打断点，查看DispatcherServlet中使用到的视图解析器是什么</p>
+<p><img src="http://blog.chasingwind.top/image-20200602161859183.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200602161859183.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>Debug启动，使用浏览器发送一个请求</p>
+<p>可以看到我么自定义的ViewResolver也被添加进去了</p>
+<p><img src="http://blog.chasingwind.top/image-20200602162917435.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200602162917435.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>支持静态资源的访问，包括对Webjars的支持</p>
+</li>
+<li><p>自动注册<code>Converter</code>，<code>GenericConverter</code>和<code>Formatter</code>类。</p>
+<ul>
+<li><p>Converter：转换器，用于类型转换</p>
+<blockquote>
+<p>比如，我们的请求中携带的数据是一个对象的JSON数据，但是方法中是一个对象，那么如何将String类型的数据转换为一个对象呢？</p>
+<p>这种场景就使用到了转换器，SpringBoot已经帮我们配置好了转换器</p>
+</blockquote>
+</li>
+<li><p>Formatter：格式化器</p>
+<blockquote>
+<p>页面带来的数据转换为对应的格式，比如需要将请求中的2020.06.02转换为2020/06/02的形式。</p>
+<p>这里涉及到两步，首先需要对类型进行转换，然后再对格式进行转换。</p>
+</blockquote>
+</li>
+<li><p>对于转换器和格式化器，如果需要自定义的话，我们只需要将其加入到容器中即可</p>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/image-20200602165243865.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200602165243865.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>支持<code>HttpMessageConverters</code></p>
+<ul>
+<li><p>消息转换器：用来转换SpringMVC中消息请求和响应的数据格式的，比如方法的返回值是一个对象，如何转换为JSON数据返回呢</p>
+<blockquote>
+<p>这个小的配置类中只有一个有参构造方法，所以这些参数都是从容器中获取的，其中<code>ObjectProvider&lt;HttpMessageConverters&gt; messageConvertersProvider</code>变量中存储的就是<code>HttpMessageConverters</code></p>
+<p><img src="http://blog.chasingwind.top/image-20200602171737513.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200602171737513.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>查看这个HttpMessageConverters</p>
+<p><img src="http://blog.chasingwind.top/image-20200602171949555.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200602171949555.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="http://blog.chasingwind.top/image-20200602172647059.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200602172647059.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>也就是说，HttpMessageConverter是从容器中获取的</p>
+</blockquote>
+</li>
+<li><p>如果我们需要自定义HttpMessageConverter，我们只需要将其加入到容器中即可</p>
+<blockquote>
+<p>官方文档中也是如此</p>
+<p><img src="http://blog.chasingwind.top/image-20200602172957082.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200602172957082.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>自动注册<code>MessageCodesResolver</code>：用于定义错误代码生成规则</p>
+</li>
+<li><p>自动使用<code>ConfigurableWebBindingInitializer</code>：用于初始化Web数据绑定器，比如将请求中的数据绑定到JavaBean，其中功能包括，格式转换以及格式化</p>
+</li>
+<li><p>以上只是SpringBoot对web中的MVC进行配置，我们可以到SpringBoot的自动配置类中查看对web模块的所有配置</p>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/image-20200602174418843.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200602174418843.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>通过上面对于web中MVC模块的分析，我们可以得到一个修改SpringBoot中默认配置的模式</p>
+<ul>
+<li>SpringBoot在自动配置很多组件的时候，<strong>先看容器中有没有用户自己配置的</strong>（@Bean、@Component）<ul>
+<li>如果有就用用户配置的，如果没有，才自动配置；</li>
+<li>如果有些组件可以有多个（比如ViewResolver）将用户配置的和自己默认的<strong>组合起来</strong>；</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="扩展SpringMVC"><a href="#扩展SpringMVC" class="headerlink" title="扩展SpringMVC"></a>扩展SpringMVC</h2><ul>
+<li><p>继续查看官方文档中的内容</p>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/image-20200602200254012.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200602200254012.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>如果需要更多的功能，我们可以编写一个配置类（Configuration），是<code>WebMvcConfigurer</code>类型的，但是不添加<code>@EnableWebMvc</code>，通过这个方法对SpringMVC进行功能上的扩展，<strong>这样既保留了自动配置的功能，同时还可以使用我们扩展的功能</strong></p>
+</blockquote>
+</li>
+<li><p>实现一个自定义的配置</p>
+<ol>
+<li><p>创建一个配置类，使用注解<code>@Configuration</code>表明当前类是一个配置类，同时这个类还需要是<code>WebMvcConfigurer</code>（接口）类型的</p>
+<blockquote>
+<p>由于Spring5.0之后（或者SpringBoot2.x）开始支持Java接口的默认实现，所以这里有些不一样的地方</p>
+<hr>
+<p>在更新之前</p>
+<p>我们使用的是<code>WebMvcConfigurer</code>的抽象的实现类<code>WebMvcConfigurerAdapter</code></p>
+<p><img src="http://blog.chasingwind.top/image-20200602201724843.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200602201724843.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>我们在自定义的配置类中就可以通过继承<code>WebMvcConfigurerAdapter</code>来实现我们需要的功能</p>
+<p><img src="http://blog.chasingwind.top/image-20200602201850527.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200602201850527.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>由于Java的版本更新，在Java 8中，可以使用<strong>default</strong>关键词为接口添加默认的方法，查看接口中的方法，其实是与上面的抽象类中的方法一样</p>
+<p><img src="http://blog.chasingwind.top/image-20200602202305959.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200602202305959.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>在更新之后，可以直接实现<code>WebMvcConfigurer</code>这个接口</p>
+<p><img src="http://blog.chasingwind.top/image-20200602201946679.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200602201946679.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>下面都以更新之后进行举例，其实大体上二者差别不大</p>
+</blockquote>
+</li>
+<li><p>需要扩展什么功能，就实现什么方法</p>
+<blockquote>
+<p>比如这里我们扩展视图控制器</p>
+<p>当我们请求/test的时候，也跳转到success页面</p>
+<p><img src="http://blog.chasingwind.top/image-20200602203038835.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200602203038835.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="http://blog.chasingwind.top/image-20200602203015155.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200602203015155.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ol>
+</li>
+<li><p>扩展实现的原理</p>
+<ol>
+<li><p><code>WebMvcAutoConfiguration</code>是WebMVC的自动配置类</p>
+</li>
+<li><p>在这个自动配置类中内部类<code>WebMvcAutoConfigurationAdapter</code>实现了<code>WebMvcConfigurer</code>这个接口，也就是上面我们自定义的配置类实现的接口。</p>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/image-20200602205403018.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200602205403018.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>顺便说一句话，我们之前的静态资源映射就是调用的这个内部类中的方法实现的</p>
+<p><img src="http://blog.chasingwind.top/image-20200602205742797.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200602205742797.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>查看上面的内部类的注解<code>@Import(EnableWebMvcConfiguration.class)</code>，也就是说在做自动配置的时候（包括SpringBoot的自动配置和我们自定义的配置），会导入<code>EnableWebMvcConfiguration</code>这个类</p>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/image-20200602205925485.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200602205925485.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>查看这个<code>EnableWebMvcConfiguration</code>类，又是一个自动配置类的内部类</p>
+<p><img src="http://blog.chasingwind.top/image-20200602210035037.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200602210035037.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>查看这个内部类的父类</p>
+<p><code>@Autowired</code>作用在方法上表示方法的参数需要去容器中获取</p>
+<p><img src="http://blog.chasingwind.top/image-20200602224035061.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200602224035061.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>这个方法表示将容器中所有的类型为<code>WebMvcConfigurer</code>的bean存储在这个列表中</p>
+<p>然后调用的是<code>WebMvcConfigurerComposite</code>类中对应的方法</p>
+<p><img src="http://blog.chasingwind.top/image-20200602224241886.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200602224241886.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>这些方法都是遍历容器中的所有的<code>WebMvcConfigurer</code>，然后调用每个<code>WebMvcConfigurer</code>里面对应的方法，从而让这些配置生效</p>
+<p><img src="http://blog.chasingwind.top/image-20200602224601704.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200602224601704.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>比如说，我们有两个自定义的配置类都实现了<code>WebMvcConfigurer</code>接口，其中都有addViewControllers这个方法，那么上图中就会调用addViewControllers这个方法将我们定义的两个配置类中的方法生效。</p>
+</blockquote>
+</li>
+<li><p>在SpringMVC的自动配置类中，也实现了<code>WebMvcConfigurer</code>这个接口，所以上面的<code>@Import(EnableWebMvcConfiguration.class)</code>不仅会把我们自定义的配置生效，同时自动配置也会生效</p>
+</li>
+<li><p>总的来说，就是SpringMVC自动配置和我们自定义的配置都会生效</p>
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="全面接管SpringMVC"><a href="#全面接管SpringMVC" class="headerlink" title="全面接管SpringMVC"></a>全面接管SpringMVC</h2><ul>
+<li><p>在我们自定义的配置类上加上注解<code>@EnableWebMvc</code>，SpringMVC的自动配置全部失效，使用的都是我们自定义的配置</p>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/image-20200602230221733.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200602230221733.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>原理分析</p>
+<ol>
+<li><p>查看<code>@EnableWebMvc</code>这个注解</p>
+<blockquote>
+<p>导入了<code>DelegatingWebMvcConfiguration</code>这个类</p>
+<p><img src="http://blog.chasingwind.top/image-20200602230625353.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200602230625353.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>继承自<code>WebMvcConfigurationSupport</code></p>
+<p><img src="http://blog.chasingwind.top/image-20200602230714773.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200602230714773.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>再看自动配置类</p>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/image-20200602230843110.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200602230843110.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>表示如果容器中没有<code>WebMvcConfigurationSupport</code>这个组件那么配置就生效</p>
+<p>但是我们使用的<code>@EnableWebMvc</code>这个注解已经间接向容器中导入了这个组件，所以自动配置就失效了</p>
+</blockquote>
+</li>
+<li><p>导入的<code>WebMvcConfigurationSupport</code>中包含了SpringMVC最基本的功能；</p>
+</li>
+</ol>
+</li>
+</ul>
+<h1 id="修改SpringBoot默认配置的思想"><a href="#修改SpringBoot默认配置的思想" class="headerlink" title="修改SpringBoot默认配置的思想"></a>修改SpringBoot默认配置的思想</h1><ul>
+<li>通过上面对于web中MVC模块的分析，我们可以得到一个修改SpringBoot中默认配置的模式<ol>
+<li>SpringBoot在自动配置很多组件的时候，<strong>先看容器中有没有用户自己配置的</strong>（@Bean、@Component）<ul>
+<li>如果有就用用户配置的，如果没有，才自动配置；</li>
+<li>如果有些组件可以有多个（比如ViewResolver）将用户配置的和自己默认的<strong>组合起来</strong>；</li>
+</ul>
+</li>
+<li>在SpringBoot中会有非常多的xxxConfigurer帮助我们进行扩展配置</li>
+<li>在SpringBoot中会有很多的xxxCustomizer帮助我们进行定制配置</li>
+</ol>
+</li>
+</ul>
+<h1 id="Restful风格-CRUD练习"><a href="#Restful风格-CRUD练习" class="headerlink" title="Restful风格 CRUD练习"></a>Restful风格 CRUD练习</h1><h2 id="引入静态资源"><a href="#引入静态资源" class="headerlink" title="引入静态资源"></a>引入静态资源</h2><ol>
+<li><p>引入资源</p>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/image-20200603151441721.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200603151441721.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="> </p>
+</blockquote>
+</li>
+<li><p>访问首页</p>
+<blockquote>
+<p>没有引入Thymeleaf依赖的时候<br><img src="http://blog.chasingwind.top/image-20200603153920357.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200603153920357.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>引入Thymeleaf进来之后</p>
+<p><img src="http://blog.chasingwind.top/image-20200603154101906.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200603154101906.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>使用我们之前的扩展MVC的方式来实现页面的跳转</p>
+<p><img src="http://blog.chasingwind.top/image-20200603155147574.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200603155147574.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>测试 两个访问路径都可以访问到页面</p>
+<p><img src="http://blog.chasingwind.top/image-20200603155327249.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200603155327249.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>静态资源中的href和th:href，其他src也是同理</p>
+<blockquote>
+<p>比如：<code>&lt;link href=&quot;asserts/css/signin.css&quot; th:href=&quot;@&#123;/asserts/css/sgin.css&#125;&quot; rel=&quot;stylesheet&quot;&gt;</code></p>
+<p>在<strong>默认项目路径为空（ContextPath）时</strong>，打jar包单独运行时，二者效果一致。</p>
+<p>在使用Maven内嵌Tomcat或打war包部署到Servlet容器（Tomcat服务器），或者在项目内执行App启动类，<strong>且有配置项目路径时</strong>。</p>
+<p>二者区别如下：</p>
+<p><strong>href始终从端口开始作为根路径</strong>，如<code>http://localhost:8080/asserts/css/signin.css</code></p>
+<p><strong>th:href会寻找项目路径作为根路径</strong>，如<code>http://localhost:8080/自动添加项目路径/asserts/css/signin.css</code></p>
+<p>不使用th:xxx的时候 虽然设置了contextPath，但是这个资源的路径还是使用的是相对路径</p>
+<p><img src="http://blog.chasingwind.top/image-20200603194141208.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200603194141208.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>添加th:xxx之后 路径会自动带上contextPath</p>
+<p><img src="http://blog.chasingwind.top/image-20200603201849202.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200603201849202.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p><img src="http://blog.chasingwind.top/image-20200603202220492.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200603202220492.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ol>
+<h2 id="国际化配置"><a href="#国际化配置" class="headerlink" title="国际化配置"></a>国际化配置</h2><ul>
+<li><p>国际化功能使页面显示的信息不仅可以通过浏览器的默认语言进行设置，还可以通过页面中的中英文进行切换</p>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/image-20200603222352775.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200603222352775.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>SpringMVC中的国际化实现</p>
+<ol>
+<li>编写国际化配置文件</li>
+<li>使用ResourceBundleMessageSource管理国际化资源文件</li>
+<li>在jsp页面使用fmt:message取出国际化内容</li>
+</ol>
+</li>
+<li><p>SpringBoot中的国际化实现（以登录页面为例）</p>
+<ol>
+<li><p>编写国际化配置文件，将页面中需要国际化显示的消息抽取出来</p>
+<ol>
+<li><p>创建properties配置文件，在resources目录下创建i18n目录，创建默认的配置文件<code>login.properties</code>中文配置文件<code>login_zh_CN.properties</code>和英文配置文件<code>login_en_US.properties</code></p>
+<blockquote>
+<p>创建默认的配置文件和中文的配置文件之后，IDEA会识别我们是在做国际化，会将目录生成用于配置国际化的设置</p>
+<p><img src="http://blog.chasingwind.top/image-20200603223202106.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200603223202106.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>将<code>login.html</code>页面中需要国际化的消息抽取出来</p>
+<blockquote>
+<p>使用IDEA提供的Resource Bundle视图来配置不同语言的国际化消息</p>
+<p><code>login.properties</code>是当没有指定语言的配置信息时，默认显示的</p>
+<p><img src="http://blog.chasingwind.top/image-20200603223440400.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200603223440400.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>抽取页面中的消息并进行配置</p>
+<p><img src="http://blog.chasingwind.top/image-20200603231131752.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200603231131752.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ol>
+</li>
+<li><p>查看SpringBoot为我们自动配置的处理国际化的自动配置类</p>
+<ol>
+<li><p>查看类<code>MessageSourceAutoConfiguration</code></p>
+<blockquote>
+<p>basename就是去除国家和语言的基础名</p>
+<p><img src="http://blog.chasingwind.top/image-20200603232300783.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200603232300783.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>进入配置类中可以发现basenamem默认是messages</p>
+<p><img src="http://blog.chasingwind.top/image-20200603232347733.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200603232347733.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>所以，其实我们的配置文件可以直接放在类路径下叫messages.properties；这样我们就可以在不需要做任何配置的情况下使用国际化功能了</p>
+<hr>
+<p>我们的配置文件放在/resources/i18n目录下了，可以通过配置来指定国际化配置</p>
+<p><img src="http://blog.chasingwind.top/image-20200603232740054.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200603232740054.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ol>
+</li>
+<li><p>在页面中设置国际化内容</p>
+<blockquote>
+<p>Thymeleaf中使用<code>#&#123;...&#125;</code>获取国际化内容</p>
+<p><img src="http://blog.chasingwind.top/image-20200603233339471.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200603233339471.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>运行程序</p>
+<blockquote>
+<p>因为浏览器默认使用的语言是中文  可见 使用的并不是默认配置 而是中文语言的配置</p>
+<p><img src="http://blog.chasingwind.top/image-20200603233436797.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200603233436797.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>将浏览器的语言设置为英文  使用的就是英文国际化的配置</p>
+<p><img src="http://blog.chasingwind.top/image-20200603234053523.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200603234053523.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>通过页面中的按钮来实现国际化</p>
+<blockquote>
+<p>上面的效果是根据浏览器的语言信息来实现国际化的功能的，那么如何实现通过点击页面中<code>中文  English</code>来实现对应的国际化的显示呢</p>
+<p><strong>实现原理</strong>：SpringMVC中的Locale（区域信息对象）中的LocaleResolver（区域信息解析器）</p>
+<p>查看Mvc自动配置类中的LocaleResolver</p>
+<p><img src="http://blog.chasingwind.top/image-20200603235509178.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200603235509178.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>查看<code>AcceptHeaderLocaleResolver</code>类中处理区域信息解析器的方法，根据请求头中的<code>Accept-language</code>来获取国际化环境</p>
+<p><img src="http://blog.chasingwind.top/image-20200603235746110.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200603235746110.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>查看请求头</p>
+<p><img src="http://blog.chasingwind.top/image-20200603235907786.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200603235907786.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>也就是说 SpringBoot默认的区域信息解析器是通过从请求头中获取区域信息的</p>
+</blockquote>
+</li>
+<li><p>所以我们如果通过按钮来切换国际化的话，我们就需要使用自定义的区域信息解析器</p>
+<blockquote>
+<p>首先，根据我们点击不同的按钮中携带不同的参数来区分当前是哪个区域信息</p>
+<p>使用Thymeleaf之后，需要这样写</p>
+<p><img src="http://blog.chasingwind.top/image-20200604000622163.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200604000622163.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>点击按钮 查看浏览器中的路径</p>
+<p><img src="http://blog.chasingwind.top/image-20200604000652855.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200604000652855.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>实现自定义的区域信息解析器</p>
+<p><img src="http://blog.chasingwind.top/image-20200604001218309.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200604001218309.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>如何使用自定义的区域信息解析器</p>
+<blockquote>
+<p>查看自动配置类</p>
+<p><img src="http://blog.chasingwind.top/image-20200604001341761.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200604001341761.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>所以 我们只需要将我们自定义的区域信息解析器注入到容器中</p>
+<p>注意这个方法名 必须为localeResolver  因为不配置Bean的名字的话，默认是方法名注入到容器中。只有这样，自动配置类中的<code>@ConditionalMissingBean</code>才能生效</p>
+<p><img src="http://blog.chasingwind.top/image-20200604001932627.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200604001932627.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="登录功能"><a href="#登录功能" class="headerlink" title="登录功能"></a>登录功能</h2><p>提示：当我们修改了页面之后，不重新启动程序，实时显示页面的话</p>
+<blockquote>
+<ol>
+<li><p>禁用Thymeleaf的缓存</p>
+<p><img src="http://blog.chasingwind.top/image-20200604091318715.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200604091318715.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</li>
+<li><p>重新编译</p>
+<p>Command+F9，重新编译</p>
+</li>
+</ol>
+</blockquote>
+<ol>
+<li><p>修改<code>login.html</code>页面中表单提交到的路径</p>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/image-20200604092633198.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200604092633198.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>编写LoginController</p>
+<blockquote>
+<p>这里是简单模拟登录，用户名不为空，密码为123456即可</p>
+<p><img src="http://blog.chasingwind.top/image-20200604092821306.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200604092821306.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>点击登录之后 看到请求路径是/user/login</p>
+<p><img src="http://blog.chasingwind.top/image-20200604093202866.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200604093202866.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>点击登录</p>
+<blockquote>
+<p>登录成功 页面样式未加载</p>
+<p><img src="http://blog.chasingwind.top/image-20200604094758208.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200604094758208.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>登录失败 需要将msg显示在页面上</p>
+<p><img src="http://blog.chasingwind.top/image-20200604095227394.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200604095227394.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>登录失败的时候 重新回到login页面 并显示错误提示信息</p>
+<p><img src="http://blog.chasingwind.top/image-20200604095237905.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200604095237905.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>解决表单重复提交的问题</p>
+<blockquote>
+<p>当登录成功之后，在页面刷新  出现的问题就是 表单会重复提交</p>
+<p>这样出现的原因就是 在发送请求的时候是POST请求 然后转发到dashboard页面的 所以刷新的时候会重新发送这个请求 那么表单就重复提交了</p>
+<p><img src="http://blog.chasingwind.top/image-20200604095654908.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200604095654908.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>解决方法：重定向到dashboard页面 </p>
+<p><img src="http://blog.chasingwind.top/image-20200604102021289.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200604102021289.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>然后将main.html映射到dashboard</p>
+<p><img src="http://blog.chasingwind.top/image-20200604102108461.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200604102108461.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>查看页面 样式也正常显示</p>
+<p><img src="http://blog.chasingwind.top/image-20200604102126537.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200604102126537.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>使用拦截器进行登录检查</p>
+<blockquote>
+<p>上面虽然解决了表单重复提交的问题 但是我们直接在其他浏览器直接请求</p>
+<p><code>http://localhost:8080/main.html</code>的时候，也可以成功访问，这样就跳过了登录验证</p>
+<p>那么 如何验证用户已经登录呢</p>
+<p>在login方法中存储登录的用户的session</p>
+<p><img src="http://blog.chasingwind.top/image-20200604104924309.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200604104924309.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>创建拦截器类 并添加到容器中</p>
+<p><img src="http://blog.chasingwind.top/image-20200604105047873.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200604105047873.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="http://blog.chasingwind.top/image-20200604105108985.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200604105108985.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>将自定义的拦截器添加到容器中 并设置拦截路径</p>
+<p><img src="http://blog.chasingwind.top/image-20200604110047586.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200604110047586.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>测试</p>
+<blockquote>
+<p>直接复制登录之后的链接到另一个浏览器中  由于没有session信息 那么就会被拦截</p>
+<p><img src="http://blog.chasingwind.top/image-20200604110139468.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200604110139468.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ol>
+<h2 id="员工列表CRUD（Restful风格实现）"><a href="#员工列表CRUD（Restful风格实现）" class="headerlink" title="员工列表CRUD（Restful风格实现）"></a>员工列表CRUD（Restful风格实现）</h2><ol>
+<li><p>Restful方式实现的增删改查和以前用的请求的区别</p>
+<p>URI：  /资源名称/资源标识       HTTP请求方式区分对资源CRUD操作</p>
+<p><img src="http://blog.chasingwind.top/crud01.png" class="lazyload" data-srcset="http://blog.chasingwind.top/crud01.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</li>
+<li><p>Restful CRUD请求参考</p>
+<p><img src="http://blog.chasingwind.top/crud02.png" class="lazyload" data-srcset="http://blog.chasingwind.top/crud02.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</li>
+<li><p>页面的公共部分抽取</p>
+<blockquote>
+<p>图中的红色框中的部分是每个页面都重复的部分</p>
+<p>我们可以抽取出来 然后再在每个需要使用的地方插入公共部分即可</p>
+<p><img src="http://blog.chasingwind.top/image-20200604154539201.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200604154539201.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>参考<a target="_blank" rel="noopener" href="https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html#template-layout">Thymeleaf</a></p>
+<p>抽取公共代码片段</p>
+<p><img src="http://blog.chasingwind.top/image-20200604154932640.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200604154932640.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>插入公共代码片段 其中<code>~&#123;&#125;</code>可以省略</p>
+<p><img src="http://blog.chasingwind.top/image-20200604155144736.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200604155144736.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>插入片段的语法规则</p>
+<p>~{templatename::selector}：模板名::选择器<br>~{templatename::fragmentname}:模板名::片段名</p>
+<p><img src="http://blog.chasingwind.top/image-20200604160530838.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200604160530838.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>插入片段的三种方式和各自的区别</p>
+<p><strong>th:insert</strong>：将公共片段整个插入到声明引入的元素中</p>
+<p><strong>th:replace</strong>：将声明引入的元素替换为公共片段</p>
+<p><strong>th:include</strong>：将被引入的片段的内容包含进这个标签中</p>
+<pre><code class="html">公共片段
+&lt;footer th:fragment=&quot;copy&quot;&gt;
+&amp;copy; 2011 The Good Thymes Virtual Grocery
+&lt;/footer&gt;
+-----------------------------------
+
+引入方式
+&lt;div th:insert=&quot;footer :: copy&quot;&gt;&lt;/div&gt;
+
+效果
+&lt;div&gt;
+ &lt;footer&gt;
+ &amp;copy; 2011 The Good Thymes Virtual Grocery
+ &lt;/footer&gt;
+&lt;/div&gt;
+
+-----------------------------------
+
+引入方式
+&lt;div th:replace=&quot;footer :: copy&quot;&gt;&lt;/div&gt;
+
+效果
+&lt;footer&gt;
+&amp;copy; 2011 The Good Thymes Virtual Grocery
+&lt;/footer&gt;
+-----------------------------------
+
+引入方式
+&lt;div th:include=&quot;footer :: copy&quot;&gt;&lt;/div&gt;
+
+效果
+&lt;div&gt;
+&amp;copy; 2011 The Good Thymes Virtual Grocery
+&lt;/div&gt;
+</code></pre>
+<hr>
+<p>审查dashboard获取页面的侧边栏 抽取topbar作为公共代码片段</p>
+<p>这里使用的方式<code>~&#123;templatename::fragmentname&#125;:模板名::片段名</code></p>
+<p><img src="http://blog.chasingwind.top/image-20200604163700999.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200604163700999.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>在list.html页面引用公共片段</p>
+<p><img src="http://blog.chasingwind.top/image-20200604163755872.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200604163755872.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>审查元素</p>
+<p><img src="http://blog.chasingwind.top/image-20200604163852741.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200604163852741.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>审查元素抽取侧边栏   这里使用的方式<code>~&#123;templatename::selector&#125;：模板名::选择器</code></p>
+<p><img src="http://blog.chasingwind.top/image-20200604164626029.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200604164626029.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>在list页面使用选择器插入公共代码片段<br><img src="http://blog.chasingwind.top/image-20200604164755117.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200604164755117.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+<blockquote>
+<p>dashboard.html页面请求</p>
+<p><img src="http://blog.chasingwind.top/image-20200604163122542.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200604163122542.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>对应的Contoller 以及转发到的页面</p>
+<p><img src="http://blog.chasingwind.top/image-20200604163214122.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200604163214122.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>引入片段的时候传入参数</p>
+<blockquote>
+<p>可参数化的片段签名</p>
+<p><img src="http://blog.chasingwind.top/image-20200604193805669.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200604193805669.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>在上面的功能中还存在一个问题，当我们点击员工列表的时候，没有高亮显示</p>
+<p><img src="http://blog.chasingwind.top/image-20200604191931167.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200604191931167.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>查看dashboard.html页面 DashBoard高亮显示是由于这个class中的active</p>
+<p><img src="http://blog.chasingwind.top/image-20200604192027864.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200604192027864.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>为了更加简便 把所有的公共部分单独放在一个页面中</p>
+<p><img src="http://blog.chasingwind.top/image-20200604192956410.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200604192956410.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>在list和dashboard都引入topbar和sidebar  这样大大简化了代码</p>
+<p><img src="http://blog.chasingwind.top/image-20200604193101498.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200604193101498.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+<blockquote>
+<p>高亮显示实现</p>
+<p>在bar.thml中抽取的片段中根据参数来动态修改class属性值</p>
+<p><img src="http://blog.chasingwind.top/image-20200604194752469.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200604194752469.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="http://blog.chasingwind.top/image-20200604194813871.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200604194813871.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>然后在引用的时候带上不同的参数</p>
+<p><img src="http://blog.chasingwind.top/image-20200604194936203.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200604194936203.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="http://blog.chasingwind.top/image-20200604195006903.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200604195006903.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ol>
+<h3 id="将查询到的员工数据展示在页面上"><a href="#将查询到的员工数据展示在页面上" class="headerlink" title="将查询到的员工数据展示在页面上"></a>将查询到的员工数据展示在页面上</h3><ol>
+<li><p>查看之前的Controller</p>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/image-20200604201150477.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200604201150477.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>在页面上进行展示</p>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/image-20200604201115128.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200604201115128.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ol>
+<h3 id="员工添加"><a href="#员工添加" class="headerlink" title="员工添加"></a>员工添加</h3><ol>
+<li><p>首先点击添加按钮，来到添加页面</p>
+<blockquote>
+<p>点击添加按钮 发送请求</p>
+<p><img src="http://blog.chasingwind.top/image-20200604203924936.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200604203924936.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>转发到add.html页面</p>
+<p><img src="http://blog.chasingwind.top/image-20200604204012125.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200604204012125.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>在页面中获取select标签的option</p>
+<p><img src="http://blog.chasingwind.top/image-20200604204147105.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200604204147105.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="http://blog.chasingwind.top/image-20200604204043337.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200604204043337.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>填写数据，然后提交，进行员工的添加</p>
+<ol>
+<li><p>修改页面，使用post提交表单，同时name属性值需要与Employee中的属性对应，这样在Controller中才能正确封装（不额外使用注解）</p>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/image-20200604214406690.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200604214406690.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>Controller</p>
+<blockquote>
+<p>保存用户，并重定向到之前的用户列表页面</p>
+<p><img src="http://blog.chasingwind.top/image-20200604214457524.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200604214457524.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>测试</p>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/image-20200604214231922.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200604214231922.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="http://blog.chasingwind.top/image-20200604214548634.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200604214548634.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>存在的问题</p>
+<blockquote>
+<p>日期格式</p>
+<p><img src="http://blog.chasingwind.top/image-20200604214628221.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200604214628221.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>结果报错400 是因为提交的日期格式不正确</p>
+<hr>
+<p>日期的格式化：SpringBoot已经自动配置了日期格式化器 我们可以在配置文件中设置，默认是yyyy/MM/dd</p>
+<p><img src="http://blog.chasingwind.top/image-20200604215051851.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200604215051851.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="员工修改"><a href="#员工修改" class="headerlink" title="员工修改"></a>员工修改</h3><ol>
+<li><p>点击编辑按钮，来到修改页面</p>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/image-20200604224542924.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200604224542924.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>然后 在Controller中根据用户的id查询用户封装到request域中 然后转发到编辑页面</p>
+<p><img src="http://blog.chasingwind.top/image-20200604224726889.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200604224726889.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>通过 <strong>@PathVariable</strong> 可以将 <strong>URL</strong> 中占位符参数绑定到控制器处理方法的入参中：URL 中的 {<strong>xxx</strong>} 占位符可以通过@PathVariable(“<strong>xxx</strong>“) 绑定到操作方法的入参中。</p>
+<p>比如上图中的方法参数id域请求中的id绑定在一起</p>
+</blockquote>
+</li>
+<li><p>在编辑页面显示员工的数据</p>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/image-20200604225457550.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200604225457550.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p><img src="http://blog.chasingwind.top/image-20200604225515631.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200604225515631.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>修改用户 并提交</p>
+<blockquote>
+<p>由于form表单只支持post和get的方式</p>
+<p>这里的请求需要的是put方式</p>
+<p>如何在页面发送put请求呢？</p>
+<ol>
+<li>SpringMVC中配置HiddenHttpMethodFilter;（SpringBoot自动配置好的，我们在配置文件中开启就可以使用了<code>spring.mvc.hiddenmethod.filter.enabled=true</code>），功能就是<strong>将请求转为指定的方式</strong></li>
+<li>页面创建一个post表单</li>
+<li>创建一个input项，name=”_method”;value就是我们指定的请求方式</li>
+</ol>
+<p><img src="http://blog.chasingwind.top/image-20200604233402605.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200604233402605.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="http://blog.chasingwind.top/image-20200604231754846.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200604231754846.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+</blockquote>
+</li>
+<li><p>修改用户的方法</p>
+<blockquote>
+<p>我们实现的save方法来实现用户的修改</p>
+<p><img src="http://blog.chasingwind.top/image-20200604232526913.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200604232526913.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>由于需要知道修改的用户的id，而表单中没有这个字段，所以添加一个id字段</p>
+<p><img src="http://blog.chasingwind.top/image-20200604232408846.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200604232408846.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>修改用户</p>
+<p><img src="http://blog.chasingwind.top/image-20200604232634617.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200604232634617.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>测试可以成功修改</p>
+</li>
+</ol>
+<h3 id="员工删除"><a href="#员工删除" class="headerlink" title="员工删除"></a>员工删除</h3><ol>
+<li><p>页面发送delete请求</p>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/image-20200605084523887.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200605084523887.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>Controller中删除，并重定向到员工列表页</p>
+<blockquote>
+<p><img src="http://blog.chasingwind.top/image-20200605084606940.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200605084606940.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>优化</p>
+<blockquote>
+<p>使用js动态添加form</p>
+<p><img src="http://blog.chasingwind.top/image-20200605093526821.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200605093526821.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="http://blog.chasingwind.top/image-20200605093535126.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200605093535126.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ol>
+<h1 id="错误处理机制"><a href="#错误处理机制" class="headerlink" title="错误处理机制"></a>错误处理机制</h1><h2 id="SpringBoot默认错误处理"><a href="#SpringBoot默认错误处理" class="headerlink" title="SpringBoot默认错误处理"></a>SpringBoot默认错误处理</h2><ol>
+<li><p>当我们使用浏览器请求不存在的资源时</p>
+<blockquote>
+<p>默认错误页面</p>
+<p><img src="http://blog.chasingwind.top/image-20200605094252881.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200605094252881.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>当我们使用Postman发送请求的时候</p>
+<blockquote>
+<p>SpringBoot为我们响应的是JSON数据</p>
+<p><img src="http://blog.chasingwind.top/image-20200605094407844.png" class="lazyload" data-srcset="http://blog.chasingwind.top/image-20200605094407844.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>查看SpringBoot的默认配置类</p>
+<blockquote>
+</blockquote>
+</li>
+</ol>
+<h1 id="配置嵌入式Servlet容器"><a href="#配置嵌入式Servlet容器" class="headerlink" title="配置嵌入式Servlet容器"></a>配置嵌入式Servlet容器</h1><h1 id="使用外置的Servlet容器"><a href="#使用外置的Servlet容器" class="headerlink" title="使用外置的Servlet容器"></a>使用外置的Servlet容器</h1>
+  
+  
+    
+    <div class='footer'>
+      
+      
+      
+      
+    </div>
+  
+  
+    
+
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-02-08T16:12:47+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2021年2月8日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Web/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Web</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/SpringBoot/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>SpringBoot</p></a></div>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.chasingwind.top/2020/07/03/SpringBoot%E4%B8%8EWeb%E5%BC%80%E5%8F%91/&title=SpringBoot与Web开发 - 追风少年&summary=本节介绍了SpringBoot开发Web的流程，使用模板引擎来开发前端页面，动态展示后台返回的数据，再次加深SpringMVC自动配置和扩展，理解SpringBoot默认配置的思想，掌握SpringBoot的错误处理机制，以及配置嵌入式的Servlet容器等等。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://www.chasingwind.top/2020/07/03/SpringBoot%E4%B8%8EWeb%E5%BC%80%E5%8F%91/&title=SpringBoot与Web开发 - 追风少年&summary=本节介绍了SpringBoot开发Web的流程，使用模板引擎来开发前端页面，动态展示后台返回的数据，再次加深SpringMVC自动配置和扩展，理解SpringBoot默认配置的思想，掌握SpringBoot的错误处理机制，以及配置嵌入式的Servlet容器等等。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.chasingwind.top/2020/07/03/SpringBoot%E4%B8%8EWeb%E5%BC%80%E5%8F%91/&title=SpringBoot与Web开发 - 追风少年&summary=本节介绍了SpringBoot开发Web的流程，使用模板引擎来开发前端页面，动态展示后台返回的数据，再次加深SpringMVC自动配置和扩展，理解SpringBoot默认配置的思想，掌握SpringBoot的错误处理机制，以及配置嵌入式的Servlet容器等等。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </div>
+
+
+  
+  
+
+  
+    <div class="prev-next">
+      
+        <a class='prev' href='/2020/07/14/MySQL%E6%9E%B6%E6%9E%84%E4%BB%8B%E7%BB%8D/'>
+          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>MySQL架构介绍</p>
+          <p class='content'>
+
+
+
+MySQL配置文件
+我的服务器上是通过RPM的方式安装的MySQl，配置文件是在/etc目录下的my.cnf文件
+
+二进制日志log-bin：主要用于记录主从日志
+
+错误日志log-er...</p>
+        </a>
+      
+      
+        <a class='next' href='/2020/07/03/SpringBoot%E6%97%A5%E5%BF%97/'>
+          <p class='title'>SpringBoot日志<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>SpringBoot的日志框架包含多种多样，我们在比较各种日志门面和日志实现之后，一般选用SLF4J来作为日志门面实现系统的日志功能，我们需要理解日志门面和日志实现之间的区别。
+
+
+
+
+日志框架...</p>
+        </a>
+      
+    </div>
+  
+</article>
+
+
+  
+
+  <article class="post white-box reveal shadow" id="comments">
+    <p ct><i class='fas fa-comments'></i> 评论</p>
+    
+    <div id="valine_container" class="valine_thread">
+  <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+</div>
+
+  </article>
+
+
+
+
+
+
+</div>
+<aside class='l_side'>
+  
+  
+    
+    
+
+
+
+  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E6%9E%90SpringBoot%E5%AF%B9SpringMVC%E7%9A%84%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE"><span class="toc-text">分析SpringBoot对SpringMVC的自动配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%A9%E5%B1%95SpringMVC"><span class="toc-text">扩展SpringMVC</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%A8%E9%9D%A2%E6%8E%A5%E7%AE%A1SpringMVC"><span class="toc-text">全面接管SpringMVC</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%95%E5%85%A5%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90"><span class="toc-text">引入静态资源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%BD%E9%99%85%E5%8C%96%E9%85%8D%E7%BD%AE"><span class="toc-text">国际化配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%99%BB%E5%BD%95%E5%8A%9F%E8%83%BD"><span class="toc-text">登录功能</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%91%98%E5%B7%A5%E5%88%97%E8%A1%A8CRUD%EF%BC%88Restful%E9%A3%8E%E6%A0%BC%E5%AE%9E%E7%8E%B0%EF%BC%89"><span class="toc-text">员工列表CRUD（Restful风格实现）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%86%E6%9F%A5%E8%AF%A2%E5%88%B0%E7%9A%84%E5%91%98%E5%B7%A5%E6%95%B0%E6%8D%AE%E5%B1%95%E7%A4%BA%E5%9C%A8%E9%A1%B5%E9%9D%A2%E4%B8%8A"><span class="toc-text">将查询到的员工数据展示在页面上</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%91%98%E5%B7%A5%E6%B7%BB%E5%8A%A0"><span class="toc-text">员工添加</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%91%98%E5%B7%A5%E4%BF%AE%E6%94%B9"><span class="toc-text">员工修改</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%91%98%E5%B7%A5%E5%88%A0%E9%99%A4"><span class="toc-text">员工删除</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SpringBoot%E9%BB%98%E8%AE%A4%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86"><span class="toc-text">SpringBoot默认错误处理</span></a></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+
+		  
+		  <!--此文件用来存放一些不方便取值的变量-->
+<!--思路大概是将值藏到重加载的区域内-->
+
+<script>
+  window.pdata={}
+  pdata.ispage=true;
+  pdata.postTitle="SpringBoot与Web开发";
+  pdata.commentPath="";
+  pdata.commentPlaceholder="";
+  // header 这里无论是否开启pjax都需要
+  var l_header=document.getElementById("l_header");
+  
+  l_header.classList.remove("show");
+  
+  
+    // cover
+    var cover_wrapper=document.querySelector('.cover-wrapper');
+    
+    cover_wrapper.id="half";
+    cover_wrapper.style.display="";
+    
+  
+</script>
+
+        </div>
+        
+  
+  <footer class="footer clearfix">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+  
+    <meting-js
+      theme='#1BCDFC'
+      volume='0.7'
+      loop='all'
+      order='list'
+      fixed='false'
+      list-max-height='320px'
+      server='netease'
+      type='playlist'
+      id='754595573'
+      list-folded='true'>
+    </meting-js>
+  
+
+
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+          
+            
+          
+            
+          
+        </div>
+      
+    
+      
+        
+          <div><p><span id="lc-sv">本站总访问量为 <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span> 次</span> <span id="lc-uv">访客数为 <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span> 人</span></p>
+</div>
+        
+      
+    
+      
+        本站使用
+        <a href="https://github.com/volantis-x/hexo-theme-volantis/tree/4.3.1" target="_blank" class="codename">Volantis</a>
+        作为主题
+      
+    
+      
+        
+          <div><p><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">网站备案号：皖ICP备19016733号</a></p>
+</div>
+        
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="/">Copyright © 2018-2021 ChasingWind</a></p>
+
+        </div>
+      
+    
+  </footer>
+
+
+        <a id="s-top" class="fas fa-arrow-up fa-fw" href="javascript:void(0)"></a>
+      </div>
+    </div>
+    <div>
+      <script>
+/************这个文件存放不需要重载的全局变量和全局函数*********/
+window.volantis={};
+window.volantis.loadcss=document.getElementById("loadcss");
+/******************** Pjax ********************************/
+function VPjax(){
+	this.list=[] // 存放回调函数
+	this.start=()=>{
+	  for(var i=0;i<this.list.length;i++){
+		this.list[i].run();
+	  }
+	}
+	this.push=(fn,name)=>{
+		var f=new PjaxItem(fn,name);
+		this.list.push(f);
+	}
+	// 构造一个可以run的对象
+	function PjaxItem(fn,name){
+		// 函数名称
+		this.name = name || fn.name
+		// run方法
+		this.run=()=>{
+			fn()
+		}
+	}
+}
+volantis.pjax={}
+volantis.pjax.method={
+	complete: new VPjax(),
+	error: new VPjax(),
+	send: new VPjax()
+}
+volantis.pjax={
+	...volantis.pjax,
+	push: volantis.pjax.method.complete.push,
+	error: volantis.pjax.method.error.push,
+	send: volantis.pjax.method.send.push
+}
+/********************脚本懒加载函数********************************/
+// 已经加入了setTimeout
+function loadScript(src, cb) {
+	setTimeout(function() {
+		var HEAD = document.getElementsByTagName('head')[0] || document.documentElement;
+		var script = document.createElement('script');
+		script.setAttribute('type','text/javascript');
+		if (cb) script.onload = cb;
+		script.setAttribute('src', src);
+		HEAD.appendChild(script);
+	});
+}
+//https://github.com/filamentgroup/loadCSS
+var loadCSS = function( href, before, media, attributes ){
+	var doc = window.document;
+	var ss = doc.createElement( "link" );
+	var ref;
+	if( before ){
+		ref = before;
+	}
+	else {
+		var refs = ( doc.body || doc.getElementsByTagName( "head" )[ 0 ] ).childNodes;
+		ref = refs[ refs.length - 1];
+	}
+	var sheets = doc.styleSheets;
+	if( attributes ){
+		for( var attributeName in attributes ){
+			if( attributes.hasOwnProperty( attributeName ) ){
+				ss.setAttribute( attributeName, attributes[attributeName] );
+			}
+		}
+	}
+	ss.rel = "stylesheet";
+	ss.href = href;
+	ss.media = "only x";
+	function ready( cb ){
+		if( doc.body ){
+			return cb();
+		}
+		setTimeout(function(){
+			ready( cb );
+		});
+	}
+	ready( function(){
+		ref.parentNode.insertBefore( ss, ( before ? ref : ref.nextSibling ) );
+	});
+	var onloadcssdefined = function( cb ){
+		var resolvedHref = ss.href;
+		var i = sheets.length;
+		while( i-- ){
+			if( sheets[ i ].href === resolvedHref ){
+				return cb();
+			}
+		}
+		setTimeout(function() {
+			onloadcssdefined( cb );
+		});
+	};
+	function loadCB(){
+		if( ss.addEventListener ){
+			ss.removeEventListener( "load", loadCB );
+		}
+		ss.media = media || "all";
+	}
+	if( ss.addEventListener ){
+		ss.addEventListener( "load", loadCB);
+	}
+	ss.onloadcssdefined = onloadcssdefined;
+	onloadcssdefined( loadCB );
+	return ss;
+};
+</script>
+<script>
+  
+  loadCSS("https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14/css/all.min.css", window.volantis.loadcss);
+  
+  
+  
+  
+</script>
+<!-- required -->
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5/dist/jquery.min.js"></script>
+
+<script>
+  function pjax_fancybox() {
+    $(".md .gallery").find("img").each(function () { //渲染 fancybox
+      var element = document.createElement("a"); // a 标签
+      $(element).attr("class", "fancybox");
+      $(element).attr("pjax-fancybox", "");  // 过滤 pjax
+      $(element).attr("href", $(this).attr("src"));
+      if ($(this).attr("data-original")) {
+        $(element).attr("href", $(this).attr("data-original"));
+      }
+      $(element).attr("data-fancybox", "images");
+      var caption = "";   // 描述信息
+      if ($(this).attr('alt')) {  // 判断当前页面是否存在描述信息
+        $(element).attr('data-caption', $(this).attr('alt'));
+        caption = $(this).attr('alt');
+      }
+      var div = document.createElement("div");
+      $(div).addClass("fancybox");
+      $(this).wrap(div); // 最外层套 div ，其实主要作用还是 class 样式
+      var span = document.createElement("span");
+      $(span).addClass("image-caption");
+      $(span).text(caption); // 加描述
+      $(this).after(span);  // 再套一层描述
+      $(this).wrap(element);  // 最后套 a 标签
+    })
+    $(".md .gallery").find("img").fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+      closeClick: true,
+      helpers: {
+        overlay: {closeClick: true}
+      },
+      buttons: [
+        "zoom",
+        "close"
+      ]
+    });
+  };
+  function SCload_fancybox() {
+    if ($(".md .gallery").find("img").length == 0) return;
+    loadCSS("https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css", document.getElementById("loadcss"));
+    loadScript('https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', pjax_fancybox)
+  };
+  $(function () {
+    SCload_fancybox();
+  });
+  function Pjax_SCload_fancybox(){
+	if (typeof $.fancybox == "undefined") {
+	 SCload_fancybox();
+    } else {
+	 pjax_fancybox();
+    }
+  }
+  volantis.pjax.push(Pjax_SCload_fancybox)
+  volantis.pjax.send(()=>{
+      if (typeof $.fancybox != "undefined") {
+        $.fancybox.close();    // 关闭弹窗
+      }
+  },'fancybox')
+</script>
+
+
+<!-- internal -->
+
+  
+  
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js"></script>
+
+    <script type="text/javascript">
+        var imgs=["https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/001.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/002.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/003.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/004.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/005.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/006.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/012.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/016.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/019.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/025.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/033.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/034.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/035.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/038.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/039.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/042.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/046.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/051.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/052.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/054.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/056.jpg"];
+        if ('true' == 'true') {
+          function shuffle(arr){
+            /*From countercurrent-time*/
+            var n = arr.length;
+            while(n--) {
+              var index = Math.floor(Math.random() * n);
+              var temp = arr[index];
+              arr[index] = arr[n];
+              arr[n] = temp;
+            }
+          }
+          shuffle(imgs);
+        }
+	  function Pjax_backstretch(){
+        
+          $.backstretch(
+            imgs,
+          {
+            duration: "10000",
+            fade: "1500"
+          });
+        
+	  }
+	  loadScript("https://cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js",Pjax_backstretch)
+    </script>
+  
+
+
+
+  
+  
+
+  <div id="rightmenu-wrapper">
+    <ul class="list-v rightmenu" id="rightmenu-content">
+      <li class='option'>
+        <a class='vlts-menu opt fix-cursor-default' id='menu-copy-text' onclick="document.execCommand('copy')"><i class='fa fa-copy fa-fw'></i>复制文本</a>
+        <hr id='hr-text'>
+        <a class='vlts-menu opt fix-cursor-default' id='menu-copy-href'><i class='fa fa-link fa-fw'></i>复制链接</a>
+        <a class='vlts-menu opt fix-cursor-default' id='menu-open-href'><i class='fa fa-external-link-square-alt fa-fw'></i>在新标签页打开</a>
+        <hr id='hr-href'>
+        <a class='vlts-menu opt fix-cursor-default' id='menu-copy-src'><i class='fa fa-image fa-fw'></i>复制图片地址</a>
+        <hr id='hr-src'>
+      </li>
+      
+        <li class='navigation'>
+          <a class='nav icon-only fix-cursor-default' onclick='history.back()'><i class='fa fa-arrow-left fa-fw'></i></a>
+          <a class='nav icon-only fix-cursor-default' onclick='history.forward()'><i class='fa fa-arrow-right fa-fw'></i></a>
+          <a class='nav icon-only fix-cursor-default' onclick='window.location.reload()'><i class='fa fa-redo fa-fw'></i></a>
+          <a class='nav icon-only fix-cursor-default' href='/'><i class='fa fa-home fa-fw'></i></a>
+        </li>
+      
+      <hr>
+      
+        
+      
+        
+          
+    <li>
+      <a class='vlts-menu fix-cursor-default toggle-mode-btn' 
+        
+        
+        
+        >
+        <i class='fas fa-moon fa-fw'></i> Dark mode
+      </a>
+    </li>
+  
+        
+      
+        
+          <hr>
+        
+      
+        
+          <li class='music name'>
+            <p class='nav music-title fix-cursor-default'></p>
+          </li>
+          <li class='music ctrl'>
+            <a class='nav icon-only backward fix-cursor-default' onclick='aplayerBackward()'><i class='fa fa-step-backward fa-fw'></i></a>
+            <a class='nav icon-only toggle fix-cursor-default' onclick='aplayerToggle()'><i class='fa fa-play fa-fw'></i></a>
+            <a class='nav icon-only forward fix-cursor-default' onclick='aplayerForward()'><i class='fa fa-step-forward fa-fw'></i></a>
+          </li>
+          <li class='music volume'>
+            <a class='nav volume'>
+              <div class="aplayer-volume-bar-wrap">
+                <div class="aplayer-volume-bar fix-cursor-pointer">
+                  <div class="aplayer-volume"></div>
+                  <i class='left fa fa-volume-off fa-fw'></i>
+                  <i class='right fa fa-volume-up fa-fw'></i>
+                </div>
+              </div>
+            </a>
+          </li>
+        
+      
+    </ul>
+  </div>
+
+  <script>
+    window.document.oncontextmenu = function (event) {
+      if (event.ctrlKey) return true;
+      if (/Android|webOS|BlackBerry/i.test(navigator.userAgent)) return true;
+      return popMenu(event);
+    };
+    document.addEventListener("click", function (event) {
+      var mymenu = document.getElementById('rightmenu-wrapper');
+      mymenu.style.display = "none";
+    });
+    function popMenu(event) {
+      var mymenu = document.getElementById('rightmenu-wrapper');
+      var menuContent = document.getElementById('rightmenu-content');
+      var screenWidth = document.documentElement.clientWidth || document.body.clientWidth;
+      var screenHeight = document.documentElement.clientHeight || document.body.clientHeight;
+      mymenu.style.left = event.clientX + "px"; // 获取鼠标位置
+      mymenu.style.top = event.clientY + "px";
+      mymenu.style.display = 'block';
+      if (event.clientX * 2 > screenWidth) {
+        menuContent.classList.add('left');
+      } else {
+        menuContent.classList.remove('left');
+      }
+      if (event.clientY * 2 > screenHeight) {
+        menuContent.classList.add('top');
+      } else {
+        menuContent.classList.remove('top');
+      }
+
+      let hrText = document.getElementById('hr-text');
+      let hrSrc = document.getElementById('hr-src');
+      let hrHref = document.getElementById('hr-href');
+
+      // 选中图片
+      let copySrc = document.getElementById('menu-copy-src');
+      if (copySrc != undefined) {
+        if (event.target.currentSrc) {
+          copySrc.style.display = 'block';
+          copySrc.addEventListener("click", function (e) {
+            copyString(event.target.currentSrc);
+          },{once: true});
+          hrSrc.style.display = 'block';
+        } else {
+          copySrc.style.display = 'none';
+          hrSrc.style.display = 'none';
+        }
+      }
+
+      // 选中按钮
+      // 判断是不是按钮
+      let href = '';
+      if (event.path) {
+        for (i = 0; i < event.path.length; i++) {
+          if (event.path[i].href != undefined && event.path[i].href.length > 0) {
+            href = event.path[i].href;
+          }
+        }
+      }
+
+      let copyText = document.getElementById('menu-copy-text');
+      copyText.style.display = 'none';
+      hrText.style.display = 'none';
+      if (href.length == 0) {
+        // 选中文本
+        if (window.getSelection().toString()) {
+          if ('' == 'true') {
+            copyText.style.display = 'block';
+            hrText.style.display = 'block';
+          }
+        }
+      }
+
+      // 在新标签页打开
+      let openHref = document.getElementById('menu-open-href');
+      if (openHref != undefined) {
+        if (href.length > 0) {
+          openHref.style.display = 'block';
+          openHref.addEventListener("click", function (e) {
+            window.open(href);
+          },{once: true});
+          hrHref.style.display = 'block';
+        } else {
+          openHref.style.display = 'none';
+          hrHref.style.display = 'none';
+        }
+      }
+      // 复制链接
+      let copyHref = document.getElementById('menu-copy-href');
+      if (copyHref != undefined) {
+        if (href.length > 0) {
+          copyHref.style.display = 'block';
+          copyHref.addEventListener("click", function (e) {
+            copyString(href);
+          },{once: true});
+        } else {
+          copyHref.style.display = 'none';
+        }
+      }
+      // 有音乐播放器 see: layout/_third-party/aplayer/script.ejs
+      
+      if(volantis.APlayerLoaded){ // APlayer加载完成？
+        // 如果有aplayer，初始化一下
+        checkAPlayer();
+      }
+      
+      return false; // 该行代码确保系统自带的右键菜单不会被调出
+    }
+    function hideMenu() {
+      document.getElementById('rightmenu-wrapper').style.display = 'none';
+    }
+    function copyString(str) {
+      const input = document.createElement('input');
+      input.setAttribute('readonly', 'readonly');
+      document.body.appendChild(input);
+      input.setAttribute('value', str);
+      input.select();
+      document.execCommand('copy');
+      document.body.removeChild(input);
+    }
+    document.execCommand('click');
+  </script>
+
+
+
+
+<script>
+  function loadIssuesJS() {
+    if ($(".md").find(".issues-api").length == 0) return;
+	
+	  loadScript('/js/issues.js');
+	
+  };
+  $(function () {
+    loadIssuesJS();
+  });
+  volantis.pjax.push(()=>{
+	if (typeof IssuesAPI == "undefined") {
+	  loadIssuesJS();
+	}
+  },"IssuesJS")
+</script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 0
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    lazyLoadInstance.update();
+  });
+  document.addEventListener('pjax:complete', function () {
+    lazyLoadInstance.update();
+  });
+</script>
+
+
+
+
+  
+
+<script>
+  window.FPConfig = {
+	delay: 0,
+	ignoreKeywords: [],
+	maxRPS: 5,
+	hoverDelay: 25
+  };
+</script>
+<script defer src="https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"></script>
+
+
+
+
+
+
+
+
+
+  <script>
+  let APlayerController = new Object();
+  APlayerController.id = '754595573';  // 设定全局音乐播放ID
+  APlayerController.volume = '0.7';
+  APlayerController.autoPlay = 'false';
+  loadCSS("https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css", window.volantis.loadcss);
+  // APlayer 需要在  MetingJS 之前加载
+  loadScript("https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js")
+  window.volantis.APlayerLoaded=0 // APlayer加载完成状态
+  var checkAPlayer = setInterval(function () {
+    if (!window.APlayer) return // APlayer加载完成？
+	  if ($("#safearea").css("display")!="block") return // 文章内容加载完成？ see: source/css/first.styl
+    clearInterval(checkAPlayer)
+	  if (!window.volantis.APlayerLoaded&&!window.MetingJSElement){ // APlayer只能加载一次
+      window.volantis.APlayerLoaded=1 // APlayer加载完成
+      loadScript("https://cdn.jsdelivr.net/npm/meting@2.0/dist/Meting.min.js") // 加载 MetingJS
+	  }
+  }, 2500) // 按照网速调节差分2.5s
+  // rightmenu see: layout/_partial/rightmenu.ejs
+
+  
+    loadScript("/js/aplayer.js")
+  
+
+</script>
+
+
+
+
+  
+  
+<script src="/js/valine.js"></script>
+
+
+<script>
+  function emoji(path, idx, ext) {
+    return path + "/" + path + "-" + idx + "." + ext;
+  }
+  var emojiMaps = {};
+  for (var i = 1; i <= 54; i++) {
+    emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+  }
+  for (var i = 1; i <= 101; i++) {
+    emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+  }
+  for (var i = 1; i <= 116; i++) {
+    emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+  }
+  for (var i = 1; i <= 125; i++) {
+    emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+  }
+  for (var i = 1; i <= 4; i++) {
+    emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+  }
+  function pjax_valine() {
+    if(!document.querySelectorAll("#valine_container")[0])return;
+    let pagePlaceholder = pdata.commentPlaceholder || "快来评论吧~";
+    let path = pdata.commentPath;
+    if (path.length == 0) {
+      let defaultPath = '';
+      path = defaultPath || decodeURI(window.location.pathname);
+    }
+    var valine = new Valine();
+    valine.init(Object.assign({"path":null,"placeholder":"快来评论吧~","appId":null,"appKey":null,"meta":["nick","mail","link"],"requiredFields":["nick","mail"],"enableQQ":true,"recordIP":false,"avatar":"robohash","pageSize":10,"lang":"zh-cn","highlight":true,"mathJax":false}, {
+      el: '#valine_container',
+      path: path,
+      placeholder: pagePlaceholder,
+      emojiCDN: 'https://cdn.jsdelivr.net/gh/volantis-x/cdn-emoji/valine/',
+      emojiMaps: emojiMaps,
+    }))
+  }
+  $(function () {
+    pjax_valine();
+  });
+  volantis.pjax.push(pjax_valine);
+</script>
+
+
+
+
+
+
+  
+<script src="/js/app.js"></script>
+
+
+
+<!-- optional -->
+
+  <script>
+const SearchServiceimagePath="https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@master/img/";
+const ROOT =  ("/" || "/").endsWith('/') ? ("/" || "/") : ("//" || "/" );
+
+$('.input.u-search-input').one('focus',function(){
+	
+		loadScript('/js/search/hexo.js',setSearchService);
+	
+})
+
+function listenSearch(){
+  
+    customSearch = new HexoSearch({
+      imagePath: SearchServiceimagePath
+    });
+  
+}
+function setSearchService() {
+	listenSearch();
+	
+		document.addEventListener("pjax:success", listenSearch);
+	
+}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  <script defer>
+
+  const LCCounter = {
+    app_id: 'geHH6vdoVq9LpPQTAtb6CxW5-gzGzoHsz',
+    app_key: 'NqX0R9487fsiAaloOO5VxE4u',
+    custom_api_server: '',
+
+    // 查询存储的记录
+    getRecord(Counter, url, title) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({url})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {url, title: title, times: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    },
+
+    // 发起自增请求
+    increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    },
+
+    // 构建自增请求体
+    buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "times": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    },
+
+    // 校验是否为有效的 UV
+    validUV() {
+      var key = 'LeanCloudUVTimestamp';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    },
+
+    addCount(Counter) {
+      var enableIncr = '' === 'true' && window.location.hostname !== 'localhost';
+      enableIncr = true;
+      var getterArr = [];
+      var incrArr = [];
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#lc-sv');
+      if (pvCtn || enableIncr) {
+        var pvGetter = this.getRecord(Counter, 'https://www.chasingwind.top' + '/#lc-sv', 'Visits').then((record) => {
+          incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-sv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + 1;
+              if (pvCtn) {
+                pvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#lc-uv');
+      if (uvCtn || enableIncr) {
+        var uvGetter = this.getRecord(Counter, 'https://www.chasingwind.top' + '/#lc-uv', 'Visitors').then((record) => {
+          var vuv = this.validUV();
+          vuv && incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-uv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + (vuv ? 1 : 0);
+              if (uvCtn) {
+                uvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 请求文章的浏览数，如果是当前页面就自增
+      var allPV = document.querySelectorAll('#lc-pv');
+      if (allPV.length > 0 || enableIncr) {
+        for (i = 0; i < allPV.length; i++) {
+          let pv = allPV[i];
+          let title = pv.getAttribute('data-title');
+          var url = 'https://www.chasingwind.top' + pv.getAttribute('data-path');
+          if (url) {
+            var viewGetter = this.getRecord(Counter, url, title).then((record) => {
+              // 是当前页面就自增
+              let curPath = window.location.pathname;
+              if (curPath.includes('index.html')) {
+                curPath = curPath.substring(0, curPath.lastIndexOf('index.html'));
+              }
+              if (pv.getAttribute('data-path') == curPath) {
+                incrArr.push(this.buildIncrement(record.objectId));
+              }
+              if (pv) {
+                var ele = pv.querySelector('#lc-pv #number');
+                if (ele) {
+                  if (pv.getAttribute('data-path') == curPath) {
+                    ele.innerText = (record.times || 0) + 1;
+                  } else {
+                    ele.innerText = record.times || 0;
+                  }
+                  pv.style.display = 'inline';
+                }
+              }
+            });
+            getterArr.push(viewGetter);
+          }
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && this.increment(Counter, incrArr);
+        })
+      }
+
+    },
+
+
+    fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': this.app_id,
+            'X-LC-Key': this.app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      this.addCount(Counter);
+    },
+
+    refreshCounter() {
+      var api_server = this.app_id.slice(-9) !== '-MdYXbMMI' ? this.custom_api_server : `https://${ this.app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+      if (api_server) {
+        this.fetchData(api_server);
+      } else {
+        fetch('https://app-router.leancloud.cn/2/route?appId=' + this.app_id)
+          .then(resp => resp.json())
+          .then(({api_server}) => {
+            this.fetchData('https://' + api_server);
+          });
+      }
+    }
+
+  };
+
+  LCCounter.refreshCounter();
+
+  document.addEventListener('pjax:complete', function () {
+    LCCounter.refreshCounter();
+  });
+</script>
+
+
+
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/Colsrch/CDN@master/judge_time/js.js"></script>
+<script>
+const rootElement = document.documentElement;
+const darkModeStorageKey = "user-color-scheme";
+const rootElementDarkModeAttributeName = "data-user-color-scheme";
+
+const setLS = (k, v) => {
+    localStorage.setItem(k, v);
+};
+
+const removeLS = (k) => {
+    localStorage.removeItem(k);
+};
+
+const getLS = (k) => {
+    return localStorage.getItem(k);
+};
+
+const getModeFromCSSMediaQuery = () => {
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
+};
+
+const resetRootDarkModeAttributeAndLS = () => {
+  rootElement.removeAttribute(rootElementDarkModeAttributeName);
+  removeLS(darkModeStorageKey);
+};
+
+const validColorModeKeys = {
+  dark: true,
+  light: true,
+};
+
+const applyCustomDarkModeSettings = (mode) => {
+  const currentSetting = mode || getLS(darkModeStorageKey);
+
+  if (currentSetting === getModeFromCSSMediaQuery()) {
+    resetRootDarkModeAttributeAndLS();
+  } else if (validColorModeKeys[currentSetting]) {
+    rootElement.setAttribute(rootElementDarkModeAttributeName, currentSetting);
+  } else {
+    resetRootDarkModeAttributeAndLS();
+  }
+};
+
+const invertDarkModeObj = {
+  dark: "light",
+  light: "dark",
+};
+
+/**
+ * get target mode
+ */
+const toggleCustomDarkMode = () => {
+  let currentSetting = getLS(darkModeStorageKey);
+
+  if (validColorModeKeys[currentSetting]) {
+    currentSetting = invertDarkModeObj[currentSetting];
+  } else if (currentSetting === null) {
+    currentSetting = invertDarkModeObj[getModeFromCSSMediaQuery()];
+  } else {
+    return;
+  }
+  setLS(darkModeStorageKey, currentSetting);
+  return currentSetting;
+};
+
+/**
+ * bind click event for toggle button
+ */
+var btn=$("#wrapper .toggle-mode-btn,#rightmenu-wrapper .toggle-mode-btn");
+function bindToggleButton() {
+    btn.on('click',(e) => {
+      const mode = toggleCustomDarkMode();
+      applyCustomDarkModeSettings(mode);
+    });
+}
+
+applyCustomDarkModeSettings();
+document.addEventListener("DOMContentLoaded", bindToggleButton);
+volantis.pjax.push(bindToggleButton);
+volantis.pjax.send(()=>{
+	btn.unbind('click');
+},'toggle-mode-btn-unbind');
+
+// 自动夜间模式
+if (navigator.geolocation) {   //获取地理位置 用于判断日出日落时间
+    navigator.geolocation.getCurrentPosition(
+      function (position) {
+        var res = computeSunRiseSunSet(position.coords.latitude, position.coords.longitude, 8);
+        console.log(res.str)
+        adjust_time(res.strSunRise, res.strSunSet, "08:00", "12:00", "14:00", "23:00")
+      },
+      function (e) {
+        adjust_time("7:00", "17:30", "08:00", "12:00", "14:00", "23:00")  //未允许获取地理位置时，使用默认时间
+        console.log("未允许获取地理位置，使用默认配置时间")
+        throw (e.message);
+      }
+    )
+  }
+function adjust_time(beginTime, endTime, morningTime, noonTime, afternoonTime, nightTime) {
+  const rootElement = document.documentElement;
+  var strb = beginTime.split(":");
+  if (strb.length != 2) {
+    return false;
+  }
+
+  var stre = endTime.split(":");
+  if (stre.length != 2) {
+    return false;
+  }
+
+  var strmorning = morningTime.split(":");   //12点
+  if (stre.length != 2) {
+    return false;
+  }
+
+  var strnoon = noonTime.split(":");   //12点
+  if (stre.length != 2) {
+    return false;
+  }
+
+  var strafternoon = afternoonTime.split(":");   //13点
+  if (stre.length != 2) {
+    return false;
+  }
+
+  var strnight = nightTime.split(":");   //23点
+  if (stre.length != 2) {
+    return false;
+  }
+
+  var b = new Date();
+  var e = new Date();
+  var n = new Date();
+  var morning = new Date();
+  var noon = new Date();
+  var afternoon = new Date();
+  var night = new Date();
+
+  b.setHours(strb[0]);
+  b.setMinutes(strb[1]);
+  e.setHours(stre[0]);
+  e.setMinutes(stre[1]);
+  morning.setHours(strmorning[0]);
+  morning.setMinutes(strmorning[1]);
+  noon.setHours(strnoon[0]);
+  noon.setMinutes(strnoon[1]);
+  afternoon.setHours(strafternoon[0]);
+  afternoon.setMinutes(strafternoon[1]);
+  night.setHours(strnight[0]);
+  night.setMinutes(strnight[1]);
+
+
+  $.getJSON("https://v1.hitokoto.cn", function (hitokoto) {
+    //在这里面处理获得的数据
+    if (n.getTime() - b.getTime() > 0 && n.getTime() - e.getTime() < 0) {
+      var daytimetitle = ''
+      var daytimemessage = ''
+      if (n.getTime() - morning.getTime() < 0) {
+        // 早上
+        daytimetitle = '早安'
+      }
+      else if (n.getTime() - noon.getTime() < 0) {
+        // 上午
+        daytimetitle = '上午好'
+      }
+      else if (n.getTime() - afternoon.getTime() < 0) {
+        // 中午
+        daytimetitle = '中午好'
+        daytimemessage = '<br>要注意休息哦~'
+      }
+      else {
+        // 下午
+        daytimetitle = '下午好'
+      }
+      // 判断是否已经开启夜间模式
+      if (rootElement.getAttribute('data-user-color-scheme', 'dark')) {
+        // 已开启夜间模式，修改按钮状态
+        $.message({ title: '操作通知', message: daytimetitle + '，已自动为您切换为日间模式。<br>' + hitokoto.hitokoto + daytimemessage, type: 'success' });
+        const mode = toggleCustomDarkMode();
+        applyCustomDarkModeSettings(mode);
+      }
+      else {
+        // 未开启夜间模式，不执行操作
+        $.message({ title: daytimetitle, message: hitokoto.hitokoto + daytimemessage, type: 'info' });
+        return true;
+      }
+    } else {
+      // 晚上
+      var nighttitle = ''
+      var nightmessage = ''
+      if (night.getTime() - n.getTime() < 0 || n.getTime() - b.getTime() < 0) {
+        nighttitle = '夜深了'
+        nightmessage = '<br>该睡觉啦~'
+      }
+      else {
+        nighttitle = '晚上好'
+        nightmessage = '<br>吃晚饭了吗？要注意眼睛哦。'
+      }
+      // 判断是否已经开启夜间模式
+      if (rootElement.getAttribute('data-user-color-scheme', 'dark')) {
+        // 已开启夜间模式，不执行操作
+        $.message({ title: nighttitle, message: hitokoto.hitokoto + nightmessage, type: 'info' });
+        return true;
+      }
+      else {
+        // 未开启夜间模式，修改按钮状态
+        $.message({ title: '操作通知', message: nighttitle + '，已自动为您切换为夜间模式。<br>' + hitokoto.hitokoto + nightmessage, type: 'success' });
+        const mode = toggleCustomDarkMode();
+        applyCustomDarkModeSettings(mode);
+      }
+    }
+  });
+}
+</script>
+
+
+
+
+
+
+
+
+<script>
+function listennSidebarTOC() {
+  const navItems = document.querySelectorAll(".toc li");
+  if (!navItems.length) return;
+  const sections = [...navItems].map((element) => {
+    const link = element.querySelector(".toc-link");
+    const target = document.getElementById(
+      decodeURI(link.getAttribute("href")).replace("#", "")
+    );
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      window.scrollTo({
+		top: target.offsetTop + 100,
+		
+		behavior: "smooth"
+		
+	  });
+    });
+    return target;
+  });
+
+  function activateNavByIndex(target) {
+    if (target.classList.contains("active-current")) return;
+
+    document.querySelectorAll(".toc .active").forEach((element) => {
+      element.classList.remove("active", "active-current");
+    });
+    target.classList.add("active", "active-current");
+    let parent = target.parentNode;
+    while (!parent.matches(".toc")) {
+      if (parent.matches("li")) parent.classList.add("active");
+      parent = parent.parentNode;
+    }
+  }
+
+  function findIndex(entries) {
+    let index = 0;
+    let entry = entries[index];
+    if (entry.boundingClientRect.top > 0) {
+      index = sections.indexOf(entry.target);
+      return index === 0 ? 0 : index - 1;
+    }
+    for (; index < entries.length; index++) {
+      if (entries[index].boundingClientRect.top <= 0) {
+        entry = entries[index];
+      } else {
+        return sections.indexOf(entry.target);
+      }
+    }
+    return sections.indexOf(entry.target);
+  }
+
+  function createIntersectionObserver(marginTop) {
+    marginTop = Math.floor(marginTop + 10000);
+    let intersectionObserver = new IntersectionObserver(
+      (entries, observe) => {
+        let scrollHeight = document.documentElement.scrollHeight + 100;
+        if (scrollHeight > marginTop) {
+          observe.disconnect();
+          createIntersectionObserver(scrollHeight);
+          return;
+        }
+        let index = findIndex(entries);
+        activateNavByIndex(navItems[index]);
+      },
+      {
+        rootMargin: marginTop + "px 0px -100% 0px",
+        threshold: 0,
+      }
+    );
+    sections.forEach((element) => {
+      element && intersectionObserver.observe(element);
+    });
+  }
+  createIntersectionObserver(document.documentElement.scrollHeight);
+}
+
+document.addEventListener("DOMContentLoaded", listennSidebarTOC);
+document.addEventListener("pjax:success", listennSidebarTOC);
+</script>
+
+<!-- more -->
+
+ 
+	   
+	    
+
+
+<script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script>
+
+
+<script>
+    var pjax;
+    document.addEventListener('DOMContentLoaded', function () {
+      pjax = new Pjax({
+        elements: 'a[href]:not([href^="#"]):not([href="javascript:void(0)"]):not([pjax-fancybox])',
+        selectors: [
+          "title",
+          
+          "#pjax-container",
+          "#pjax-header-nav-list"
+        ],
+        cacheBust: false,   // url 地址追加时间戳，用以避免浏览器缓存
+        timeout: 5000
+      });
+    });
+
+    document.addEventListener('pjax:send', function (e) {
+      //window.stop(); // 相当于点击了浏览器的停止按钮
+
+      try {
+        var currentUrl = window.location.pathname;
+        var targetUrl = e.triggerElement.href;
+        var banUrl = [""];
+        if (banUrl[0] != "") {
+          banUrl.forEach(item => {
+            if(currentUrl.indexOf(item) != -1 || targetUrl.indexOf(item) != -1) {
+              window.location.href = targetUrl;
+            }
+          });
+        }
+      } catch (error) {}
+
+      window.subData = null; // 移除标题（用于一二级导航栏切换处）
+
+      volantis.$switcher.removeClass('active'); // 关闭移动端激活的搜索框
+      volantis.$header.removeClass('z_search-open'); // 关闭移动端激活的搜索框
+      volantis.$wrapper.removeClass('sub'); // 跳转页面时关闭二级导航
+
+      // 解绑事件 避免重复监听
+      volantis.$topBtn.unbind('click');
+      $('.menu a').unbind('click');
+      $(window).unbind('resize');
+      $(window).unbind('scroll');
+      $(document).unbind('scroll');
+      $(document).unbind('click');
+      $('body').unbind('click');
+	  // 使用 volantis.pjax.send 方法传入pjax:send回调函数 参见layout/_partial/scripts/global.ejs
+	  volantis.pjax.method.send.start();
+    });
+
+    document.addEventListener('pjax:complete', function () {
+      $('.nav-main').find('.list-v').not('.menu-phone').removeAttr("style",""); // 移除小尾巴的移除
+      $('.menu-phone.list-v').removeAttr("style",""); // 移除小尾巴的移除
+      $('script[data-pjax], .pjax-reload script').each(function () {
+        $(this).parent().append($(this).remove());
+      });
+      try{
+		// 使用 volantis.pjax.push 方法传入重载函数 参见layout/_partial/scripts/global.ejs
+		volantis.pjax.method.complete.start();
+      } catch (e) {
+        console.log(e);
+      }
+    });
+
+    document.addEventListener('pjax:error', function (e) {
+	  // 使用 volantis.pjax.error 方法传入pjax:error回调函数 参见layout/_partial/scripts/global.ejs
+	  volantis.pjax.method.error.start();
+      window.location.href = e.triggerElement.href;
+    });
+</script>
+ 
+	  
+    </div>
+  </body>
+</html>
