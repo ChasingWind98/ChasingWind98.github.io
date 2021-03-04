@@ -28,7 +28,7 @@
   
 
   
-    <meta name="description" content="之前讲解的是Maven的基础使用，本节讲解的是Maven的高级应用，主要是Maven项目的拆分与聚合的思想以及实际操作，并且介绍了Maven的远程仓库和私服的概念">
+    <meta name="description" content="Maven 是一个项目管理工具，它包含了一个项目对象模 型 (POM：Project Object Model)，一组标准集合，一个项目生命周期(Project Lifecycle)，一个依赖管 理系统(Dependency Management System)，和用来运行定义在生命周期阶段(phase)中插件(...">
   
 
   <!-- feed -->
@@ -450,7 +450,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     <div class='headimg-div'>
       <a class='headimg-a'>
-        <img class='headimg' src='http://blog.chasingwind.top/maven.png'/>
+        <img class='headimg' src='https://blog.chasingwind.top/maven.png'/>
       </a>
     </div>
   
@@ -497,10 +497,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           
         
           
-            <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-02-08T15:56:43+08:00">
+            <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-03-04T08:50:12+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：2021年2月8日</p>
+    <p>更新于：2021年3月4日</p>
   </a>
 </div>
 
@@ -534,7 +534,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
   
   
-  <p>之前讲解的是Maven的基础使用，本节讲解的是Maven的高级应用，主要是Maven项目的拆分与聚合的思想以及实际操作，并且介绍了Maven的远程仓库和私服的概念</p>
+  <p>Maven 是一个项目管理工具，它包含了一个项目对象模 型 (POM：Project Object Model)，一组标准集合，一个项目生命周期(Project Lifecycle)，一个依赖管 理系统(Dependency Management System)，和用来运行定义在生命周期阶段(phase)中插件(plugin)目标 (goal)的逻辑。</p>
 <a id="more"></a>
 
 
@@ -567,7 +567,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <li><p>解压即可</p>
 <blockquote>
 <p>目录结构</p>
-<p><img src="http://blog.chasingwind.top/Maven%E5%9F%BA%E7%A1%80/1565098035638.png" class="lazyload" data-srcset="http://blog.chasingwind.top/Maven%E5%9F%BA%E7%A1%80/1565098035638.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="https://blog.chasingwind.top/Maven%E5%9F%BA%E7%A1%80/1565098035638.png" class="lazyload" data-srcset="https://blog.chasingwind.top/Maven%E5%9F%BA%E7%A1%80/1565098035638.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <hr>
 <p>bin:存放了 maven 的命令，比如我们前面用到的mvn tomcat:run </p>
 <p>boot:存放了一些 maven 本身的引导程序，如类加载器等 </p>
@@ -578,13 +578,13 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <li><p>进行环境变量的配置</p>
 <blockquote>
 <p>新建系统环境变量</p>
-<p><img src="http://blog.chasingwind.top/Maven%E5%9F%BA%E7%A1%80/1565098213561.png" class="lazyload" data-srcset="http://blog.chasingwind.top/Maven%E5%9F%BA%E7%A1%80/1565098213561.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="https://blog.chasingwind.top/Maven%E5%9F%BA%E7%A1%80/1565098213561.png" class="lazyload" data-srcset="https://blog.chasingwind.top/Maven%E5%9F%BA%E7%A1%80/1565098213561.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <hr>
 <p>在Path中新建环境变量</p>
-<p><img src="http://blog.chasingwind.top/Maven%E5%9F%BA%E7%A1%80/1565098314120.png" class="lazyload" data-srcset="http://blog.chasingwind.top/Maven%E5%9F%BA%E7%A1%80/1565098314120.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="https://blog.chasingwind.top/Maven%E5%9F%BA%E7%A1%80/1565098314120.png" class="lazyload" data-srcset="https://blog.chasingwind.top/Maven%E5%9F%BA%E7%A1%80/1565098314120.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <hr>
 <p>在cmd中输入<code>mvn -v</code>查看版本信息,有的话就表明成功了</p>
-<p><img src="http://blog.chasingwind.top/Maven%E5%9F%BA%E7%A1%80/1565098416274.png" class="lazyload" data-srcset="http://blog.chasingwind.top/Maven%E5%9F%BA%E7%A1%80/1565098416274.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="https://blog.chasingwind.top/Maven%E5%9F%BA%E7%A1%80/1565098416274.png" class="lazyload" data-srcset="https://blog.chasingwind.top/Maven%E5%9F%BA%E7%A1%80/1565098416274.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 </blockquote>
 </li>
 </ol>
@@ -615,7 +615,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <li><p>因为maven默认的本地仓库是在C盘的，可以通过配置把他放在其他的盘</p>
 <blockquote>
 <p>在settings.xml中进行本地仓库的配置并把需要的jar包放进去</p>
-<p><img src="http://blog.chasingwind.top/Maven%E5%9F%BA%E7%A1%80/1565099296537.png" class="lazyload" data-srcset="http://blog.chasingwind.top/Maven%E5%9F%BA%E7%A1%80/1565099296537.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="https://blog.chasingwind.top/Maven%E5%9F%BA%E7%A1%80/1565099296537.png" class="lazyload" data-srcset="https://blog.chasingwind.top/Maven%E5%9F%BA%E7%A1%80/1565099296537.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 </blockquote>
 </li>
 </ul>
@@ -650,32 +650,32 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 </li>
 <li><p>Maven项目模型</p>
 <blockquote>
-<p><img src="http://blog.chasingwind.top/Maven%E5%9F%BA%E7%A1%80/1565101064395.png" class="lazyload" data-srcset="http://blog.chasingwind.top/Maven%E5%9F%BA%E7%A1%80/1565101064395.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="https://blog.chasingwind.top/Maven%E5%9F%BA%E7%A1%80/1565101064395.png" class="lazyload" data-srcset="https://blog.chasingwind.top/Maven%E5%9F%BA%E7%A1%80/1565101064395.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 </blockquote>
 </li>
 <li><p>在IDEA中集成Maven</p>
 <blockquote>
 <p>一定要在这个里面进行设置</p>
-<p><img src="http://blog.chasingwind.top/Maven%E5%9F%BA%E7%A1%80/1565104221471.png" class="lazyload" data-srcset="http://blog.chasingwind.top/Maven%E5%9F%BA%E7%A1%80/1565104221471.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="https://blog.chasingwind.top/Maven%E5%9F%BA%E7%A1%80/1565104221471.png" class="lazyload" data-srcset="https://blog.chasingwind.top/Maven%E5%9F%BA%E7%A1%80/1565104221471.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <hr>
 <p>设置Maven以及Maven仓库</p>
-<p><img src="http://blog.chasingwind.top/Maven%E5%9F%BA%E7%A1%80/1565101332865.png" class="lazyload" data-srcset="http://blog.chasingwind.top/Maven%E5%9F%BA%E7%A1%80/1565101332865.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="https://blog.chasingwind.top/Maven%E5%9F%BA%E7%A1%80/1565101332865.png" class="lazyload" data-srcset="https://blog.chasingwind.top/Maven%E5%9F%BA%E7%A1%80/1565101332865.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <hr>
 <p>配置本地仓库优先</p>
-<p><img src="http://blog.chasingwind.top/Maven%E5%9F%BA%E7%A1%80/1565104287996.png" class="lazyload" data-srcset="http://blog.chasingwind.top/Maven%E5%9F%BA%E7%A1%80/1565104287996.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="https://blog.chasingwind.top/Maven%E5%9F%BA%E7%A1%80/1565104287996.png" class="lazyload" data-srcset="https://blog.chasingwind.top/Maven%E5%9F%BA%E7%A1%80/1565104287996.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 </blockquote>
 </li>
 <li><p>新建Servlet的时候,需要在pom.xml中添加依赖</p>
 <blockquote>
-<p><img src="http://blog.chasingwind.top/Maven%E5%9F%BA%E7%A1%80/1565144849592.png" class="lazyload" data-srcset="http://blog.chasingwind.top/Maven%E5%9F%BA%E7%A1%80/1565144849592.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="https://blog.chasingwind.top/Maven%E5%9F%BA%E7%A1%80/1565144849592.png" class="lazyload" data-srcset="https://blog.chasingwind.top/Maven%E5%9F%BA%E7%A1%80/1565144849592.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <hr>
 <p>关于scope</p>
-<p><img src="http://blog.chasingwind.top/Maven%E5%9F%BA%E7%A1%80/1565144973344.png" class="lazyload" data-srcset="http://blog.chasingwind.top/Maven%E5%9F%BA%E7%A1%80/1565144973344.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="https://blog.chasingwind.top/Maven%E5%9F%BA%E7%A1%80/1565144973344.png" class="lazyload" data-srcset="https://blog.chasingwind.top/Maven%E5%9F%BA%E7%A1%80/1565144973344.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 </blockquote>
 </li>
 <li><p>tomcat7默认使用的是tomcat6  需要在pom.xml中进行配置tomcat7 运行的时候使用tomcat7:run</p>
 <blockquote>
-<p><img src="http://blog.chasingwind.top/Maven%E5%9F%BA%E7%A1%80/1565144875199.png" class="lazyload" data-srcset="http://blog.chasingwind.top/Maven%E5%9F%BA%E7%A1%80/1565144875199.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="https://blog.chasingwind.top/Maven%E5%9F%BA%E7%A1%80/1565144875199.png" class="lazyload" data-srcset="https://blog.chasingwind.top/Maven%E5%9F%BA%E7%A1%80/1565144875199.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <hr>
 <p>并且在运行的时候使用<code>tomcat7:run</code></p>
 </blockquote>
@@ -700,10 +700,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-02-08T15:56:43+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-03-04T08:50:12+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：2021年2月8日</p>
+    <p>更新于：2021年3月4日</p>
   </a>
 </div>
 
@@ -725,7 +725,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.chasingwind.top/2019/08/06/Maven%E5%9F%BA%E7%A1%80/&title=Maven基础 - 追风少年&summary=之前讲解的是Maven的基础使用，本节讲解的是Maven的高级应用，主要是Maven项目的拆分与聚合的思想以及实际操作，并且介绍了Maven的远程仓库和私服的概念"
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.chasingwind.top/2019/08/06/Maven%E5%9F%BA%E7%A1%80/&title=Maven基础 - 追风少年&summary=Maven 是一个项目管理工具，它包含了一个项目对象模 型 (POM：Project Object Model)，一组标准集合，一个项目生命周期(Project Lifecycle)，一个依赖管 理系统(Dependency Management System)，和用来运行定义在生命周期阶段(phase)中插件(plugin)目标 (goal)的逻辑。"
           
           >
           
@@ -737,7 +737,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://www.chasingwind.top/2019/08/06/Maven%E5%9F%BA%E7%A1%80/&title=Maven基础 - 追风少年&summary=之前讲解的是Maven的基础使用，本节讲解的是Maven的高级应用，主要是Maven项目的拆分与聚合的思想以及实际操作，并且介绍了Maven的远程仓库和私服的概念"
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://www.chasingwind.top/2019/08/06/Maven%E5%9F%BA%E7%A1%80/&title=Maven基础 - 追风少年&summary=Maven 是一个项目管理工具，它包含了一个项目对象模 型 (POM：Project Object Model)，一组标准集合，一个项目生命周期(Project Lifecycle)，一个依赖管 理系统(Dependency Management System)，和用来运行定义在生命周期阶段(phase)中插件(plugin)目标 (goal)的逻辑。"
           
           >
           
@@ -749,7 +749,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.chasingwind.top/2019/08/06/Maven%E5%9F%BA%E7%A1%80/&title=Maven基础 - 追风少年&summary=之前讲解的是Maven的基础使用，本节讲解的是Maven的高级应用，主要是Maven项目的拆分与聚合的思想以及实际操作，并且介绍了Maven的远程仓库和私服的概念"
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.chasingwind.top/2019/08/06/Maven%E5%9F%BA%E7%A1%80/&title=Maven基础 - 追风少年&summary=Maven 是一个项目管理工具，它包含了一个项目对象模 型 (POM：Project Object Model)，一组标准集合，一个项目生命周期(Project Lifecycle)，一个依赖管 理系统(Dependency Management System)，和用来运行定义在生命周期阶段(phase)中插件(plugin)目标 (goal)的逻辑。"
           
           >
           
@@ -779,17 +779,9 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     <div class="prev-next">
       
-        <a class='prev' href='/2019/08/08/%E9%82%A3%E4%BA%9B%E5%A5%87%E8%91%A9%E7%9A%84Bug/'>
-          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>那些奇葩的Bug</p>
-          <p class='content'>遇到bug真的是头疼,在做的一些小Demo中遇到的bug,进行记录,方便以后遇到bug进行处理.BugBug快消失啊….永远不要遇见你….
-
-
-
-
-
-
-版本兼容问题
-这个bug我真的想杀了他  ...</p>
+        <a class='prev' href='/2019/08/08/JavaWeb%E9%A1%B9%E7%9B%AE/'>
+          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>JavaWeb项目</p>
+          <p class='content'>JavaWeb基础的知识学完了 , 做一个JavaWeb项目来复习巩固JavaWeb的知识.主要使用三层架构的思想来完成设计以及代码的编写 ,设计简单的前端,后端,客户端以及服务器之间的数据的传...</p>
         </a>
       
       
