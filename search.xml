@@ -4,6 +4,81 @@
   
     
     <entry>
+      <title>JVM:类加载子系统</title>
+      <link href="2021/03/08/JVM-%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%AD%90%E7%B3%BB%E7%BB%9F/"/>
+      <url>2021/03/08/JVM-%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%AD%90%E7%B3%BB%E7%BB%9F/</url>
+      
+        <content type="html"><![CDATA[<p>这里填写摘要信息</p><a id="more"></a>]]></content>
+      
+      
+      <categories>
+          
+          <category> JVM系列 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> JVM内存与垃圾回收 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>JVM:Java体系结构</title>
+      <link href="2021/03/05/JVM-Java%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/"/>
+      <url>2021/03/05/JVM-Java%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/</url>
+      
+        <content type="html"><![CDATA[<p>本节先介绍了Java的历史以及JVM的历史，以便我们对JVM整个发展有更好的了解，方便在以后的学习中更加快速掌握细节知识。</p><a id="more"></a><h2 id="JVM与Java体系结构"><a href="#JVM与Java体系结构" class="headerlink" title="JVM与Java体系结构"></a>JVM与Java体系结构</h2><h3 id="Java以及JVM简介"><a href="#Java以及JVM简介" class="headerlink" title="Java以及JVM简介"></a>Java以及JVM简介</h3><ol><li><p>Java程序运行在JVM之上</p><blockquote><p>Java是跨平台的语言</p><p><img src="https://blog.chasingwind.top/f44G2F.jpg" class="lazyload" data-srcset="https://blog.chasingwind.top/f44G2F.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p><p><img src="https://blog.chasingwind.top/TPreNA.jpg" class="lazyload" data-srcset="https://blog.chasingwind.top/TPreNA.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p><p>JVM是跨语言的平台：面向字节码文件，只要其他语言编译后能转成字节码文件，都可以在JVM上运行，所以具有语言无关性。</p><p><img src="https://blog.chasingwind.top/5VHbsu.jpg" class="lazyload" data-srcset="https://blog.chasingwind.top/5VHbsu.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p></blockquote></li><li><p>JVM与C++的垃圾回收机制</p><blockquote><p>为什么需要垃圾回收机制？</p><p>如果内存中垃圾一直不进行回收的话，到最后程序可能会出现OOM异常（Out Of Memory）</p><p>垃圾收集机制为我们打理了很多繁琐的工作，大大提高了开发的效率，但是，垃圾收集也不是万能的，懂得JVM内部的内存结构、工作机制，是设计高扩展性应用和诊断运行时问题的基础，也是Java工程师进阶的必备能力。</p><p>C语言需要自己来分配内存和回收内存，Java全部交给JVM进行分配和回收。</p></blockquote></li></ol><h3 id="虚拟机与Java虚拟机"><a href="#虚拟机与Java虚拟机" class="headerlink" title="虚拟机与Java虚拟机"></a>虚拟机与Java虚拟机</h3><ul><li><p>所谓虚拟机（Virtual Machine），就是一台虚拟的计算机。它是一款<strong>软件</strong>，用来执行一系列虚拟计算机指令。大体上，<strong>虚拟机可以分为系统虚拟机和程序虚拟机</strong>。</p><ul><li>大名鼎鼎的Visual Box，Mware就属于<strong>系统虚拟机</strong>，它们完全是对物理计算机的仿真，提供了一个可运行完整操作系统的软件平台。</li><li><strong>程序虚拟机</strong>的典型代表就是Java虚拟机，它专门为执行单个计算机程序而设计，在Java虚拟机中执行的指令我们称为Java字节码指令。</li><li>无论是系统虚拟机还是程序虚拟机，在上面运行的软件都被限制于虚拟机提供的资源中。</li></ul></li><li><p>JVM虚拟机</p><ul><li>Java虚拟机是一台<strong>执行Java字节码的虚拟计算机</strong>，它拥有独立的运行机制，其运行的Java字节码也未必由Java语言编译而成（语言无关性）。</li><li>JVM平台的各种语言可以共享Java虚拟机带来的跨平台性、优秀的垃圾回器，以及可靠的即时编译器。</li><li>Java技术的核心就是Java虚拟机（JVM，Java Virtual Machine），因为所有的Java程序都运行在Java虚拟机内部。</li><li>Java虚拟机就是二进制字节码的运行环境，负责装载字节码到其内部，解释/编译为对应平台上的机器指令执行。每一条Java指令，Java虚拟机规范中都有详细定义，如怎么取操作数，怎么处理操作数，处理结果放在哪里</li><li>特点：一次编译，到处运行；自动内存管理；自动垃圾回收</li></ul></li><li><p>JVM在系统中所处的位置</p><blockquote><p>JVM运行在操作系统之上</p><p><img src="https://blog.chasingwind.top/bCjSCR.jpg" class="lazyload" data-srcset="https://blog.chasingwind.top/bCjSCR.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p><hr><p>在Java中的体系结构</p><p>.java—javac编译—&gt;.class——&gt;JVM运行字节码文件</p><p><img src="https://blog.chasingwind.top/f3UkMF.jpg" class="lazyload" data-srcset="https://blog.chasingwind.top/f3UkMF.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p></blockquote></li></ul><h3 id="JVM整体结构"><a href="#JVM整体结构" class="headerlink" title="JVM整体结构"></a>JVM整体结构</h3><ol><li><p>结构图</p><blockquote><p><img src="https://blog.chasingwind.top/bYpF2N.jpg" class="lazyload" data-srcset="https://blog.chasingwind.top/bYpF2N.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p><ul><li>此图主要针对HotSpotVM，目前市面上高性能虚拟机代表作之一</li><li>上图中间部分，橙色的方法区和堆表示的是<strong>多个线程共享</strong>；而Java栈和本地方法栈以及程序计数器是<strong>每个线程独有的</strong>。</li><li>执行引擎包括解释器，JIT即时编译器和垃圾回收器。<strong>执行引擎的作用</strong>：将字节码文件翻译成机器语言</li></ul></blockquote></li></ol><h3 id="Java代码执行流程"><a href="#Java代码执行流程" class="headerlink" title="Java代码执行流程"></a>Java代码执行流程</h3><blockquote><p><img src="https://blog.chasingwind.top/jFkNOu.jpg" class="lazyload" data-srcset="https://blog.chasingwind.top/jFkNOu.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p><p>在编译过程中，任何一步出现错误都不能正常生成字节码文件</p><p>执行引擎可以将我们写的高级语言翻译成机器语言</p></blockquote><h3 id="JVM的架构模型"><a href="#JVM的架构模型" class="headerlink" title="JVM的架构模型"></a>JVM的架构模型</h3><ul><li><p>Java编译器输入的指令流基本上可以分为2种：<strong>基于栈的指令集架构</strong>以及<strong>基于寄存器的指令集架构</strong>。HotSpot是基于栈的指令集架构，HotSpot中除了PC寄存器之外，再也没有与寄存器相关的部分</p></li><li><p>两种架构之间的区别</p><ol><li><p>基于栈式架构特点</p><ul><li>设计和实现更简单，适用于资源受限的系统</li><li>避开了寄存器的分配难题：使用零地址指令方式分配</li><li>指令流中的指令大部分是零地址指令，执行过程依赖于操作栈。指令集更小（字节码文件中每8位进行对齐），编译器容易实现</li><li>不需要硬件支持，只需要操作栈，不与硬件打交道，可移植性更好，更好实现跨平台</li></ul></li><li><p>基于寄存器架构的特点</p><ul><li>典型的应用是x86的二进制指令集：比如传统的PC以及Android的Davlik虚拟机</li><li>指令集架构则完全依赖硬件，可移植性差</li><li>性能优秀，执行更加高效</li><li>完成一项操作使用的指令更少（指令集采用16位进行对齐）</li><li>在大部分情况下，基于寄存器的指令集往往都以一地址指令、二地址指令、三地址指令为主。</li></ul></li><li><p>基于栈和基于寄存机完成同一个操作使用的指令集</p><ul><li><p>计算2+3</p><blockquote><p>基于栈的计算流程：</p><pre><code>iconst_2 //常量2入栈istore_1iconst_3 // 常量3入栈istore_2iload_1iload_2iadd //常量2/3出栈，执行相加istore_0 // 结果5入栈</code></pre><hr><p>基于指令集的计算流程：</p><pre><code>mov eax,2 //将eax寄存器的值设为1add eax,3 //使eax寄存器的值加3</code></pre><hr><p>同样的操作，虽然基于栈实现操作需要的指令集小（指令是8位），但是基于栈需要的指令比基于寄存器需要的指令多</p></blockquote></li><li><p>查看字节码中的指令</p><blockquote><p>编译之后 生成的字节码在target目录下</p><p>反编译<code>javap -v xxxx</code>  代码对应的指令如下</p><p><img src="https://blog.chasingwind.top/700oSD.jpg" class="lazyload" data-srcset="https://blog.chasingwind.top/700oSD.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p></blockquote></li></ul></li></ol></li><li><p>基于栈的架构总结</p><ul><li>跨平台性、指令集小但是指令多、执行性能比基于寄存器的架构差</li></ul></li></ul><h3 id="JVM的生命周期"><a href="#JVM的生命周期" class="headerlink" title="JVM的生命周期"></a>JVM的生命周期</h3><ol><li>启动<ul><li>Java虚拟机的启动是通过引导类加载器（bootstrap class loader）创建一个初始类（initial class）来完成的，这个初始类是由虚拟机的具体实现指定的。</li></ul></li><li>运行<ul><li>一个运行中的Java虚拟机有着一个清晰的任务：执行Java程序。</li><li>程序开始执行时他才运行，程序结束时他就停止。</li><li>执行一个所谓的Java程序的时候，真真正正在执行的是一个叫做Java虚拟机的进程</li></ul></li><li>退出<ul><li>程序正常执行结束</li><li>程序在执行过程中遇到了异常或错误而异常终止（没有处理这些异常或者错误）</li><li>由于操作系统出现错误而导致Java虚拟机进程终止</li><li>某线程调用Runtime类或system类的exit方法，或Runtime类的halt方法，并且Java安全管理器也允许这次exit或halt操作。</li><li>除此之外，JNI（Java Native Interface）规范描述了用JNI Invocation API来加载或卸载 Java虚拟机时，Java虚拟机的退出情况。</li></ul></li></ol><h3 id="JVM的发展历程"><a href="#JVM的发展历程" class="headerlink" title="JVM的发展历程"></a>JVM的发展历程</h3><ol><li><p>Sun Classic VM</p><ul><li>Java1.0，Sun公司发布，世界上第一款商用虚拟机</li><li>内部只提供解释器，没有JIT即时编译器</li></ul></li><li><p>Exact VM</p></li><li><p>HotSpot VM</p><ul><li>JDK1.3开始成为默认虚拟机</li><li>服务器、客户端以及嵌入式都有应用</li><li>HotSpot就是体现热点代码探测技术<ul><li>通过计数器找到最具编译价值代码，触发即时编译或栈上替换</li><li>通过编译器和解释器协同工作，在最优化的程序响应时间与最佳执行性能中取得平衡</li></ul></li></ul></li><li><p>JRockit VM</p><ul><li><p>BEA公司，后被Oracle收购</p></li><li><p>专注于服务器端应用，不太关注启动速度，因此不包含解释器，全部代码都靠即时编译器编译后执行</p></li><li><p>JRockit JVM是目前世界上最快的JVM，面向延迟敏感型应用</p></li></ul></li><li><p>J9 JVM，IBM公司</p></li><li><p>KVM和CDC/CLDC HotSpot</p><ul><li><p>Oracle在Java ME产品线上的两款虚拟机为：CDC/CLDC HotSpot Implementation VM KVM（Kilobyte）是CLDC-HI早期产品目前移动领域地位尴尬，智能机被Angroid和ioS二分天下。</p></li><li><p>KVM简单、轻量、高度可移植，面向更低端的设备上还维持自己的一片市场</p><ul><li>智能控制器、传感器</li><li>老人手机、经济欠发达地区的功能手机</li></ul></li></ul><p>所有的虚拟机的原则：一次编译，到处运行。</p></li><li><p>Azul VM</p><ul><li>性能更高，但是与特定硬件平台绑定、软硬件配合的专用虚拟机</li><li>Azul VM是Azu1Systems公司在HotSpot基础上进行大量改进，运行于Azul Systems公司的专有硬件Vega系统上的Java虚拟机。</li><li>每个Azu1VM实例都可以管理至少数十个CPU和数百GB内存的硬件资源，并提供在巨大内存范围内实现可控的GC时间的垃圾收集器、专有硬件优化的线程调度等优秀特性。</li><li>2010年，AzulSystems公司开始从硬件转向软件，发布了自己的Zing JVM，可以在通用x86平台上提供接近于Vega系统的特性</li></ul></li><li><p>Liquid VM</p><ul><li>Liquid VM不需要操作系统的支持，或者说它自己本身实现了一个专用操作系统的必要功能，如线程调度、文件系统、网络支持等。</li></ul></li><li><p>Apache Harmony</p></li><li><p>Micorsoft JVM</p><ul><li>当年微软为了在IE3浏览器中支持Java Applets开发的</li></ul></li><li><p>TaoBao VM</p><ul><li>基于OpenJDK HotSpot VM深度定制的、开源的高性能服务器版JVM</li><li>创新的GCIH（GC invisible heap）技术实现了off-heap，即将生命周期较长的Java对象从heap(堆)中移到heap之外，并且GC不能管理GCIH内部的Java对象，以此达到降低GC的回收频率和提升GC的回收效率的目的。</li><li>GCIH中的对象还能够在多个Java虚拟机进程中实现共享</li><li>使用crc32指令实现JVM intrinsic降低JNI的调用开销</li><li>PMU hardware的Java profiling tool和诊断协助功能</li><li>针对大数据场景的ZenGc</li><li>taobao JVM应用在阿里产品上性能高，硬件严重依赖inte1的cpu，损失了兼容性，但提高了性能目前已经在淘宝、天猫上线，把oracle官方JvM版本全部替换了。</li></ul></li><li><p>Dalvik VM</p><ul><li>Android5.0之前使用的虚拟机，Dalvik 只能称作虚拟机，而不能称作“Java虚拟机”，它没有遵循 Java虚拟机规范，不能直接执行Java的Class文件</li><li>基于寄存器架构，不是jvm的栈架构。</li><li>执行的是编译以后的dex（Dalvik Executable）文件。执行效率比较高。</li><li>它执行的dex（Dalvik Executable）文件可以通过class文件转化而来，使用Java语法编写应用程序，可以直接使用大部分的Java API等。</li><li>Android 5.0使用支持提前编译（Ahead of Time Compilation，AoT）的ART VM替换Dalvik VM。</li></ul></li><li><p>GRaal VM</p><ul><li>2018年4月，Oracle Labs公开了Graal VM，号称 “Run Programs Faster Anywhere”，勃勃野心。与1995年java的”write once，run anywhere”遥相呼应。</li><li>Graal VM在HotSpot VM基础上增强而成的跨语言全栈虚拟机，可以作为“任何语言” 的运行平台使用。语言包括：Java、Scala、Groovy、Kotlin；C、C++、Javascript、Ruby、Python、R等</li><li>支持不同语言中混用对方的接口和对象，支持这些语言使用已经编写好的本地库文件</li><li>工作原理是将这些语言的源代码或源代码编译后的中间格式，通过解释器转换为能被Graal VM接受的中间表示。Graal VM提供Truffle工具集快速构建面向一种新语言的解释器。在运行时还能进行即时编译优化，获得比原生编译器更优秀的执行效率。</li><li>如果说HotSpot有一天真的被取代，Graalvm希望最大。但是Java的软件生态没有丝毫变化。</li></ul></li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> JVM系列 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> JVM内存与垃圾回收 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Vue.js入门</title>
+      <link href="2021/03/04/Vue-js%E5%85%A5%E9%97%A8/"/>
+      <url>2021/03/04/Vue-js%E5%85%A5%E9%97%A8/</url>
+      
+        <content type="html"><![CDATA[<p>Vue.js 前端框架入门</p><a id="more"></a><h2 id="Vue-js-基础"><a href="#Vue-js-基础" class="headerlink" title="Vue.js 基础"></a>Vue.js 基础</h2><ol><li>简介</li></ol><h2 id="Vue-js-本地应用"><a href="#Vue-js-本地应用" class="headerlink" title="Vue.js 本地应用"></a>Vue.js 本地应用</h2><h2 id="Vue-js-网络应用"><a href="#Vue-js-网络应用" class="headerlink" title="Vue.js 网络应用"></a>Vue.js 网络应用</h2><h2 id="Vue-js-综合应用"><a href="#Vue-js-综合应用" class="headerlink" title="Vue.js 综合应用"></a>Vue.js 综合应用</h2>]]></content>
+      
+      
+      <categories>
+          
+          <category> 前端 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Vue </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>MySQL锁机制以及主从复制</title>
       <link href="2021/02/24/MySQL%E9%94%81%E6%9C%BA%E5%88%B6%E4%BB%A5%E5%8F%8A%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/"/>
       <url>2021/02/24/MySQL%E9%94%81%E6%9C%BA%E5%88%B6%E4%BB%A5%E5%8F%8A%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/</url>
