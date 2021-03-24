@@ -489,10 +489,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           
         
           
-            <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-03-23T22:28:25+08:00">
+            <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-03-24T23:23:21+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：2021年3月23日</p>
+    <p>更新于：2021年3月24日</p>
   </a>
 </div>
 
@@ -861,7 +861,154 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 </ul>
 </li>
 </ol>
-<h2 id="计算机的CPU"><a href="#计算机的CPU" class="headerlink" title="计算机的CPU"></a>计算机的CPU</h2><h3 id="计算机的指令系统"><a href="#计算机的指令系统" class="headerlink" title="计算机的指令系统"></a>计算机的指令系统</h3><h3 id="计算机的控制器"><a href="#计算机的控制器" class="headerlink" title="计算机的控制器"></a>计算机的控制器</h3><h3 id="计算机的运算器"><a href="#计算机的运算器" class="headerlink" title="计算机的运算器"></a>计算机的运算器</h3><h3 id="计算机指令执行过程"><a href="#计算机指令执行过程" class="headerlink" title="计算机指令执行过程"></a>计算机指令执行过程</h3>
+<h2 id="计算机的CPU"><a href="#计算机的CPU" class="headerlink" title="计算机的CPU"></a>计算机的CPU</h2><h3 id="计算机的指令系统"><a href="#计算机的指令系统" class="headerlink" title="计算机的指令系统"></a>计算机的指令系统</h3><ol>
+<li><p>机器指令的形式</p>
+<ul>
+<li><p>操作码+地址码</p>
+<blockquote>
+<p>操作码字段</p>
+<p><img src="https://blog.chasingwind.top/xwPnli.png" class="lazyload" data-srcset="https://blog.chasingwind.top/xwPnli.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="指令形式以及操作码"></p>
+<p>比如机器指令中操作码字段长度为8位，那么支持的操作种类就是$2^8$种</p>
+</blockquote>
+<blockquote>
+<p><img src="https://blog.chasingwind.top/DjpCKN.png" class="lazyload" data-srcset="https://blog.chasingwind.top/DjpCKN.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="指令形式以及地址码"></p>
+<p>三地址指令：地址码字段中包含3个地址</p>
+<p>比如下图中 ，将addr1地址的数据和addr2地址的数据通过OP操作，将结果赋值给addr3地址</p>
+<hr>
+<p><img src="https://blog.chasingwind.top/Y8OS67.png" class="lazyload" data-srcset="https://blog.chasingwind.top/Y8OS67.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>二地址指令：地址码字段中包含2个地址</p>
+<p>比如下图中，将addr1地址的数据和addr2地址的数据经过OP操作，将结果赋值给addr1或者addr2</p>
+<hr>
+<p><img src="https://blog.chasingwind.top/pWqp0m.png" class="lazyload" data-srcset="https://blog.chasingwind.top/pWqp0m.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>一地址指令：地址码字段中包含1个地址</p>
+<p>比如自增操作</p>
+<p><img src="https://blog.chasingwind.top/GIybBU.png" class="lazyload" data-srcset="https://blog.chasingwind.top/GIybBU.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>只包含操作码，无地址码的形式</p>
+<blockquote>
+<p><img src="https://blog.chasingwind.top/iDhlJ0.png" class="lazyload" data-srcset="https://blog.chasingwind.top/iDhlJ0.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>机器指令的操作类型</p>
+<ul>
+<li>数据传输：寄存器之间、寄存器与存储单元、存储单元之间传送数据，数据读写、交换地址数据、清零置一等操作</li>
+<li>算术逻辑操作： 操作数之间的加减乘除运算，与或非等逻辑运算</li>
+<li>移位操作：数据左移（乘2）、数据右移（除2） ，完成数据在算术逻辑单元的必要操作</li>
+<li>控制指令：等待指令、停机指令、空操作指令、中断指令等</li>
+</ul>
+</li>
+<li><p>机器指令的寻址方式：机器指令是如何找到相关数据的？</p>
+<ol>
+<li><p>指令寻址</p>
+<blockquote>
+<p><img src="https://blog.chasingwind.top/0tVZoq.png" class="lazyload" data-srcset="https://blog.chasingwind.top/0tVZoq.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>顺序寻址：指令按照地址顺序进行执行</p>
+<p>跳跃寻址：指令中包含跳转到的指令的地址，通过指令中提供的地址信息完成寻址</p>
+<p>比如上图中，先<strong>顺序寻址</strong>执行地址为101，102，103，104，105的指令，在执行105地址的指令的时候发生了JMP指令，<strong>跳跃寻址</strong>跳转到102地址</p>
+</blockquote>
+</li>
+<li><p>数据寻址</p>
+<ol>
+<li><p>立即寻址</p>
+<blockquote>
+<p><img src="https://blog.chasingwind.top/dfMhCy.png" class="lazyload" data-srcset="https://blog.chasingwind.top/dfMhCy.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>直接寻址</p>
+<blockquote>
+<p><img src="https://blog.chasingwind.top/NPm3ZC.png" class="lazyload" data-srcset="https://blog.chasingwind.top/NPm3ZC.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>间接寻址</p>
+<blockquote>
+<p><img src="https://blog.chasingwind.top/qCnptn.png" class="lazyload" data-srcset="https://blog.chasingwind.top/qCnptn.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>三种数据寻址方式的对比</p>
+<blockquote>
+<p><img src="https://blog.chasingwind.top/Uw62cu.png" class="lazyload" data-srcset="https://blog.chasingwind.top/Uw62cu.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="计算机的控制器"><a href="#计算机的控制器" class="headerlink" title="计算机的控制器"></a>计算机的控制器</h3><ul>
+<li><p>控制器在CPU中，主要包括以下组成部分</p>
+<blockquote>
+<p><img src="https://blog.chasingwind.top/GFIDbV.png" class="lazyload" data-srcset="https://blog.chasingwind.top/GFIDbV.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+<ol>
+<li>程序计数器：用来存储下一条需要执行的指令的地址，当指令被拿出时，指向下一条指令</li>
+<li>时序发生器：用于发送时序脉冲，CPU依据不同的时序脉冲有节奏的进行工作</li>
+<li>指令译码器：将计算机指令中的操作码翻译成对应的操作，发出控制信号；对于地址码会控制传输地址码以及对应的数据</li>
+<li>指令寄存器：从主存或高速缓存中存取计算机指令，是的CPU可以高速运转</li>
+<li>主存地址寄存器： 保存当前CPU正要访问的内存单元的地址（通过地址总线进行通信）</li>
+<li>主存数据寄存器：保存当前CPU正要读或写的主存数据（通过数据总线进行通信）</li>
+<li>通用寄存器：用于暂时存放或传送数据或指令， 可保存ALU（算术逻辑单元）的运算中间结果，容量比一般专用寄存器要大</li>
+</ol>
+</li>
+</ul>
+<h3 id="计算机的运算器"><a href="#计算机的运算器" class="headerlink" title="计算机的运算器"></a>计算机的运算器</h3><ul>
+<li><p>运算器的组成部分</p>
+<blockquote>
+<p><img src="https://blog.chasingwind.top/t2SJVe.png" class="lazyload" data-srcset="https://blog.chasingwind.top/t2SJVe.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+<ol>
+<li><p>数据缓冲器</p>
+<ul>
+<li>分为输入缓冲和输出缓冲</li>
+<li>输入缓冲暂时存放外设送过来的数据</li>
+<li>输出缓冲暂时存放送往外设的数据</li>
+</ul>
+</li>
+<li><p>ALU（算术逻辑单元）：完成常见的位运算（左右移、与或非等），算术运算</p>
+<blockquote>
+<p>教科书中ALU示意图</p>
+<p><img src="https://blog.chasingwind.top/pnbE43.png" class="lazyload" data-srcset="https://blog.chasingwind.top/pnbE43.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>A，B表示输入，F表示输出，K表示多个控制线，用于控制ALU的运算</p>
+</blockquote>
+</li>
+<li><p>状态字寄存器：存放运算状态（条件码、进位、溢出、结果正负等），存放运算控制信息（调试跟踪标记位、允许中断位等）</p>
+</li>
+<li><p>通用寄存器：用于暂时存放或传送数据或指令，可保存ALU的运算中间结果，容量比一般专用寄存器要大</p>
+</li>
+</ol>
+</li>
+</ul>
+<h3 id="计算机指令执行过程"><a href="#计算机指令执行过程" class="headerlink" title="计算机指令执行过程"></a>计算机指令执行过程</h3><ul>
+<li><p>指令执行过程</p>
+<ol>
+<li>取指令</li>
+<li>分析指令</li>
+<li>执行指令</li>
+</ol>
+<blockquote>
+<p>组件之间通过总线连接</p>
+<p><img src="https://blog.chasingwind.top/8UKZET.png" class="lazyload" data-srcset="https://blog.chasingwind.top/8UKZET.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="https://blog.chasingwind.top/aXv46x.png" class="lazyload" data-srcset="https://blog.chasingwind.top/aXv46x.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="https://blog.chasingwind.top/kVG7fG.png" class="lazyload" data-srcset="https://blog.chasingwind.top/kVG7fG.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>CPU的流水线设计</p>
+<ul>
+<li><p>从上面的指令执行过程可以看出，在取指令的时候主要是以及分析指令是控制器在工作的，执行指令才是运算器工作的，这样CPU的利用率不高</p>
+</li>
+<li><p>改进：采用流水线的方式</p>
+<blockquote>
+<p><img src="https://blog.chasingwind.top/4bY0Fe.png" class="lazyload" data-srcset="https://blog.chasingwind.top/4bY0Fe.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>效率对比：当m趋近于正无穷的时候，流水线效率是串行效率的3倍</p>
+<p><img src="https://blog.chasingwind.top/cu3Xob.png" class="lazyload" data-srcset="https://blog.chasingwind.top/cu3Xob.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="cu3Xob"></p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+
   
   
     
@@ -880,10 +1027,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-03-23T22:28:25+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-03-24T23:23:21+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：2021年3月23日</p>
+    <p>更新于：2021年3月24日</p>
   </a>
 </div>
 
