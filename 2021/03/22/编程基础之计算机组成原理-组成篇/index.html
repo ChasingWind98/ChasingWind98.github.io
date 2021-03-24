@@ -489,10 +489,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           
         
           
-            <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-03-22T16:58:51+08:00">
+            <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-03-23T22:28:25+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：2021年3月22日</p>
+    <p>更新于：2021年3月23日</p>
   </a>
 </div>
 
@@ -530,7 +530,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
 
 
-<h2 id="计算机总线与IO设备"><a href="#计算机总线与IO设备" class="headerlink" title="计算机总线与IO设备"></a>计算机总线与IO设备</h2><h2 id="计算机总线"><a href="#计算机总线" class="headerlink" title="计算机总线"></a>计算机总线</h2><ol>
+<h2 id="计算机总线"><a href="#计算机总线" class="headerlink" title="计算机总线"></a>计算机总线</h2><ol>
 <li><p>计算机总线概述</p>
 <ul>
 <li><p>是什么、有什么用</p>
@@ -570,7 +570,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <li><p>数据总线</p>
 <blockquote>
 <p>双向传输各个部件之间的数据信息</p>
-<p>数据总线的位数（总线宽度）是数据总线的总要参数，位数一般与CPU位数相同（32位、64位）</p>
+<p>数据总线的位数（总线宽度）是数据总线的重要参数，位数一般与CPU位数相同（32位、64位）</p>
 </blockquote>
 </li>
 <li><p>地址总线</p>
@@ -596,15 +596,272 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <ol>
 <li><p>为什么需要总线仲裁</p>
 <blockquote>
-<p>为了解决总线使用权的冲突问题</p>
+<p>为了解决不同设备总线使用权的冲突问题</p>
+<p>举例：假设主存现在需要和硬盘和IO设备交换数据，并且现在硬盘和IO设备都处于就绪状态，那么主存是由硬盘先使用还是IO设备先使用呢？</p>
+<p><img src="https://blog.chasingwind.top/D9KK7i.png" class="lazyload" data-srcset="https://blog.chasingwind.top/D9KK7i.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 </blockquote>
 </li>
 <li><p>总线仲裁的方法</p>
+<ol>
+<li><p>链式查询</p>
+<blockquote>
+<p><img src="https://blog.chasingwind.top/0nrUHy.png" class="lazyload" data-srcset="https://blog.chasingwind.top/0nrUHy.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>设备1和设备2同时向仲裁控制器发出总线使用申请，仲裁控制器返回允许使用信号给设备之后，设备就可以使用总线，但是是在优先级高的设备不在使用的情况下。</p>
+<p>好处：电路复杂度低（串联），仲裁方式简单</p>
+<p>坏处：优先级低的设备难以获得总线使用权，对电路故障敏感</p>
+</blockquote>
+</li>
+<li><p>计时器定时查询</p>
+<p>步骤一：仲裁控制器对设备编号并使用计数器累计计数</p>
+<p>步骤二：接收到仲裁信号后，往所有设备发出计数值</p>
+<p>步骤三：计数值与设备编号一致则获得总线使用权</p>
+</li>
+<li><p>独立请求</p>
+<ul>
+<li><p>每个设备均有总线独立连接仲裁器</p>
+</li>
+<li><p>设备可单独向仲裁器发送请求和接收请求</p>
+</li>
+<li><p>当同时收到多个请求信号，仲裁器有权按优先级分配使用权</p>
+<blockquote>
+<p><img src="https://blog.chasingwind.top/414s3f.png" class="lazyload" data-srcset="https://blog.chasingwind.top/414s3f.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>优点：响应速度快，优先顺序可动态改变</p>
+<p>缺点： 设备连线多，总线控制复杂</p>
+</blockquote>
+</li>
+</ul>
 </li>
 </ol>
 </li>
 </ol>
-<h2 id="IO设备"><a href="#IO设备" class="headerlink" title="IO设备"></a>IO设备</h2><h2 id="计算机的存储器"><a href="#计算机的存储器" class="headerlink" title="计算机的存储器"></a>计算机的存储器</h2><h2 id="计算机的CPU"><a href="#计算机的CPU" class="headerlink" title="计算机的CPU"></a>计算机的CPU</h2>
+</li>
+</ol>
+<h2 id="IO设备"><a href="#IO设备" class="headerlink" title="IO设备"></a>IO设备</h2><ol>
+<li><p>常见的输入输出设备</p>
+<ul>
+<li>常见输入设备：字符输入设备（键盘）、图形输入设备（鼠标、数位板、扫描仪）等等</li>
+<li>常见输出设备：显示器、打印机、投影仪等等</li>
+</ul>
+</li>
+<li><p>输入输出接口的通用设计</p>
+<ul>
+<li>设计包含：数据线、状态线、命令线、设备选择线</li>
+<li>数据线：是I/O设备与主机之间进行数据交换的传送线，分为单向传输线和双向传输线</li>
+<li>状态线：IO设备向主机报告状态的信号线，查询设备是否已经正常连接并就绪或者查询设备是否已经被占用</li>
+<li>命令线：CPU向设备发送命令的信号线，包括发送读写信号，发送启动停止信号</li>
+<li>设备选择线：主机选择I/O设备进行操作的信号线，对连在总线上的设备进行选择。</li>
+</ul>
+</li>
+<li><p>CPU与IO设备的通信</p>
+<ul>
+<li>前提：CPU速度和IO设备速度不一致</li>
+</ul>
+<ol>
+<li><p>程序中断：提供低速设备通知CPU的一种异步方式</p>
+<ul>
+<li><p>当CPU需要和IO设备进行通信的时候（数据传输），当外围IO设备就绪时，向CPU发出中断信号，CPU有专门的电路响应中断信号</p>
+<blockquote>
+<p>模拟打印机与CPU通信时序图</p>
+<p><img src="https://blog.chasingwind.top/gzHS7N.png" class="lazyload" data-srcset="https://blog.chasingwind.top/gzHS7N.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>优点：CPU可以高速运转同时兼顾低速设备的响应</p>
+<p>缺点：如果频繁中断CPU的话，CPU执行效率会降低</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>DMA（直接存储器访问）</p>
+<ul>
+<li><p>DMA直接连接主存与IO设备，DMA工作时不需要CPU的参与</p>
+<blockquote>
+<p><img src="https://blog.chasingwind.top/O8zxgL.png" class="lazyload" data-srcset="https://blog.chasingwind.top/O8zxgL.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>在我们平常使用的硬盘显卡中都有DMA设备</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="计算机的存储器"><a href="#计算机的存储器" class="headerlink" title="计算机的存储器"></a>计算机的存储器</h2><h3 id="存储器概览"><a href="#存储器概览" class="headerlink" title="存储器概览"></a>存储器概览</h3><ol>
+<li><p>存储器分类</p>
+<ul>
+<li><p>按照存储介质分类</p>
+<blockquote>
+<p><img src="https://blog.chasingwind.top/yIhFpq.png" class="lazyload" data-srcset="https://blog.chasingwind.top/yIhFpq.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>按照存取方式分类</p>
+<blockquote>
+<p><img src="https://blog.chasingwind.top/Thy3eM.png" class="lazyload" data-srcset="https://blog.chasingwind.top/Thy3eM.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>存储器的层次结构</p>
+<blockquote>
+<p>需要考虑的因素</p>
+<p><img src="https://blog.chasingwind.top/vweNay.png" class="lazyload" data-srcset="https://blog.chasingwind.top/vweNay.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>按照位价对存储器进行分类</p>
+<p>缓存：一般是指CPU寄存器以及高速缓存</p>
+<p>主存：指的是计算机内存</p>
+<p>辅存：硬盘，U盘等等 </p>
+<p><img src="https://blog.chasingwind.top/hJWIdy.png" class="lazyload" data-srcset="https://blog.chasingwind.top/hJWIdy.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>层次之间的数据交换</p>
+<p>CPU和高速缓存以及主存之间都可以进行数据传输</p>
+<p>辅存只与主存进行数据的传输</p>
+<p><img src="https://blog.chasingwind.top/BwXzYW.png" class="lazyload" data-srcset="https://blog.chasingwind.top/BwXzYW.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p><strong>缓存-主存层次</strong></p>
+<p>原理：局部性原理</p>
+<p>实现：在CPU与主存之间增加一层速度快（容量小）的Cache（高速缓存）</p>
+<p>目的：<strong>解决主存和CPU速度不一致的问题</strong></p>
+<p><img src="https://blog.chasingwind.top/oimQ81.png" class="lazyload" data-srcset="https://blog.chasingwind.top/oimQ81.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>基于局部性原理，我们将这个较小的连续区域单独取出来，这一片就是高速缓存</p>
+<p><img src="https://blog.chasingwind.top/bg1ZxA.png" class="lazyload" data-srcset="https://blog.chasingwind.top/bg1ZxA.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p><strong>主存-辅存层次</strong></p>
+<p>原理：局部性原理</p>
+<p>实现：在主存之外增加辅助存储器（磁盘、SD卡、U盘等）</p>
+<p>目的：<strong>解决主存容量不足的问题</strong></p>
+<p>常见案例：如果我们需要运行一个游戏,这个游戏有20GB,但是我们内存只有8GB,那么这个游戏时怎么运行起来的呢</p>
+<ul>
+<li>由于局部性原理，计算机将当前使用到的数据加载到主存中，而未使用到的数据不进行加载，还是存放到辅存中</li>
+</ul>
+</blockquote>
+</li>
+</ol>
+<h3 id="计算机的主存储器与辅助存储器"><a href="#计算机的主存储器与辅助存储器" class="headerlink" title="计算机的主存储器与辅助存储器"></a>计算机的主存储器与辅助存储器</h3><p>先思考2个问题：计算机断电，为什么内存数据丢失？为什么磁盘数据不会丢失？</p>
+<ol>
+<li><p>主存储器–内存</p>
+<blockquote>
+<p><img src="https://blog.chasingwind.top/BcV9oL.png" class="lazyload" data-srcset="https://blog.chasingwind.top/BcV9oL.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>组成部分</p>
+<p>主存如何与CPU进行交互？</p>
+<p>CPU中的MDR通过数据总线连接读写电路，传输数据</p>
+<p>CPU中的MAR通过地址总线连接译码器，指定数据的位置信息</p>
+<p><img src="https://blog.chasingwind.top/dt3lKs.png" class="lazyload" data-srcset="https://blog.chasingwind.top/dt3lKs.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>主存最大大小和操作系统位数的关系</p>
+<p>32位系统最多支持4GB内存，因为主存地址寄存器最多可以寻址范围是$2^{32}$</p>
+<p><img src="https://blog.chasingwind.top/MQJ4bJ.png" class="lazyload" data-srcset="https://blog.chasingwind.top/MQJ4bJ.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt=" "></p>
+</blockquote>
+</li>
+<li><p>辅助存储器–磁盘</p>
+<blockquote>
+<p>磁盘结构示意图</p>
+<p><img src="https://blog.chasingwind.top/KrlXGL.png" class="lazyload" data-srcset="https://blog.chasingwind.top/KrlXGL.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>盘片结构图</p>
+<p><img src="https://blog.chasingwind.top/QVBxyX.png" class="lazyload" data-srcset="https://blog.chasingwind.top/QVBxyX.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>磁头位置：表示磁头当前位于哪一个磁道</p>
+<p>磁头方向：是往里还是往外</p>
+<hr>
+<p>磁盘表面是可磁化的硬磁特性材料</p>
+<p>移动磁头径向运动读取磁道信息</p>
+</blockquote>
+<ul>
+<li><p>磁盘调度算法</p>
+<blockquote>
+<p>案例介绍：</p>
+<p>我们将最外面的磁道定义为第1个磁道，最里面的磁道是第5个磁道</p>
+<p>目前磁头在磁道4，磁头方向是由里向外读取的，现在想要读取磁道：1 4 2 3 1 5</p>
+</blockquote>
+<ol>
+<li><p>先来先服务算法</p>
+<blockquote>
+<p>对于多个读写磁盘的请求，将所有的请求放到一个队列中，按照顺序完成读写需求</p>
+<p>那么上面的案例的读取顺序就是：1 4 2 3 1 5</p>
+</blockquote>
+</li>
+<li><p>最短寻道时间优先</p>
+<blockquote>
+<p>优先访问距离磁头最近的磁道</p>
+<p>那么访问顺序就是： 4 3 2 1 1 5或者4 5 3 2 1 1，与磁头方向无关</p>
+</blockquote>
+</li>
+<li><p>扫描算法（电梯算法）</p>
+<blockquote>
+<p>每次只向一个方向移动，到达一个方向尽头然后再反方向移动</p>
+<p>那么访问顺序就是：4 3 2 1 1 5（由于目前在4磁道，由里往外）</p>
+</blockquote>
+</li>
+<li><p>循环扫描算法</p>
+<blockquote>
+<p>读取方向是不变的，一个方向读取完之后，回到起点重新读取</p>
+<p>假设这里读取方向是<strong>由外向里</strong></p>
+<p>那么访问顺序就是：4 5 1 1 2 3 </p>
+</blockquote>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="计算机的高速缓存"><a href="#计算机的高速缓存" class="headerlink" title="计算机的高速缓存"></a>计算机的高速缓存</h3><ol>
+<li><p>高速缓存的工作原理</p>
+<blockquote>
+<p>字：是指存放在一个存储单元中的二进制代码组合，可以表示数据，指令，字符串等等，是内存中存储单元的最小单位</p>
+<p>字块：存储在连续的存储单元中而被看作是一个单元的一组字</p>
+<p><img src="https://blog.chasingwind.top/BB3fBV.png" class="lazyload" data-srcset="https://blog.chasingwind.top/BB3fBV.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="主存大小和字以及字块之间的关系"></p>
+<hr>
+<p>字的寻址</p>
+<p>首先，字的地址组成包含2部分</p>
+<p><img src="https://blog.chasingwind.top/1cbpPM.png" class="lazyload" data-srcset="https://blog.chasingwind.top/1cbpPM.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>字的地址长度和主存的关系</p>
+<p><img src="https://blog.chasingwind.top/9s5dnI.png" class="lazyload" data-srcset="https://blog.chasingwind.top/9s5dnI.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>计算</p>
+<p>块地址的数量（$2^m$）≤主存中字块数</p>
+<p>块内地址数量（$2^b$）≤字块中字的数量</p>
+<p><img src="https://blog.chasingwind.top/eYZH8J.png" class="lazyload" data-srcset="https://blog.chasingwind.top/eYZH8J.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+<blockquote>
+<p>高速缓存中存储的数据与主存比较类似，也有字和字块的概念</p>
+<p>同时，高速缓存中存储的数据是主存中数据的复制</p>
+<p>主存字块数远大于缓存字块数</p>
+<p><img src="https://blog.chasingwind.top/NZTJx8.png" class="lazyload" data-srcset="https://blog.chasingwind.top/NZTJx8.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>当高速缓存中有CPU需要的数据的时候，会直接从CPU中取数据。</p>
+<p>否则，就需要从主存中取数据，这样就会降低CPU的效率</p>
+<p>那么该怎么量化从告诉缓存取数据成功的几率呢？–缓存命中率或者访问效率</p>
+<p><img src="https://blog.chasingwind.top/JgL0UG.png" class="lazyload" data-srcset="https://blog.chasingwind.top/JgL0UG.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="命中率"></p>
+<p><img src="https://blog.chasingwind.top/j76OEb.png" class="lazyload" data-srcset="https://blog.chasingwind.top/j76OEb.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="访问效率"></p>
+</blockquote>
+</li>
+<li><p>高速缓存的替换策略</p>
+<ul>
+<li><p>高速缓存替换时机：当高速缓存中没有CPU所需要的数据的时候，就需要从主存载入所需数据到高速缓存中进行替换</p>
+</li>
+<li><p>替换策略</p>
+<ol>
+<li><p>随机算法</p>
+<blockquote>
+<p>随机选取高速缓存中的某位置的内容进行替换</p>
+</blockquote>
+</li>
+<li><p>先进先出算法（FIFO）</p>
+<blockquote>
+<p>把高速缓存看做是一个先进先出的队列，优先替换最先进入队列的字块</p>
+<p><img src="https://blog.chasingwind.top/VKNDrp.png" class="lazyload" data-srcset="https://blog.chasingwind.top/VKNDrp.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>最不经常使用算法（LFU）</p>
+<blockquote>
+<p>优先淘汰最不经常使用的字块，需要额外的空间记录字块的使用频率</p>
+<p><img src="https://blog.chasingwind.top/DYmk9X.png" class="lazyload" data-srcset="https://blog.chasingwind.top/DYmk9X.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>最近最少使用算法（LRU）</p>
+<blockquote>
+<p>优先淘汰一段时间内没有使用的字块，有多种实现方法，通常使用双向链表实现；<strong>实现时，需要始终保证头部是最近使用的</strong></p>
+<p><img src="https://blog.chasingwind.top/WKmGmy.png" class="lazyload" data-srcset="https://blog.chasingwind.top/WKmGmy.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="计算机的CPU"><a href="#计算机的CPU" class="headerlink" title="计算机的CPU"></a>计算机的CPU</h2><h3 id="计算机的指令系统"><a href="#计算机的指令系统" class="headerlink" title="计算机的指令系统"></a>计算机的指令系统</h3><h3 id="计算机的控制器"><a href="#计算机的控制器" class="headerlink" title="计算机的控制器"></a>计算机的控制器</h3><h3 id="计算机的运算器"><a href="#计算机的运算器" class="headerlink" title="计算机的运算器"></a>计算机的运算器</h3><h3 id="计算机指令执行过程"><a href="#计算机指令执行过程" class="headerlink" title="计算机指令执行过程"></a>计算机指令执行过程</h3>
   
   
     
@@ -623,10 +880,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-03-22T16:58:51+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-03-23T22:28:25+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：2021年3月22日</p>
+    <p>更新于：2021年3月23日</p>
   </a>
 </div>
 
@@ -705,7 +962,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class='next' href='/2021/03/21/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80%E4%B9%8B%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86-%E6%A6%82%E8%BF%B0%E7%AF%87/'>
           <p class='title'>编程基础之计算机组成原理(概述篇)<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
-          <p class='content'>这里简单的介绍了计算机的发展简史以及分类，计算机的体系结构以及父计算机进行分层便于理解，介绍了每一层对应的编程语言。另外还介绍了我们常见的用于衡量容量和速度的单位，之后介绍了计算机中的字符和编码...</p>
+          <p class='content'>这里简单的介绍了计算机的发展简史以及分类，计算机的体系结构以及为计算机进行分层便于理解，介绍了每一层对应的编程语言。另外还介绍了我们常见的用于衡量容量和速度的单位，之后介绍了计算机中的字符和编码...</p>
         </a>
       
     </div>
@@ -728,6 +985,59 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
 
 
+  <script>
+  // https://github.com/theme-next/hexo-theme-next/blob/master/layout/_third-party/math/mathjax.swig
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.0/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    // 文章章节标题不能为 “MathJax” ，否则会报错。
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+
 
 </div>
 <aside class='l_side'>
@@ -748,7 +1058,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%80%BB%E7%BA%BF%E4%B8%8EIO%E8%AE%BE%E5%A4%87"><span class="toc-text">计算机总线与IO设备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%80%BB%E7%BA%BF"><span class="toc-text">计算机总线</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#IO%E8%AE%BE%E5%A4%87"><span class="toc-text">IO设备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%84%E5%AD%98%E5%82%A8%E5%99%A8"><span class="toc-text">计算机的存储器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%84CPU"><span class="toc-text">计算机的CPU</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%80%BB%E7%BA%BF"><span class="toc-text">计算机总线</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#IO%E8%AE%BE%E5%A4%87"><span class="toc-text">IO设备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%84%E5%AD%98%E5%82%A8%E5%99%A8"><span class="toc-text">计算机的存储器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E5%99%A8%E6%A6%82%E8%A7%88"><span class="toc-text">存储器概览</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%84%E4%B8%BB%E5%AD%98%E5%82%A8%E5%99%A8%E4%B8%8E%E8%BE%85%E5%8A%A9%E5%AD%98%E5%82%A8%E5%99%A8"><span class="toc-text">计算机的主存储器与辅助存储器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%84%E9%AB%98%E9%80%9F%E7%BC%93%E5%AD%98"><span class="toc-text">计算机的高速缓存</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%84CPU"><span class="toc-text">计算机的CPU</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%84%E6%8C%87%E4%BB%A4%E7%B3%BB%E7%BB%9F"><span class="toc-text">计算机的指令系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%84%E6%8E%A7%E5%88%B6%E5%99%A8"><span class="toc-text">计算机的控制器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%84%E8%BF%90%E7%AE%97%E5%99%A8"><span class="toc-text">计算机的运算器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8C%87%E4%BB%A4%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B"><span class="toc-text">计算机指令执行过程</span></a></li></ol></li></ol>
     </div>
   </section>
 
