@@ -347,9 +347,9 @@
       
         <tags>
             
-            <tag> MySQL架构 </tag>
-            
             <tag> MySQL高级 </tag>
+            
+            <tag> MySQL架构 </tag>
             
         </tags>
       
@@ -1281,9 +1281,9 @@
             
             <tag> Web </tag>
             
-            <tag> Response </tag>
-            
             <tag> Http协议 </tag>
+            
+            <tag> Response </tag>
             
         </tags>
       
@@ -1339,9 +1339,9 @@
             
             <tag> Web </tag>
             
-            <tag> Http协议 </tag>
-            
             <tag> Request </tag>
+            
+            <tag> Http协议 </tag>
             
         </tags>
       
