@@ -1,0 +1,3020 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/tree/4.3.1'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <link rel="preload" href="/css/first.css" as="style">
+  
+
+  <!-- 页面元数据 -->
+  
+  <title>ElasticSearch - 追风少年</title>
+  
+    <meta name="keywords" content="ElasticSearch">
+  
+
+  
+    <meta name="description" content="一个基于Lucene开发的全文检索服务器。简称es,es是一个开源的高扩展性的分布式全文检索引擎，实时性的存储、检索数据是它的最大的特点。">
+  
+
+  <!-- feed -->
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  
+    <link rel="shortcut icon" type='image/x-icon' href="https://blog.chasingwind.top/creative-idea.png">
+  
+
+  <!-- import link -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/first.css">
+
+  
+
+  
+  <link rel="stylesheet" href="/css/style.css" media="print" onload="this.media='all';this.onload=null">
+  <noscript><link rel="stylesheet" href="/css/style.css"></noscript>
+  
+
+  <script id="loadcss"></script>
+
+  
+<script>
+if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode))
+    document.write(
+	'<style>'+
+		'html{'+
+			'overflow-x: hidden !important;'+
+			'overflow-y: hidden !important;'+
+		'}'+
+		'.kill-ie{'+
+			'text-align:center;'+
+			'height: 100%;'+
+			'margin-top: 15%;'+
+			'margin-bottom: 5500%;'+
+		'}'+
+	'</style>'+
+    '<div class="kill-ie">'+
+        '<h1><b>抱歉，您的浏览器无法访问本站</b></h1>'+
+        '<h3>微软已经于2016年终止了对 Internet Explorer (IE) 10 及更早版本的支持，<br/>'+
+        '继续使用存在极大的安全隐患，请使用当代主流的浏览器进行访问。</h3><br/>'+
+        '<a target="_blank" rel="noopener" href="https://www.microsoft.com/zh-cn/WindowsForBusiness/End-of-IE-support"><strong>了解详情 ></strong></a>'+
+    '</div>');
+</script>
+
+
+<noscript>
+	<style>
+		html{
+			overflow-x: hidden !important;
+			overflow-y: hidden !important;
+		}
+		.kill-noscript{
+			text-align:center;
+			height: 100%;
+			margin-top: 15%;
+			margin-bottom: 5500%;
+		}
+	</style>
+    <div class="kill-noscript">
+        <h1><b>抱歉，您的浏览器无法访问本站</b></h1>
+        <h3>本页面需要浏览器支持（启用）JavaScript</h3><br/>
+        <a target="_blank" rel="noopener" href="https://www.baidu.com/s?wd=启用JavaScript"><strong>了解详情 ></strong></a>
+    </div>
+</noscript>
+
+</head>
+
+  <body>
+    
+
+<header id="l_header" class="l_header always shadow floatable blur "  >
+  <div class='container'>
+  <div id='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h m-phone' id="pjax-header-nav-list">
+        <li><a id="s-comment" class="fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a id="s-toc" class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+            <img no-lazy class='logo' src='https://blog.chasingwind.top/blogavater.jpeg'/>
+          
+          
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h m-pc'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              
+                <li>
+                  <a class="menuitem flat-box">
+                    <i class='fas fa-compact-disc fa-fw music'></i>背景音乐
+                  </a>
+                  <ul class="list-v">
+                    <li>
+                      <div class="aplayer-container">
+                        
+
+  
+    <meting-js
+      theme='#1BCDFC'
+      volume='0.7'
+      loop='all'
+      order='list'
+      fixed='false'
+      list-max-height='320px'
+      server='netease'
+      type='playlist'
+      id='754595573'
+      list-folded='true'>
+    </meting-js>
+  
+
+
+                      </div>
+                    </li>
+                  </ul>
+                <li>
+              
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="看点什么呢..." />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h m-phone'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+    <div id="l_body">
+      <div id="l_cover">
+  
+    
+        <div id="half" class='cover-wrapper post search' style="display: ;">
+          
+            <div id='cover-backstretch'></div>
+          
+          <div class='cover-body'>
+  <div class='top'>
+    
+    
+      <p class="title">ChasingWind</p>
+    
+    
+      <p class="subtitle">向死而生，反求诸己</p>
+    
+  </div>
+  <div class='bottom'>
+    
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <input type="text" class="input u-search-input" placeholder="会搜到什么呢~" />
+          <i class="icon fas fa-search fa-fw"></i>
+        </form>
+      </div>
+    
+    <div class='menu navigation'>
+      <div class='list-h'>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+          <div id="scroll-down" style="display: none;"><i class="fa fa-chevron-down scroll-down-effects"></i></div>
+        </div>
+    
+  
+  </div>
+
+      <div id="safearea">
+        <div class="body-wrapper" id="pjax-container">
+          
+
+<div class='l_main'>
+  <article class="article post white-box reveal md shadow article-type-post" id="post" itemscope itemprop="blogPost">
+  
+
+
+  
+    <div class='headimg-div'>
+      <a class='headimg-a'>
+        <img class='headimg' src='https://blog.chasingwind.top/ElasticSearch.png'/>
+      </a>
+    </div>
+  
+  <div class="article-meta" id="top">
+    
+    
+    
+      <h1 class="title">
+        ElasticSearch
+      </h1>
+      <div class='new-meta-box'>
+        
+          
+            
+<div class='new-meta-item author'>
+  <a class='author' href="/about/" rel="nofollow">
+    <img no-lazy src="https://blog.chasingwind.top/blogavater.jpeg">
+    <p>ChasingWind</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class='new-meta-item category'>
+    <a class='notlink'>
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <a class="category-link" href="/categories/%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2/">全文检索</a>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：2020年7月3日</p>
+  </a>
+</div>
+
+          
+        
+          
+            <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-03-04T08:45:46+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2021年3月4日</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+
+          
+        
+          
+            
+  <div class="new-meta-item browse leancloud">
+    <a class='notlink'>
+      
+      <div id="lc-pv" data-title="ElasticSearch" data-path="/2020/07/03/ElasticSearch/">
+        <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
+        <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+        次浏览
+      </div>
+    </a>
+  </div>
+
+
+          
+        
+      </div>
+    
+  </div>
+
+
+  
+  
+  <p>一个基于Lucene开发的全文检索服务器。简称es,es是一个开源的高扩展性的分布式全文检索引擎，实时性的存储、检索数据是它的最大的特点。</p>
+<a id="more"></a>
+
+
+
+<h2 id="ElasticSearch基本介绍"><a href="#ElasticSearch基本介绍" class="headerlink" title="ElasticSearch基本介绍"></a>ElasticSearch基本介绍</h2><ol>
+<li><p>ElasticSearch简介</p>
+<ul>
+<li>一个基于Lucene开发的全文检索<strong>服务器</strong>。简称es,es是一个开源的高扩展性的分布式全文检索引擎，实时性的存储、检索数据是它的最大的特点。</li>
+</ul>
+</li>
+<li><p>ElasticSearch使用案例</p>
+<ul>
+<li>Github在2013年抛弃Solr而转为使用ElasticSearch来处理PB级别的数据搜索</li>
+<li>新浪处理实时日志</li>
+<li>阿里构建自己的日志分析和分析体系</li>
+</ul>
+</li>
+<li><p>ElasticSearch对比Solr</p>
+<ul>
+<li>Solr利用ZooKeeper进行分布式管理，而ElasticSearch使用的是自带的分布式协调管理功能</li>
+<li>Solr支持更多的数据格式，而ElasticSearch仅支持json格式</li>
+<li>Solr官方提供的功能更多，而ElasticSearch更注重核心的功能，高级功能可以通过插件进行扩展</li>
+<li>Solr在传统的搜索应用中表现好于ElasticSearch，而在处理实时搜索的时候，ElasticSearch表现更加优秀</li>
+</ul>
+</li>
+<li><p>查询的原理（倒排索引）</p>
+<ol>
+<li><p>首先，在ES服务器中对文档内容进行分词，并且将分词的内容存储在一个单独的分词库中</p>
+</li>
+<li><p>当用户去查询数据的时候，会将用户的查询内容进行分词</p>
+</li>
+<li><p>根据分词的结果去<strong>分词库</strong>中匹配内容，最终得到的是文档的id</p>
+</li>
+<li><p>根据id表示去存放数据的地方获取数据</p>
+<blockquote>
+<p><img src="https://blog.chasingwind.top/image-20200528105728245.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200528105728245.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="ElasticSearch安装"><a href="#ElasticSearch安装" class="headerlink" title="ElasticSearch安装"></a>ElasticSearch安装</h2><ol>
+<li><p>ElasticSearch在Linux服务器上的安装</p>
+<ol>
+<li><p>下载<code>.tar.gz</code>文件， 使用<a href="tps://mirrors.huaweicloud.com/">华为镜像</a>进行下载更快</p>
+</li>
+<li><p>解压安装包到安装目录</p>
+<blockquote>
+<p>注意一点的是 ElasticSearch使用的是Java开发的，所以需要JDK的支持</p>
+<p>7.7.0需要JDK至少为11版本</p>
+<p><code>tar -xvzf elasticsearch-7.7.0-linux-x86_64.tar.gz</code></p>
+<p>解压之后的目录</p>
+<p><img src="https://blog.chasingwind.top/image-20200523104254435.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200523104254435.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>在lib目录下可以看到，ElasticSearch其实底层使用的是Lucene</p>
+<p><img src="https://blog.chasingwind.top/image-20200523104609039.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200523104609039.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>修改config文件夹中的配置文件<code>elasticsearch.yml</code></p>
+<blockquote>
+<p>阿里云服务器的话  必须使用内网ip而不是公网ip  不然启动的时候会报错</p>
+<p>同时需要创建data文件夹存储索引库</p>
+<p>logs文件夹作为日志文件夹</p>
+<pre><code class="yaml"># ---------------------------------- Cluster -----------------------------------
+#
+# Use a descriptive name for your cluster:
+#配置es的集群名称，默认是elasticsearch，es会自动发现在同一网段下的es，如果在同一网段下有多个集群，就可以用这个属性来区分不同的集群。
+cluster.name: my-application
+#
+# ------------------------------------ Node ------------------------------------
+#
+# Use a descriptive name for the node:
+#节点名称
+node.name: node-1
+
+# ----------------------------------- Paths ------------------------------------
+#
+# Path to directory where to store the data (separate multiple locations by comma):
+#索引库存储路径
+path.data: /usr/local/src/https://blog.chasingwind.top/data
+#
+# Path to log files:
+#日志存储路径
+path.logs: /usr/local/src/https://blog.chasingwind.top/logs
+#
+# ----------------------------------- Memory -----------------------------------
+#
+# Lock the memory on startup:
+#
+#bootstrap.memory_lock: true
+#
+# Make sure that the heap size is set to about half the memory available
+# on the system and that the owner of the process is allowed to use this
+# limit.
+#
+# Elasticsearch performs poorly when the system is swapping the memory.
+#
+# ---------------------------------- Network -----------------------------------
+#
+# Set the bind address to a specific IP (IPv4 or IPv6):
+#设置外网访问
+network.host: 阿里云服务器的内网ip
+#
+# Set a custom port for HTTP:
+#对外服务端口号
+http.port: 9200
+transport.tcp.port: 9300
+#
+# For more information, consult the network module documentation.
+#
+# --------------------------------- Discovery ----------------------------------
+#
+# Pass an initial list of hosts to perform discovery when this node is started:
+# The default list of hosts is [&quot;127.0.0.1&quot;, &quot;[::1]&quot;]
+#
+#discovery.seed_hosts: [&quot;host1&quot;, &quot;host2&quot;]
+#
+# Bootstrap the cluster using an initial set of master-eligible nodes:
+#
+cluster.initial_master_nodes: [&quot;node-1&quot;]
+
+</code></pre>
+</blockquote>
+</li>
+<li><p>启动</p>
+<blockquote>
+<p>到bin目录下启动elasticsearch</p>
+</blockquote>
+</li>
+<li><p>启动过程中遇到的错误</p>
+<ol>
+<li><p>启动过程中被Killed，查看日志，发现内存不够，由于ES是运行在JVM上，JVM本身除了分配的heap内存以外，还会用到一些堆外(off heap)内存。 在小内存的机器上跑ES，如果heap划分过多，累加上堆外内存后，总的JVM使用内存量可能超过物理内存限制。 如果swap又是关闭的情况下，就会被操作系统oom killer杀掉。</p>
+<blockquote>
+<p>修改ES中config目录下的<strong>jvm.options</strong>文件</p>
+<p>vim jvm.options<br>将<br>-Xms1g<br>-Xmx1g<br>改为<br>-Xms256m<br>-Xmx256m<br>就启动成功了</p>
+<hr>
+<p>内存大小看你自己的情况 </p>
+<p>我的虚拟机2G的内存 后面安装Kibana的话 给的是256 否则无法启动</p>
+</blockquote>
+</li>
+<li><p>启动成功无法访问</p>
+<blockquote>
+<p>为阿里云的实例添加安全组策略</p>
+<p><img src="https://blog.chasingwind.top/image-20200523163949166.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200523163949166.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ol>
+</li>
+<li><p>进行访问，使用阿里云的<code>公网ip:9200</code></p>
+<blockquote>
+<p><img src="https://blog.chasingwind.top/image-20200523164055565.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200523164055565.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ol>
+</li>
+<li><p>ElasticSearch安装界面化工具</p>
+<ul>
+<li><p>使用同为ElasticSearch旗下的页面管理工具Kibana</p>
+<ol>
+<li><p>下载安装，直接使用命令<code>wget https://mirrors.huaweicloud.com/kibana/7.7.0/kibana-7.7.0-linux-x86_64.tar.gz</code></p>
+</li>
+<li><p>修改配置文件</p>
+<blockquote>
+<p>配置的是阿里云的私网ip，但是访问的时候，依然使用的是公网ip</p>
+<p>同时配置实例的安全组策略</p>
+<p><img src="https://blog.chasingwind.top/image-20200523172011505.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200523172011505.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>启动bin目录下的kibana</p>
+<blockquote>
+<p>注意 需要在ElasticSearch已经启动的情况下启动 否则无法访问</p>
+</blockquote>
+</li>
+<li><p>访问页面</p>
+<blockquote>
+<p>通过公网ip访问Kibana  目前没有索引库中的数据 后面需要进行添加的操作。</p>
+<p><img src="https://blog.chasingwind.top/image-20200523172458912.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200523172458912.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>设置中文</p>
+<blockquote>
+<p><img src="https://blog.chasingwind.top/image-20200523172809750.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200523172809750.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p><img src="https://blog.chasingwind.top/image-20200523183804664.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200523183804664.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>ElasticSearch和Kibana后台启动</p>
+<blockquote>
+<p>使用./elasticsearch和./kibana命令启动的话，把启动命令页面关闭，那么服务也随之关闭</p>
+<p>使用后台启动的方式启动服务</p>
+<p>ElasticSearch：<code>./bin/elasticsearch -d</code></p>
+<p>Kibana：<code>nohup /usr/local/src/Kibana/bin/kibana &amp;</code></p>
+</blockquote>
+</li>
+<li><p>ElasticSearch相关概念</p>
+<ul>
+<li><p>和关系型数据库进行对比</p>
+<blockquote>
+<p>ElasticSearch是面向文档的</p>
+<hr>
+<p>关系型数据库 →DataBases（多个数据库）→Tables→Rows→Columns</p>
+<p>ElasticSearch →Indexes（多个索引库）→Types→Documents→Fields</p>
+</blockquote>
+</li>
+<li><p>映射Mapping</p>
+<blockquote>
+<p>Mapping映射类似于<strong>数据库中表结构的定义</strong>，主要作用如下：</p>
+<ul>
+<li>定义索引库中的Field域的名字</li>
+<li>定义字段类型，比如数值型、布尔型、浮点型等等</li>
+<li>定义倒排索引相关的设置，比如，是否索引，是否存储，是否分析</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="ElasticSearch索引库维护"><a href="#ElasticSearch索引库维护" class="headerlink" title="ElasticSearch索引库维护"></a>ElasticSearch索引库维护</h2><p>在ElasticSearch 7.x版本中移除了Type，参考<a target="_blank" rel="noopener" href="https://blog.csdn.net/wangzhen3798/article/details/89503707">移除Type的原因参考</a></p>
+<h3 id="PostMan发送http请求创建索引库"><a href="#PostMan发送http请求创建索引库" class="headerlink" title="PostMan发送http请求创建索引库"></a>PostMan发送http请求创建索引库</h3><ol>
+<li><p>使用PostMan发送http请求创建索引库，并设置Field的Mapping</p>
+<blockquote>
+<p>查看官网示例后发现 7.4 默认不在支持指定索引类型（上面的Type），默认索引类型是_doc（隐含：include_type_name=false）</p>
+<p><img src="https://blog.chasingwind.top/image-20200523211320642.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200523211320642.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>所以我的服务器安装的7.7的请求是这样的</p>
+<p>同时type的名字就是默认的<code>_doc</code></p>
+<p><img src="https://blog.chasingwind.top/image-20200523213839784.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200523213839784.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>使用Kibana查看创建的index索引库</p>
+<blockquote>
+<p><img src="https://blog.chasingwind.top/image-20200523214516686.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200523214516686.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>可见索引库的type是默认的<code>_doc</code></p>
+<p><img src="https://blog.chasingwind.top/image-20200523214542416.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200523214542416.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ol>
+<h3 id="使用PostMan向索引库添加Document"><a href="#使用PostMan向索引库添加Document" class="headerlink" title="使用PostMan向索引库添加Document"></a>使用PostMan向索引库添加Document</h3><ol>
+<li><p>指定Document的id</p>
+<blockquote>
+<p>请求的链接中的Type使用默认的<code>_doc</code>，并且为Document指定唯一的id </p>
+<p><img src="https://blog.chasingwind.top/image-20200524091906716.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200524091906716.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>执行成功  可以看到指定的id在索引库中的字段变为”_id”</p>
+<p><img src="https://blog.chasingwind.top/image-20200524092809481.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200524092809481.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>不指定Document的id</p>
+<blockquote>
+<p>不指定id的话，ElasticSearch会自动帮我们生成Document的唯一的id</p>
+<p><img src="https://blog.chasingwind.top/image-20200524094121248.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200524094121248.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ol>
+<h3 id="使用Kibana查看索引库中的Document"><a href="#使用Kibana查看索引库中的Document" class="headerlink" title="使用Kibana查看索引库中的Document"></a>使用Kibana查看索引库中的Document</h3><ol>
+<li><p>创建索引模式</p>
+<blockquote>
+<p>创建索引模式</p>
+<p><img src="https://blog.chasingwind.top/image-20200524092936995.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200524092936995.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>选择index索引库</p>
+<p><img src="https://blog.chasingwind.top/image-20200524093044618.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200524093044618.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="https://blog.chasingwind.top/image-20200524093104533.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200524093104533.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>在这里可以修改Mapping配置</p>
+<p><img src="https://blog.chasingwind.top/image-20200524093132826.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200524093132826.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+</blockquote>
+</li>
+<li><p>查看索引库中的Document</p>
+<blockquote>
+<p><img src="https://blog.chasingwind.top/image-20200524093246346.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200524093246346.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p><img src="https://blog.chasingwind.top/image-20200524093327652.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200524093327652.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ol>
+<h3 id="使用PostMan删除Document"><a href="#使用PostMan删除Document" class="headerlink" title="使用PostMan删除Document"></a>使用PostMan删除Document</h3><ul>
+<li><p>根据Document文档的唯一id删除文档</p>
+<blockquote>
+<p>PostMan发送DELETE请求</p>
+<p><img src="https://blog.chasingwind.top/image-20200524101449464.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200524101449464.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>删除之前</p>
+<p><img src="https://blog.chasingwind.top/image-20200524101400694.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200524101400694.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>删除之后</p>
+<p><img src="https://blog.chasingwind.top/image-20200524101543805.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200524101543805.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ul>
+<h3 id="使用PostMan修改文档"><a href="#使用PostMan修改文档" class="headerlink" title="使用PostMan修改文档"></a>使用PostMan修改文档</h3><ul>
+<li><p>由于ElasticSearch底层使用的就是Lucene，所以和Lucene的原理是相同的。先删除文档，而后添加一个新的文档</p>
+<blockquote>
+<p>根据id直接修改文档的内容</p>
+<p><img src="https://blog.chasingwind.top/image-20200524105130407.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200524105130407.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ul>
+<h3 id="使用PostMan进行查询"><a href="#使用PostMan进行查询" class="headerlink" title="使用PostMan进行查询"></a>使用PostMan进行查询</h3><ol>
+<li><p>根据Document的id进行查询</p>
+<blockquote>
+<p><img src="https://blog.chasingwind.top/image-20200524110346660.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200524110346660.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>根据关键词进行查询</p>
+<blockquote>
+<p>域Lucene中的TermQuery功能相同</p>
+<p>请求体中需要指定关键词所在的域和关键词本身</p>
+<p>目前使用的是标准分析器 对于中文的话，一个汉字是一个关键词</p>
+<p><img src="https://blog.chasingwind.top/image-20200524114347772.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200524114347772.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>响应结果</p>
+<p><img src="https://blog.chasingwind.top/image-20200524114439141.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200524114439141.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>带分析功能的查询</p>
+<blockquote>
+<p>在ElasticSearch中使用QueryString进行查询，先将查询的语句使用分析器进行分析，之后再根据分析器分析的结果在默认的搜索域中进行查询</p>
+<p>功能和Lucene中的QueryParser功能类似</p>
+<p><img src="https://blog.chasingwind.top/image-20200524114837327.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200524114837327.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p><img src="https://blog.chasingwind.top/image-20200524114906521.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200524114906521.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ol>
+<h3 id="使用PostMan查看分析器的分析效果"><a href="#使用PostMan查看分析器的分析效果" class="headerlink" title="使用PostMan查看分析器的分析效果"></a>使用PostMan查看分析器的分析效果</h3><ul>
+<li><p>通过指定请求中的分析器类型和待分析的语句，在响应中可以查看分析之后的结果</p>
+<blockquote>
+<p><img src="https://blog.chasingwind.top/image-20200524120357865.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200524120357865.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ul>
+<h2 id="ElasticSearch集成IK-Analyzer中文分析器"><a href="#ElasticSearch集成IK-Analyzer中文分析器" class="headerlink" title="ElasticSearch集成IK-Analyzer中文分析器"></a>ElasticSearch集成IK-Analyzer中文分析器</h2><ol>
+<li><p>下载<a target="_blank" rel="noopener" href="https://github.com/medcl/elasticsearch-analysis-ik/releases">IK-Analyzer插件</a>,选择和ElasticSearch对应的版本</p>
+</li>
+<li><p>将插件解压缩，上传到ElasticSearch目录的plugins目录下，并且重启ElasticSearch即可</p>
+<blockquote>
+<p><img src="https://blog.chasingwind.top/image-20200524141031816.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200524141031816.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>查看分析效果</p>
+<blockquote>
+<p>IK-Analyzer提供两种分词算法：</p>
+<p>ik_smart：最少切分</p>
+<p><img src="https://blog.chasingwind.top/image-20200524150607746.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200524150607746.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>ik_max_word：最细粒度划分 对可以分词的词语再次进行切分</p>
+<p><img src="https://blog.chasingwind.top/image-20200524150528333.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200524150528333.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>创建索引库并配置IK-Analyzer作为分析器</p>
+<blockquote>
+<p>配置IK-Analyzer作为分析器</p>
+<p><img src="https://blog.chasingwind.top/image-20200524151543427.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200524151543427.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>Document文档</p>
+<p><img src="https://blog.chasingwind.top/image-20200524152636901.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200524152636901.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>查询结果</p>
+<p><img src="https://blog.chasingwind.top/image-20200524152613718.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200524152613718.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ol>
+<h2 id="ElasticSearch集群"><a href="#ElasticSearch集群" class="headerlink" title="ElasticSearch集群"></a>ElasticSearch集群</h2><h3 id="ElasticSearch集群架构以及概念说明"><a href="#ElasticSearch集群架构以及概念说明" class="headerlink" title="ElasticSearch集群架构以及概念说明"></a>ElasticSearch集群架构以及概念说明</h3><ol>
+<li><p>为什么需要搭建集群（Cluster）？</p>
+<ol>
+<li>高可用性：减少服务的不可用时间，使得服务在任何时候都可以使用，不能因为单个节点挂掉，而影响到整个服务</li>
+<li>扩大存储空间：多台服务器可以扩大存储空间</li>
+</ol>
+</li>
+<li><p>ElasticSearch的信息存储机制</p>
+<ol>
+<li><p>分片（Shard）</p>
+<blockquote>
+<p>分片，英文叫做 Shard，顾名思义，分片就是对数据切分成了多个部分。我们知道 Elasticsearch 中一个索引（Index）相当于是一个数据库，如存某网站的用户信息，我们就建一个名为 user 的索引。但索引存储的时候并不是整个存一起的，它是被分片存储的，Elasticsearch 默认会把一个索引分成五个分片，当然这个数字是可以自定义的。分片是数据的容器，数据保存在分片内，分片又被分配到集群内的各个节点里。当你的集群规模扩大或者缩小时， Elasticsearch 会自动的在各节点中迁移分片，使得数据仍然均匀分布在集群里，所以相当于一份数据被分成了多份并保存在不同的主机上。</p>
+</blockquote>
+</li>
+<li><p>副本（Replica）</p>
+<blockquote>
+<p>副本，英文叫做 Replica，同样顾名思义，副本就是对原分片的复制，和原分片的内容是一样的，Elasticsearch 默认会生成一份副本，所以相当于是五个原分片和五个分片副本，相当于一份数据存了两份，并分了十个分片，当然副本的数量也是可以自定义的。这时我们只需要将某个分片的副本存在另外一台主机上，这样当某台主机宕机了，我们依然还可以从另外一台主机的副本中找到对应的数据。所以从外部来看，数据结果是没有任何区别的。</p>
+</blockquote>
+</li>
+</ol>
+<ul>
+<li>一般来说，Elasticsearch 会尽量把一个索引的不同分片存储在不同的主机上，分片的副本也尽可能存在不同的主机上，这样可以提高容错率，从而提高高可用性。</li>
+</ul>
+</li>
+<li><p>节点的分类</p>
+<ol>
+<li>主节点：即 Master 节点。主节点的主要职责是和集群操作相关的内容，如创建或删除索引，跟踪哪些节点是群集的一部分，并决定哪些分片分配给相关的节点。稳定的主节点对集群的健康是非常重要的。默认情况下任何一个集群中的节点都有可能被选为主节点。索引数据和搜索查询等操作会占用大量的cpu，内存，io资源，为了确保一个集群的稳定，分离主节点和数据节点是一个比较好的选择。虽然主节点也可以协调节点，路由搜索和从客户端新增数据到数据节点，但最好不要使用这些专用的主节点。一个重要的原则是，尽可能做尽量少的工作。</li>
+<li>数据节点：即 Data 节点。数据节点主要是存储索引数据的节点，主要对文档进行增删改查操作，聚合操作等。数据节点对 CPU、内存、IO 要求较高，在优化的时候需要监控数据节点的状态，当资源不够的时候，需要在集群中添加新的节点。</li>
+<li>负载均衡节点：也称作 Client 节点，也称作客户端节点。当一个节点既不配置为主节点，也不配置为数据节点时，该节点只能处理路由请求，处理搜索，分发索引操作等，从本质上来说该客户节点表现为智能负载平衡器。独立的客户端节点在一个比较大的集群中是非常有用的，他协调主节点和数据节点，客户端节点加入集群可以得到集群的状态，根据集群的状态可以直接路由请求。</li>
+<li>预处理节点：也称作 Ingest 节点，在索引数据之前可以先对数据做预处理操作，所有节点其实默认都是支持 Ingest 操作的，也可以专门将某个节点配置为 Ingest 节点。</li>
+</ol>
+<ul>
+<li>一个节点其实可以对应不同的类型，如一个节点可以同时成为主节点和数据节点和预处理节点，但如果一个节点既不是主节点也不是数据节点，那么它就是负载均衡节点。具体的类型可以通过具体的配置文件来设置。</li>
+</ul>
+</li>
+</ol>
+<h3 id="ElasticSearch集群搭建"><a href="#ElasticSearch集群搭建" class="headerlink" title="ElasticSearch集群搭建"></a>ElasticSearch集群搭建</h3><ul>
+<li>通过配置每台ElasticSearch的配置文件，设置同一个集群名和各自的ip、端口以及配置其他节点的ip和端口，节点名就可以搭建一个集群，<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/15d6241e7844">节点配置参考</a></li>
+</ul>
+<h2 id="Java操作索引库增删改"><a href="#Java操作索引库增删改" class="headerlink" title="Java操作索引库增删改"></a>Java操作索引库增删改</h2><h3 id="创建索引"><a href="#创建索引" class="headerlink" title="创建索引"></a>创建索引</h3><ol>
+<li><p>导入相关的依赖</p>
+<blockquote>
+<pre><code class="xml">&lt;dependency&gt;
+&lt;groupId&gt;org.elasticsearch&lt;/groupId&gt;
+&lt;artifactId&gt;elasticsearch&lt;/artifactId&gt;
+&lt;version&gt;7.7.0&lt;/version&gt;
+&lt;/dependency&gt;
+
+&lt;dependency&gt;
+&lt;groupId&gt;org.elasticsearch.client&lt;/groupId&gt;
+&lt;artifactId&gt;transport&lt;/artifactId&gt;
+&lt;version&gt;7.7.0&lt;/version&gt;
+&lt;/dependency&gt;
+
+
+&lt;!--ElasticSearch的高级API 在7.x版本中使用--&gt;
+&lt;dependency&gt;
+&lt;groupId&gt;org.elasticsearch.client&lt;/groupId&gt;
+&lt;artifactId&gt;elasticsearch-rest-high-level-client&lt;/artifactId&gt;
+&lt;version&gt;7.7.0&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+</blockquote>
+</li>
+<li><p>在ElasticSearch7.x之前使用</p>
+<blockquote>
+<ol>
+<li>创建Settings对象，配置集群的名字</li>
+<li>创建client对象，配置节点的信息</li>
+<li>使用client对象创建索引库</li>
+<li>关闭client</li>
+</ol>
+<p><img src="https://blog.chasingwind.top/image-20200524173608096.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200524173608096.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>注意：</p>
+<p>端口使用的是TCP端口 9300</p>
+</blockquote>
+</li>
+<li><p>在ElasticSearch 7.x版本之后</p>
+<blockquote>
+<ol>
+<li>创建Settings对象。指定分片数和备份数</li>
+<li>创建CreateIndexRequest对象，通常把这个方法封装成static方法</li>
+<li>将Settings对象封装为Request对象</li>
+<li>通过Client对象连接并创建索引</li>
+</ol>
+<p><img src="https://blog.chasingwind.top/image-20200524211703211.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200524211703211.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>注意：</p>
+<p>使用的端口是Http端口9200</p>
+</blockquote>
+</li>
+<li><p>使用Kibana查看创建的索引库</p>
+<blockquote>
+<p><img src="https://blog.chasingwind.top/image-20200524212152063.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200524212152063.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ol>
+<h3 id="设置索引的Mappings"><a href="#设置索引的Mappings" class="headerlink" title="设置索引的Mappings"></a>设置索引的Mappings</h3><ul>
+<li><p>通过XContentBuilder设置Mappings的值并封装到Request对象中</p>
+<blockquote>
+<p>index属性表示当前Field是否可以作为条件进行查询  默认是true</p>
+<p>store属性表示是否需要额外存储，默认是false， 他其实表示的是在源文档（_source）之外，在倒排索引中为这个字段单独存储，这样可以提高效率</p>
+<p><img src="https://blog.chasingwind.top/image-20200524214740436.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200524214740436.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ul>
+<h3 id="检查索引是否存在以及删除索引"><a href="#检查索引是否存在以及删除索引" class="headerlink" title="检查索引是否存在以及删除索引"></a>检查索引是否存在以及删除索引</h3><ol>
+<li><p>检查索引是否存在</p>
+<blockquote>
+<p><img src="https://blog.chasingwind.top/image-20200524220651260.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200524220651260.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>删除索引</p>
+<blockquote>
+<p>索引不存在的话 抛出异常</p>
+<p><img src="https://blog.chasingwind.top/image-20200524221439290.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200524221439290.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ol>
+<h3 id="向索引中添加文档"><a href="#向索引中添加文档" class="headerlink" title="向索引中添加文档"></a>向索引中添加文档</h3><ol>
+<li><p>创建一个Person索引</p>
+<blockquote>
+<p><img src="https://blog.chasingwind.top/image-20200524224745334.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200524224745334.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>创建Person实体类，以便进行将数据转换为JSON</p>
+<blockquote>
+<p><img src="https://blog.chasingwind.top/image-20200524225129079.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200524225129079.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>添加文档</p>
+<blockquote>
+<p><img src="https://blog.chasingwind.top/image-20200524224632931.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200524224632931.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>查看结果</p>
+<blockquote>
+<p>索引person和id使我们指定的  当然 type我们也可以指定</p>
+<p><img src="https://blog.chasingwind.top/image-20200524225310078.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200524225310078.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ol>
+<h3 id="修改和删除文档"><a href="#修改和删除文档" class="headerlink" title="修改和删除文档"></a>修改和删除文档</h3><ol>
+<li><p>修改文档中的内容</p>
+<blockquote>
+<p>可以直接修改文档中的内容 而不需要删除再创建</p>
+<p><img src="https://blog.chasingwind.top/image-20200524230503271.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200524230503271.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>结果</p>
+<p><img src="https://blog.chasingwind.top/image-20200524230533984.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200524230533984.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>根据id删除文档</p>
+<blockquote>
+<p><img src="https://blog.chasingwind.top/image-20200524230941966.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200524230941966.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>已删除</p>
+<p><img src="https://blog.chasingwind.top/image-20200524231008453.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200524231008453.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>delete-by-query，删除符合查询条件的文档</p>
+<blockquote>
+<p>删除根据term，match查询的得到的文档</p>
+<ul>
+<li>如果需要删除索引库中的大部分内容，不推荐这个方式，因为这种方式底层还是根据id去一个一个删除对应的文档，推荐的做法是向一个新的索引库中添加不需要删除的文档</li>
+</ul>
+<hr>
+<p><img src="https://blog.chasingwind.top/image-20200525223226858.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200525223226858.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ol>
+<h3 id="批量操作"><a href="#批量操作" class="headerlink" title="批量操作"></a>批量操作</h3><ul>
+<li><p>增删改查都是可以批量操作的</p>
+<blockquote>
+<p>使用BulkRequest对象 其中可以添加其他的request对象</p>
+<p><img src="https://blog.chasingwind.top/image-20200524232444400.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200524232444400.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>实现批量添加</p>
+<blockquote>
+<p>实现批量添加</p>
+<p><img src="https://blog.chasingwind.top/image-20200524232414455.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200524232414455.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>查看结果</p>
+<p><img src="https://blog.chasingwind.top/image-20200524232644214.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200524232644214.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>实现批量删除</p>
+<blockquote>
+<p><img src="https://blog.chasingwind.top/image-20200524232937344.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200524232937344.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>结果</p>
+<p><img src="https://blog.chasingwind.top/image-20200524232957572.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200524232957572.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ul>
+<h2 id="Java操作索引库查询"><a href="#Java操作索引库查询" class="headerlink" title="Java操作索引库查询"></a>Java操作索引库查询</h2><h3 id="创建索引库并添加文档"><a href="#创建索引库并添加文档" class="headerlink" title="创建索引库并添加文档"></a>创建索引库并添加文档</h3><ol>
+<li><p>数据的实体类</p>
+<blockquote>
+<p>需要注意的一点就是 这里的格式规定需要与Field中规定的格式一致</p>
+<p><img src="https://blog.chasingwind.top/image-20200525091500543.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200525091500543.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>创建索引</p>
+<blockquote>
+<p><img src="https://blog.chasingwind.top/image-20200525091933658.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200525091933658.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>添加文档</p>
+<blockquote>
+<p>使用BulkRequest批量添加文档</p>
+<p><img src="https://blog.chasingwind.top/image-20200525092001188.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200525092001188.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ol>
+<h3 id="Term查询"><a href="#Term查询" class="headerlink" title="Term查询"></a>Term查询</h3><ul>
+<li><p>根据关键词进行查询，并且这个关键词不进行分词</p>
+<blockquote>
+<p><img src="https://blog.chasingwind.top/image-20200525104424801.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200525104424801.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p><img src="https://blog.chasingwind.top/image-20200525105601766.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200525105601766.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>关于获取响应数据的</p>
+<p>查看响应格式</p>
+<p><img src="https://blog.chasingwind.top/image-20200525104500992.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200525104500992.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ul>
+<h3 id="Terms查询"><a href="#Terms查询" class="headerlink" title="Terms查询"></a>Terms查询</h3><ul>
+<li><p>terms查询的功能类似于数据库查询中的in条件，可以有多个关键词</p>
+<blockquote>
+<p><img src="https://blog.chasingwind.top/image-20200525105454070.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200525105454070.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p><img src="https://blog.chasingwind.top/image-20200525105520577.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200525105520577.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="https://blog.chasingwind.top/image-20200525105533742.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200525105533742.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ul>
+<h3 id="match查询"><a href="#match查询" class="headerlink" title="match查询"></a>match查询</h3><ul>
+<li>match查询会根据查询的字段类型不同，采取不同的查询方式<ul>
+<li>查询的是日期或者是数值的话，match查询会将查询条件字符串转换为日期或者数值对待</li>
+<li>如果查询的是一个不能被分词的内容（keyword），match查询不会对查询条件进行拆分</li>
+<li>如果查询的是一个可以分词的内容（text），那么match会根据你的查询内容根据一定的方法分词，并去分词库中进行匹配</li>
+</ul>
+</li>
+<li>match查询底层是多个Term查询</li>
+</ul>
+<ol>
+<li><p>match_all：查询全部的数据，不需要指定条件。默认返回的结果中是10条数据,通过size可以设置</p>
+<blockquote>
+<p><img src="https://blog.chasingwind.top/image-20200525144623233.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200525144623233.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>match</p>
+<blockquote>
+<p>先把查询的内容进行分词，然后再去分词库进行查找</p>
+<p><img src="https://blog.chasingwind.top/image-20200525155658006.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200525155658006.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>带Boolean类型的match</p>
+<blockquote>
+<p>AND 既包括A，又包括B</p>
+<p><img src="https://blog.chasingwind.top/image-20200525160304208.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200525160304208.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>包含A或者B都可以</p>
+<p><img src="https://blog.chasingwind.top/image-20200525160501031.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200525160501031.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>multiMatch</p>
+<blockquote>
+<p>在多个字段中查询包含指定关键词的内容</p>
+<p><img src="https://blog.chasingwind.top/image-20200525160951247.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200525160951247.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ol>
+<h3 id="id查询"><a href="#id查询" class="headerlink" title="id查询"></a>id查询</h3><ul>
+<li><p>根据Document的id进行查询</p>
+<blockquote>
+<p><img src="https://blog.chasingwind.top/image-20200525162130103.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200525162130103.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ul>
+<h3 id="prefix前缀查询"><a href="#prefix前缀查询" class="headerlink" title="prefix前缀查询"></a>prefix前缀查询</h3><ul>
+<li><p>查询的Field的前缀包含关键词的条目</p>
+<blockquote>
+<p>与百度提示的功能类似</p>
+<p><img src="https://blog.chasingwind.top/image-20200525162455572.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200525162455572.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p><img src="https://blog.chasingwind.top/image-20200525162916503.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200525162916503.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ul>
+<h3 id="fuzzy模糊查询"><a href="#fuzzy模糊查询" class="headerlink" title="fuzzy模糊查询"></a>fuzzy模糊查询</h3><ul>
+<li><p>ElasticSearch根据输入的查询条件的内容的大概去匹配</p>
+<blockquote>
+<p>这个查询不稳定</p>
+<p><img src="https://blog.chasingwind.top/image-20200525163556611.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200525163556611.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ul>
+<h3 id="wildcard查询"><a href="#wildcard查询" class="headerlink" title="wildcard查询"></a>wildcard查询</h3><ul>
+<li><p>功能和MySQL中的like功能相同，可以在查询的字符串中指定通配符*和占位符？</p>
+<blockquote>
+<p><img src="https://blog.chasingwind.top/image-20200525164607451.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200525164607451.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>？的话  一个?是一个占位符</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="针对数值类型的range查询"><a href="#针对数值类型的range查询" class="headerlink" title="针对数值类型的range查询"></a>针对数值类型的range查询</h3><ul>
+<li><p>查询的字段必须是数值类型</p>
+<blockquote>
+<p><img src="https://blog.chasingwind.top/image-20200525165128813.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200525165128813.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ul>
+<h3 id="regexp正则表达式查询"><a href="#regexp正则表达式查询" class="headerlink" title="regexp正则表达式查询"></a>regexp正则表达式查询</h3><ul>
+<li><p>使用正则表达式去匹配</p>
+<blockquote>
+<p><img src="https://blog.chasingwind.top/image-20200525165822373.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200525165822373.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ul>
+<h3 id="复合查询"><a href="#复合查询" class="headerlink" title="复合查询"></a>复合查询</h3><h4 id="bool查询"><a href="#bool查询" class="headerlink" title="bool查询"></a>bool查询</h4><blockquote>
+<p>should：查询的结果中包括条件其中的一个即可，相当于或者or</p>
+<p>must：查询的结果中必须包括，相当于and</p>
+<p>must_not：查询的结果中不能包括，相当于not</p>
+<p><img src="https://blog.chasingwind.top/image-20200525224848991.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200525224848991.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+<h4 id="boosting查询"><a href="#boosting查询" class="headerlink" title="boosting查询"></a>boosting查询</h4><ul>
+<li><p>boosting查询可以帮助我们去影响文档的score，从而改变结果的排序</p>
+<blockquote>
+<ol>
+<li><p>positive：只有匹配上positive的查询的文档，才会放在结果集中</p>
+</li>
+<li><p>negative：如果匹配上了positive，并且也匹配上了negative，那么就可以降低score</p>
+</li>
+<li><p>negative_boost：指定系数，小于1.0。在第2种情况下乘以这个系数实现降低score的功能</p>
+</li>
+</ol>
+</blockquote>
+</li>
+<li><p>在查询的时候，score是如何得到的</p>
+<ol>
+<li>搜索的关键字在文档中出现的频次越高，score越高</li>
+<li>关键字占文档的比例越高，score越高</li>
+<li>关键词被分词的时候，分词在分词库中匹配的越多，score越高</li>
+</ol>
+</li>
+<li><p>Java实现</p>
+<blockquote>
+<p>表达的意思就是   在smsContent中包含安徽省的情况下 ，如果 smsContent中还包含芜湖  那么这个文档的score就乘以0.5</p>
+<p><img src="https://blog.chasingwind.top/image-20200525230627250.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200525230627250.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ul>
+<h3 id="filter过滤查询"><a href="#filter过滤查询" class="headerlink" title="filter过滤查询"></a>filter过滤查询</h3><ul>
+<li><p>query与filter的对比</p>
+<blockquote>
+<p>query：根据查询条件，去计算文档的匹配度，得到一个score，依此进行文档的排序，并且是<strong>不进行缓存</strong>的。</p>
+<p>filter：根据查询条件去查询文档，不计算分数，而且filter对经常过滤的数据进行缓存。</p>
+<hr>
+<p>当查询的数据不需要进行排序的时候，选择filter的效率更高</p>
+</blockquote>
+</li>
+<li><p>Java实现</p>
+<blockquote>
+<p>可见，所有的score都是0  效率比query高</p>
+<p><img src="https://blog.chasingwind.top/image-20200525232235280.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200525232235280.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ul>
+<h3 id="高亮查询"><a href="#高亮查询" class="headerlink" title="高亮查询"></a>高亮查询</h3><ul>
+<li><p>高亮查询就是将用户输入的关键字，以一定的样式展示给用户，让用户知道这个结果为什么被检索出来</p>
+</li>
+<li><p>高亮的数据，是Field自带的属性，在响应的数据中，单独作为一个字段返回</p>
+</li>
+<li><p>ES提供了一个highlight属性，和query同级别</p>
+<blockquote>
+<p>fields：指定哪些Field字段以高亮形式返回</p>
+<p>Fragment_size：指定高亮数据展示多个字符回来</p>
+<p>Pre_tags：指定前缀标签</p>
+<p>Post_tags：指定后缀标签</p>
+</blockquote>
+</li>
+<li><p>Kibana实现</p>
+<blockquote>
+<p><img src="https://blog.chasingwind.top/image-20200525233719877.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200525233719877.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>响应数据</p>
+<p><img src="https://blog.chasingwind.top/image-20200525233741711.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200525233741711.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>Java实现</p>
+<blockquote>
+<p><img src="https://blog.chasingwind.top/image-20200525234654842.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200525234654842.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ul>
+<h3 id="聚合查询"><a href="#聚合查询" class="headerlink" title="聚合查询"></a>聚合查询</h3><ul>
+<li>聚合查询（aggregation）的功能和MySQL中的聚合查询的功能相似，而且更加强大</li>
+</ul>
+<h4 id="cardinality去重计数查询"><a href="#cardinality去重计数查询" class="headerlink" title="cardinality去重计数查询"></a>cardinality去重计数查询</h4><ol>
+<li><p>先将返回的文档中的一个指定的field去重</p>
+</li>
+<li><p>在去重之后统计一共有多少条数据</p>
+<blockquote>
+<p>比如，我要统计所有的文档中的province字段一共有几种</p>
+<p>RESTful请求  其中agg这个Name是与结果中相对应的 可以自己任意取</p>
+<p><img src="https://blog.chasingwind.top/image-20200528082716376.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200528082716376.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>Java实现</p>
+<p><img src="https://blog.chasingwind.top/image-20200528084229630.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200528084229630.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ol>
+<h4 id="range范围统计"><a href="#range范围统计" class="headerlink" title="range范围统计"></a>range范围统计</h4><ul>
+<li>统计一定范围内出现的文档个数，比如，针对某一个Field值在0-100，100-200，200-300之间出现的文档的个数</li>
+<li>范围统计可以针对普通的数值（range），针对时间的类型（date_range），针对ip类型（ip_range）都可以做相应的统计</li>
+</ul>
+<ol>
+<li><p>数值查询</p>
+<blockquote>
+<p>from包含等于的情况 to不包含等于的情况</p>
+<p>RESTful实现</p>
+<p><img src="https://blog.chasingwind.top/image-20200528085136370.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200528085136370.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>Java代码实现</p>
+<p><img src="https://blog.chasingwind.top/image-20200528092403857.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200528092403857.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>结果</p>
+<p><img src="https://blog.chasingwind.top/image-20200528092610909.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200528092610909.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>时间范围统计</p>
+<blockquote>
+<p><img src="https://blog.chasingwind.top/image-20200528085755730.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200528085755730.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>Java实现</p>
+<p><img src="https://blog.chasingwind.top/image-20200528092644668.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200528092644668.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>结果</p>
+<p><img src="https://blog.chasingwind.top/image-20200528092657302.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200528092657302.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>ip范围统计</p>
+<blockquote>
+<p><img src="https://blog.chasingwind.top/image-20200528090151602.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200528090151602.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p><img src="https://blog.chasingwind.top/image-20200528093018155.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200528093018155.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ol>
+<h4 id="extended-stats聚合查询"><a href="#extended-stats聚合查询" class="headerlink" title="extended_stats聚合查询"></a>extended_stats聚合查询</h4><ul>
+<li><p>查询指定Field的最大值，最小值，平均值和平方和等等</p>
+<blockquote>
+<p><img src="https://blog.chasingwind.top/image-20200528101040129.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200528101040129.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>Java实现</p>
+<p><img src="https://blog.chasingwind.top/image-20200528101711724.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200528101711724.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ul>
+<h4 id="其他聚合查询"><a href="#其他聚合查询" class="headerlink" title="其他聚合查询"></a>其他聚合查询</h4><ul>
+<li>查看官网中的文档<a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/https://blog.chasingwind.top/reference/current/search-aggregations.html">Aggregations</a></li>
+</ul>
+<h2 id="深分页Scroll"><a href="#深分页Scroll" class="headerlink" title="深分页Scroll"></a>深分页Scroll</h2><h3 id="分页功能比较"><a href="#分页功能比较" class="headerlink" title="分页功能比较"></a>分页功能比较</h3><ul>
+<li><p>from+size实现分页的功能</p>
+<blockquote>
+<ol>
+<li>将用户指定的关键词进行分词</li>
+<li>根据分词结果去索引库中进行查询，获得文档的id</li>
+<li>去每个库中拉取分片获取数据</li>
+<li>根据匹配程度score进行排序</li>
+<li>根据from的值，将查询到的数据抛去一部分</li>
+<li>返回结果</li>
+</ol>
+<hr>
+<p>在第4步和第5步是比较耗时的</p>
+<p>如果需要下一页的数据  那么就需要重新执行上面的过程</p>
+</blockquote>
+</li>
+<li><p>Scroll+size实现分页的功能</p>
+<blockquote>
+<ol>
+<li>将用户指定的关键词进行分词</li>
+<li>根据分词结果去分词库中进行检索，获得文档的id</li>
+<li>将文档的id存储在ES的上下文中（可以理解为内存），id已经排序，可忽略</li>
+<li>根据用户指定的size去ES的上下文中拿去指定个数的id，拿完之后，这些id就从上下文中移除了</li>
+<li>如果还需要下一页的数据，直接在ES的上下文中，找后续的内容</li>
+</ol>
+<hr>
+<p>此方法不适合实时数据，因为除了第一次，都是在上下文中取文档的id</p>
+<p>用户需要下一页的数据，不需要重新执行整个过程，只需要重复第4步和第5步，直到上下文中的数据全部拿空</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="使用Kibana实现Scroll分页"><a href="#使用Kibana实现Scroll分页" class="headerlink" title="使用Kibana实现Scroll分页"></a>使用Kibana实现Scroll分页</h3><ol>
+<li><p>查询全部的数据，并为文档的id创建上下文</p>
+<blockquote>
+<p><img src="https://blog.chasingwind.top/image-20200525213822392.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200525213822392.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>响应回来的有scrollId</p>
+<p><img src="https://blog.chasingwind.top/image-20200525213942324.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200525213942324.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>下一页</p>
+<blockquote>
+<p>我们只需要指定上下文的id以及时长即可</p>
+<p>size的话 还是根据第一次的size来的</p>
+<p><img src="https://blog.chasingwind.top/image-20200525214412033.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200525214412033.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>不指定时长的话  默认为0 也就是这个scrollId就会被删除</p>
+</blockquote>
+</li>
+<li><p>删除scrollId</p>
+<ul>
+<li><blockquote>
+<p>只需要指定scrollId即可</p>
+<p><img src="https://blog.chasingwind.top/image-20200525214711424.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200525214711424.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>响应结果</p>
+<p><img src="https://blog.chasingwind.top/image-20200525214721843.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200525214721843.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>删除之后再查询下一页 就报错</p>
+<p><img src="https://blog.chasingwind.top/image-20200525214830015.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200525214830015.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="使用Java实现深分页"><a href="#使用Java实现深分页" class="headerlink" title="使用Java实现深分页"></a>使用Java实现深分页</h3><ol>
+<li><p>实现首页，下一页以及最后一页的功能</p>
+<blockquote>
+<p>需要注意的一点是 除了最后一次 都需要设置ScrollId的存活时长</p>
+<p><img src="https://blog.chasingwind.top/image-20200525221653649.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200525221653649.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ol>
+<h1 id="Spring-Data-ElasticSearch"><a href="#Spring-Data-ElasticSearch" class="headerlink" title="Spring Data ElasticSearch"></a>Spring Data ElasticSearch</h1><h2 id="SpringData-ElasticSearch简介"><a href="#SpringData-ElasticSearch简介" class="headerlink" title="SpringData ElasticSearch简介"></a>SpringData ElasticSearch简介</h2><blockquote>
+<p>Spring Data Elasticsearch基于Spring Data API简化ElasticSearch的操作，将原始的ElasticSearch的客户端API进行封装，项目将核心Spring概念应用于使用Elasticsearch搜索引擎开发解决方案。为我们提供了一个“模板”作为高级抽象，用于存储、查询、排序和面对文档。<a target="_blank" rel="noopener" href="https://spring.io/projects/spring-data-elasticsearch">Spring Data ElasticSearch</a></p>
+</blockquote>
+<h2 id="Spring-Data-ElasticSearch入门"><a href="#Spring-Data-ElasticSearch入门" class="headerlink" title="Spring Data ElasticSearch入门"></a>Spring Data ElasticSearch入门</h2><ol>
+<li><p>导入相关依赖</p>
+<blockquote>
+<pre><code class="xml"> &lt;dependency&gt;
+   &lt;groupId&gt;org.springframework.data&lt;/groupId&gt;
+   &lt;artifactId&gt;spring-data-elasticsearch&lt;/artifactId&gt;
+   &lt;version&gt;4.0.0.RELEASE&lt;/version&gt;
+ &lt;/dependency&gt;
+</code></pre>
+<hr>
+<p>版本信息的话 可以去官网查看对应的版本</p>
+</blockquote>
+</li>
+<li><p>创建配置文件</p>
+<blockquote>
+<pre><code class="xml">&lt;beans xmlns=&quot;https://www.springframework.org/schema/beans&quot;
+    xmlns:xsi=&quot;https://www.w3.org/2001/XMLSchema-instance&quot;
+    xmlns:elasticsearch=&quot;https://www.springframework.org/schema/data/elasticsearch&quot;
+    xsi:schemaLocation=&quot;https://www.springframework.org/schema/beans
+    https://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+    https://www.springframework.org/schema/data/elasticsearch
+    https://www.springframework.org/schema/data/https://blog.chasingwind.top/spring-elasticsearch-1.0.xsd&quot;&gt;
+
+
+ &lt;!--ES 客户端配置--&gt;
+ &lt;elasticsearch:transport-client id=&quot;esClient&quot; cluster-name=&quot;my-application&quot; cluster-nodes=&quot;xinhuacloud.tech:9200&quot;&gt;&lt;/elasticsearch:transport-client&gt;
+
+ &lt;!--配置包扫描器  扫描接口所在的包--&gt;
+ &lt;elasticsearch:repositories base-package=&quot;edu.ahnu.repository&quot;&gt;&lt;/elasticsearch:repositories&gt;
+
+ &lt;!----&gt;
+ &lt;bean id=&quot;elasticsearchTemplate&quot; class=&quot;org.springframework.data.elasticsearch.core.ElasticsearchTemplate&quot;&gt;
+     &lt;constructor-arg name=&quot;client&quot; ref=&quot;esClient&quot;&gt;&lt;/constructor-arg&gt;
+ &lt;/bean&gt;
+&lt;/beans&gt;
+</code></pre>
+<hr>
+<p>在官网中的约束文件</p>
+<p><img src="https://blog.chasingwind.top/image-20200528161634183.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200528161634183.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ol>
+<h2 id="创建索引库"><a href="#创建索引库" class="headerlink" title="创建索引库"></a>创建索引库</h2><ol>
+<li><p>创建一个实体类，实体类中的字段就是Document中的Field的内容</p>
+<blockquote>
+<p><img src="https://blog.chasingwind.top/image-20200528163930800.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200528163930800.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>创建一个接口，继承ElasticSearchRepository接口</p>
+<blockquote>
+<p><img src="https://blog.chasingwind.top/image-20200528164141550.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200528164141550.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>CrudRepository接口</p>
+<p><img src="https://blog.chasingwind.top/image-20200528172345896.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200528172345896.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>其中的方法</p>
+<p><img src="https://blog.chasingwind.top/image-20200528172412231.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200528172412231.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>编写测试代码</p>
+<blockquote>
+<p>需要添加spring相关的包</p>
+<pre><code class="xml"> &lt;dependency&gt;
+   &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+   &lt;artifactId&gt;spring-core&lt;/artifactId&gt;
+   &lt;version&gt;5.2.6.RELEASE&lt;/version&gt;
+ &lt;/dependency&gt;
+
+ &lt;dependency&gt;
+   &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+   &lt;artifactId&gt;spring-test&lt;/artifactId&gt;
+   &lt;version&gt;4.2.0.RELEASE&lt;/version&gt;
+ &lt;/dependency&gt;
+
+ &lt;dependency&gt;
+   &lt;groupId&gt;junit&lt;/groupId&gt;
+   &lt;artifactId&gt;junit&lt;/artifactId&gt;
+   &lt;version&gt;4.12&lt;/version&gt;
+ &lt;/dependency&gt;
+
+ &lt;dependency&gt;
+   &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+   &lt;artifactId&gt;spring-tx&lt;/artifactId&gt;
+   &lt;version&gt;5.2.6.RELEASE&lt;/version&gt;
+ &lt;/dependency&gt;
+</code></pre>
+<hr>
+<p><img src="https://blog.chasingwind.top/image-20200528171709194.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200528171709194.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ol>
+<h2 id="添加文档"><a href="#添加文档" class="headerlink" title="添加文档"></a>添加文档</h2><ul>
+<li><p>CrudRepository接口中的save方法</p>
+<blockquote>
+<p><img src="https://blog.chasingwind.top/image-20200528203005735.png" class="lazyload" data-srcset="https://blog.chasingwind.top/image-20200528203005735.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ul>
+
+  
+  
+    
+    <div class='footer'>
+      
+      
+      
+      
+    </div>
+  
+  
+    
+
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-03-04T08:45:46+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2021年3月4日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/ElasticSearch/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>ElasticSearch</p></a></div>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.chasingwind.top/2020/07/03/ElasticSearch/&title=ElasticSearch - 追风少年&summary=一个基于Lucene开发的全文检索服务器。简称es,es是一个开源的高扩展性的分布式全文检索引擎，实时性的存储、检索数据是它的最大的特点。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://www.chasingwind.top/2020/07/03/ElasticSearch/&title=ElasticSearch - 追风少年&summary=一个基于Lucene开发的全文检索服务器。简称es,es是一个开源的高扩展性的分布式全文检索引擎，实时性的存储、检索数据是它的最大的特点。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.chasingwind.top/2020/07/03/ElasticSearch/&title=ElasticSearch - 追风少年&summary=一个基于Lucene开发的全文检索服务器。简称es,es是一个开源的高扩展性的分布式全文检索引擎，实时性的存储、检索数据是它的最大的特点。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </div>
+
+
+  
+  
+
+  
+    <div class="prev-next">
+      
+        <a class='prev' href='/2020/07/03/SpringBoot%E5%9F%BA%E7%A1%80/'>
+          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>SpringBoot基础</p>
+          <p class='content'>本节介绍了SpringBoot的基础内容，包括对SpringBoot的简介，以及配置的介绍。主要包括SpringBoot是如何实现自动配置的，这是必须要掌握的内容。
+
+
+
+
+SpringBoot...</p>
+        </a>
+      
+      
+        <a class='next' href='/2020/07/03/Lucene/'>
+          <p class='title'>Lucene<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>Lucene是apache软件基金会4 jakarta项目组的一个子项目，是一个开放源代码的全文检索引擎工具包，但它不是一个完整的全文检索引擎，而是一个全文检索引擎的架构，提供了完整的查询引擎和...</p>
+        </a>
+      
+    </div>
+  
+</article>
+
+
+  
+
+  <article class="post white-box reveal shadow" id="comments">
+    <p ct><i class='fas fa-comments'></i> 评论</p>
+    
+    <div id="valine_container" class="valine_thread">
+  <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+</div>
+
+  </article>
+
+
+
+
+
+
+</div>
+<aside class='l_side'>
+  
+  
+    
+    
+
+
+
+  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#ElasticSearch%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%BB%8D"><span class="toc-text">ElasticSearch基本介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ElasticSearch%E5%AE%89%E8%A3%85"><span class="toc-text">ElasticSearch安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ElasticSearch%E7%B4%A2%E5%BC%95%E5%BA%93%E7%BB%B4%E6%8A%A4"><span class="toc-text">ElasticSearch索引库维护</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#PostMan%E5%8F%91%E9%80%81http%E8%AF%B7%E6%B1%82%E5%88%9B%E5%BB%BA%E7%B4%A2%E5%BC%95%E5%BA%93"><span class="toc-text">PostMan发送http请求创建索引库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8PostMan%E5%90%91%E7%B4%A2%E5%BC%95%E5%BA%93%E6%B7%BB%E5%8A%A0Document"><span class="toc-text">使用PostMan向索引库添加Document</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8Kibana%E6%9F%A5%E7%9C%8B%E7%B4%A2%E5%BC%95%E5%BA%93%E4%B8%AD%E7%9A%84Document"><span class="toc-text">使用Kibana查看索引库中的Document</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8PostMan%E5%88%A0%E9%99%A4Document"><span class="toc-text">使用PostMan删除Document</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8PostMan%E4%BF%AE%E6%94%B9%E6%96%87%E6%A1%A3"><span class="toc-text">使用PostMan修改文档</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8PostMan%E8%BF%9B%E8%A1%8C%E6%9F%A5%E8%AF%A2"><span class="toc-text">使用PostMan进行查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8PostMan%E6%9F%A5%E7%9C%8B%E5%88%86%E6%9E%90%E5%99%A8%E7%9A%84%E5%88%86%E6%9E%90%E6%95%88%E6%9E%9C"><span class="toc-text">使用PostMan查看分析器的分析效果</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ElasticSearch%E9%9B%86%E6%88%90IK-Analyzer%E4%B8%AD%E6%96%87%E5%88%86%E6%9E%90%E5%99%A8"><span class="toc-text">ElasticSearch集成IK-Analyzer中文分析器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ElasticSearch%E9%9B%86%E7%BE%A4"><span class="toc-text">ElasticSearch集群</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ElasticSearch%E9%9B%86%E7%BE%A4%E6%9E%B6%E6%9E%84%E4%BB%A5%E5%8F%8A%E6%A6%82%E5%BF%B5%E8%AF%B4%E6%98%8E"><span class="toc-text">ElasticSearch集群架构以及概念说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ElasticSearch%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA"><span class="toc-text">ElasticSearch集群搭建</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Java%E6%93%8D%E4%BD%9C%E7%B4%A2%E5%BC%95%E5%BA%93%E5%A2%9E%E5%88%A0%E6%94%B9"><span class="toc-text">Java操作索引库增删改</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%B4%A2%E5%BC%95"><span class="toc-text">创建索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E7%B4%A2%E5%BC%95%E7%9A%84Mappings"><span class="toc-text">设置索引的Mappings</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A3%80%E6%9F%A5%E7%B4%A2%E5%BC%95%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8%E4%BB%A5%E5%8F%8A%E5%88%A0%E9%99%A4%E7%B4%A2%E5%BC%95"><span class="toc-text">检查索引是否存在以及删除索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%91%E7%B4%A2%E5%BC%95%E4%B8%AD%E6%B7%BB%E5%8A%A0%E6%96%87%E6%A1%A3"><span class="toc-text">向索引中添加文档</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E5%92%8C%E5%88%A0%E9%99%A4%E6%96%87%E6%A1%A3"><span class="toc-text">修改和删除文档</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%B9%E9%87%8F%E6%93%8D%E4%BD%9C"><span class="toc-text">批量操作</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Java%E6%93%8D%E4%BD%9C%E7%B4%A2%E5%BC%95%E5%BA%93%E6%9F%A5%E8%AF%A2"><span class="toc-text">Java操作索引库查询</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%B4%A2%E5%BC%95%E5%BA%93%E5%B9%B6%E6%B7%BB%E5%8A%A0%E6%96%87%E6%A1%A3"><span class="toc-text">创建索引库并添加文档</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Term%E6%9F%A5%E8%AF%A2"><span class="toc-text">Term查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Terms%E6%9F%A5%E8%AF%A2"><span class="toc-text">Terms查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#match%E6%9F%A5%E8%AF%A2"><span class="toc-text">match查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#id%E6%9F%A5%E8%AF%A2"><span class="toc-text">id查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#prefix%E5%89%8D%E7%BC%80%E6%9F%A5%E8%AF%A2"><span class="toc-text">prefix前缀查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#fuzzy%E6%A8%A1%E7%B3%8A%E6%9F%A5%E8%AF%A2"><span class="toc-text">fuzzy模糊查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#wildcard%E6%9F%A5%E8%AF%A2"><span class="toc-text">wildcard查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%92%88%E5%AF%B9%E6%95%B0%E5%80%BC%E7%B1%BB%E5%9E%8B%E7%9A%84range%E6%9F%A5%E8%AF%A2"><span class="toc-text">针对数值类型的range查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#regexp%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%9F%A5%E8%AF%A2"><span class="toc-text">regexp正则表达式查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%8D%E5%90%88%E6%9F%A5%E8%AF%A2"><span class="toc-text">复合查询</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#bool%E6%9F%A5%E8%AF%A2"><span class="toc-text">bool查询</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#boosting%E6%9F%A5%E8%AF%A2"><span class="toc-text">boosting查询</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#filter%E8%BF%87%E6%BB%A4%E6%9F%A5%E8%AF%A2"><span class="toc-text">filter过滤查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AB%98%E4%BA%AE%E6%9F%A5%E8%AF%A2"><span class="toc-text">高亮查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%81%9A%E5%90%88%E6%9F%A5%E8%AF%A2"><span class="toc-text">聚合查询</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#cardinality%E5%8E%BB%E9%87%8D%E8%AE%A1%E6%95%B0%E6%9F%A5%E8%AF%A2"><span class="toc-text">cardinality去重计数查询</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#range%E8%8C%83%E5%9B%B4%E7%BB%9F%E8%AE%A1"><span class="toc-text">range范围统计</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#extended-stats%E8%81%9A%E5%90%88%E6%9F%A5%E8%AF%A2"><span class="toc-text">extended_stats聚合查询</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E8%81%9A%E5%90%88%E6%9F%A5%E8%AF%A2"><span class="toc-text">其他聚合查询</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%B1%E5%88%86%E9%A1%B5Scroll"><span class="toc-text">深分页Scroll</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E9%A1%B5%E5%8A%9F%E8%83%BD%E6%AF%94%E8%BE%83"><span class="toc-text">分页功能比较</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8Kibana%E5%AE%9E%E7%8E%B0Scroll%E5%88%86%E9%A1%B5"><span class="toc-text">使用Kibana实现Scroll分页</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8Java%E5%AE%9E%E7%8E%B0%E6%B7%B1%E5%88%86%E9%A1%B5"><span class="toc-text">使用Java实现深分页</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SpringData-ElasticSearch%E7%AE%80%E4%BB%8B"><span class="toc-text">SpringData ElasticSearch简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring-Data-ElasticSearch%E5%85%A5%E9%97%A8"><span class="toc-text">Spring Data ElasticSearch入门</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%B4%A2%E5%BC%95%E5%BA%93"><span class="toc-text">创建索引库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E6%96%87%E6%A1%A3"><span class="toc-text">添加文档</span></a></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+
+		  
+		  <!--此文件用来存放一些不方便取值的变量-->
+<!--思路大概是将值藏到重加载的区域内-->
+
+<script>
+  window.pdata={}
+  pdata.ispage=true;
+  pdata.postTitle="ElasticSearch";
+  pdata.commentPath="";
+  pdata.commentPlaceholder="";
+  // header 这里无论是否开启pjax都需要
+  var l_header=document.getElementById("l_header");
+  
+  l_header.classList.remove("show");
+  
+  
+    // cover
+    var cover_wrapper=document.querySelector('.cover-wrapper');
+    
+    cover_wrapper.id="half";
+    cover_wrapper.style.display="";
+    
+  
+</script>
+
+        </div>
+        
+  
+  <footer class="footer clearfix">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+  
+    <meting-js
+      theme='#1BCDFC'
+      volume='0.7'
+      loop='all'
+      order='list'
+      fixed='false'
+      list-max-height='320px'
+      server='netease'
+      type='playlist'
+      id='754595573'
+      list-folded='true'>
+    </meting-js>
+  
+
+
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+          
+            
+          
+            
+          
+        </div>
+      
+    
+      
+        
+          <div><p><span id="lc-sv">本站总访问量为 <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span> 次</span> <span id="lc-uv">访客数为 <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span> 人</span></p>
+</div>
+        
+      
+    
+      
+        本站使用
+        <a href="https://github.com/volantis-x/hexo-theme-volantis/tree/4.3.1" target="_blank" class="codename">Volantis</a>
+        作为主题
+      
+    
+      
+        
+          <div><p><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">网站备案号：皖ICP备19016733号</a></p>
+</div>
+        
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="/">Copyright © 2018-2021 ChasingWind</a></p>
+
+        </div>
+      
+    
+  </footer>
+
+
+        <a id="s-top" class="fas fa-arrow-up fa-fw" href="javascript:void(0)"></a>
+      </div>
+    </div>
+    <div>
+      <script>
+/************这个文件存放不需要重载的全局变量和全局函数*********/
+window.volantis={};
+window.volantis.loadcss=document.getElementById("loadcss");
+/******************** Pjax ********************************/
+function VPjax(){
+	this.list=[] // 存放回调函数
+	this.start=()=>{
+	  for(var i=0;i<this.list.length;i++){
+		this.list[i].run();
+	  }
+	}
+	this.push=(fn,name)=>{
+		var f=new PjaxItem(fn,name);
+		this.list.push(f);
+	}
+	// 构造一个可以run的对象
+	function PjaxItem(fn,name){
+		// 函数名称
+		this.name = name || fn.name
+		// run方法
+		this.run=()=>{
+			fn()
+		}
+	}
+}
+volantis.pjax={}
+volantis.pjax.method={
+	complete: new VPjax(),
+	error: new VPjax(),
+	send: new VPjax()
+}
+volantis.pjax={
+	...volantis.pjax,
+	push: volantis.pjax.method.complete.push,
+	error: volantis.pjax.method.error.push,
+	send: volantis.pjax.method.send.push
+}
+/********************脚本懒加载函数********************************/
+// 已经加入了setTimeout
+function loadScript(src, cb) {
+	setTimeout(function() {
+		var HEAD = document.getElementsByTagName('head')[0] || document.documentElement;
+		var script = document.createElement('script');
+		script.setAttribute('type','text/javascript');
+		if (cb) script.onload = cb;
+		script.setAttribute('src', src);
+		HEAD.appendChild(script);
+	});
+}
+//https://github.com/filamentgroup/loadCSS
+var loadCSS = function( href, before, media, attributes ){
+	var doc = window.document;
+	var ss = doc.createElement( "link" );
+	var ref;
+	if( before ){
+		ref = before;
+	}
+	else {
+		var refs = ( doc.body || doc.getElementsByTagName( "head" )[ 0 ] ).childNodes;
+		ref = refs[ refs.length - 1];
+	}
+	var sheets = doc.styleSheets;
+	if( attributes ){
+		for( var attributeName in attributes ){
+			if( attributes.hasOwnProperty( attributeName ) ){
+				ss.setAttribute( attributeName, attributes[attributeName] );
+			}
+		}
+	}
+	ss.rel = "stylesheet";
+	ss.href = href;
+	ss.media = "only x";
+	function ready( cb ){
+		if( doc.body ){
+			return cb();
+		}
+		setTimeout(function(){
+			ready( cb );
+		});
+	}
+	ready( function(){
+		ref.parentNode.insertBefore( ss, ( before ? ref : ref.nextSibling ) );
+	});
+	var onloadcssdefined = function( cb ){
+		var resolvedHref = ss.href;
+		var i = sheets.length;
+		while( i-- ){
+			if( sheets[ i ].href === resolvedHref ){
+				return cb();
+			}
+		}
+		setTimeout(function() {
+			onloadcssdefined( cb );
+		});
+	};
+	function loadCB(){
+		if( ss.addEventListener ){
+			ss.removeEventListener( "load", loadCB );
+		}
+		ss.media = media || "all";
+	}
+	if( ss.addEventListener ){
+		ss.addEventListener( "load", loadCB);
+	}
+	ss.onloadcssdefined = onloadcssdefined;
+	onloadcssdefined( loadCB );
+	return ss;
+};
+</script>
+<script>
+  
+  loadCSS("https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14/css/all.min.css", window.volantis.loadcss);
+  
+  
+  
+  
+</script>
+<!-- required -->
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5/dist/jquery.min.js"></script>
+
+<script>
+  function pjax_fancybox() {
+    $(".md .gallery").find("img").each(function () { //渲染 fancybox
+      var element = document.createElement("a"); // a 标签
+      $(element).attr("class", "fancybox");
+      $(element).attr("pjax-fancybox", "");  // 过滤 pjax
+      $(element).attr("href", $(this).attr("src"));
+      if ($(this).attr("data-original")) {
+        $(element).attr("href", $(this).attr("data-original"));
+      }
+      $(element).attr("data-fancybox", "images");
+      var caption = "";   // 描述信息
+      if ($(this).attr('alt')) {  // 判断当前页面是否存在描述信息
+        $(element).attr('data-caption', $(this).attr('alt'));
+        caption = $(this).attr('alt');
+      }
+      var div = document.createElement("div");
+      $(div).addClass("fancybox");
+      $(this).wrap(div); // 最外层套 div ，其实主要作用还是 class 样式
+      var span = document.createElement("span");
+      $(span).addClass("image-caption");
+      $(span).text(caption); // 加描述
+      $(this).after(span);  // 再套一层描述
+      $(this).wrap(element);  // 最后套 a 标签
+    })
+    $(".md .gallery").find("img").fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+      closeClick: true,
+      helpers: {
+        overlay: {closeClick: true}
+      },
+      buttons: [
+        "zoom",
+        "close"
+      ]
+    });
+  };
+  function SCload_fancybox() {
+    if ($(".md .gallery").find("img").length == 0) return;
+    loadCSS("https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css", document.getElementById("loadcss"));
+    loadScript('https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', pjax_fancybox)
+  };
+  $(function () {
+    SCload_fancybox();
+  });
+  function Pjax_SCload_fancybox(){
+	if (typeof $.fancybox == "undefined") {
+	 SCload_fancybox();
+    } else {
+	 pjax_fancybox();
+    }
+  }
+  volantis.pjax.push(Pjax_SCload_fancybox)
+  volantis.pjax.send(()=>{
+      if (typeof $.fancybox != "undefined") {
+        $.fancybox.close();    // 关闭弹窗
+      }
+  },'fancybox')
+</script>
+
+
+<!-- internal -->
+
+  
+  
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js"></script>
+
+    <script type="text/javascript">
+        var imgs=["https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/001.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/002.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/003.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/004.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/005.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/006.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/012.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/016.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/019.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/025.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/033.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/034.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/035.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/038.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/039.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/042.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/046.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/051.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/052.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/054.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/056.jpg"];
+        if ('true' == 'true') {
+          function shuffle(arr){
+            /*From countercurrent-time*/
+            var n = arr.length;
+            while(n--) {
+              var index = Math.floor(Math.random() * n);
+              var temp = arr[index];
+              arr[index] = arr[n];
+              arr[n] = temp;
+            }
+          }
+          shuffle(imgs);
+        }
+	  function Pjax_backstretch(){
+        
+          $.backstretch(
+            imgs,
+          {
+            duration: "120000",
+            fade: "1500"
+          });
+        
+	  }
+	  loadScript("https://cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js",Pjax_backstretch)
+    </script>
+  
+
+
+
+  
+  
+
+  <div id="rightmenu-wrapper">
+    <ul class="list-v rightmenu" id="rightmenu-content">
+      <li class='option'>
+        <a class='vlts-menu opt fix-cursor-default' id='menu-copy-text' onclick="document.execCommand('copy')"><i class='fa fa-copy fa-fw'></i>复制文本</a>
+        <hr id='hr-text'>
+        <a class='vlts-menu opt fix-cursor-default' id='menu-copy-href'><i class='fa fa-link fa-fw'></i>复制链接</a>
+        <a class='vlts-menu opt fix-cursor-default' id='menu-open-href'><i class='fa fa-external-link-square-alt fa-fw'></i>在新标签页打开</a>
+        <hr id='hr-href'>
+        <a class='vlts-menu opt fix-cursor-default' id='menu-copy-src'><i class='fa fa-image fa-fw'></i>复制图片地址</a>
+        <hr id='hr-src'>
+      </li>
+      
+        <li class='navigation'>
+          <a class='nav icon-only fix-cursor-default' onclick='history.back()'><i class='fa fa-arrow-left fa-fw'></i></a>
+          <a class='nav icon-only fix-cursor-default' onclick='history.forward()'><i class='fa fa-arrow-right fa-fw'></i></a>
+          <a class='nav icon-only fix-cursor-default' onclick='window.location.reload()'><i class='fa fa-redo fa-fw'></i></a>
+          <a class='nav icon-only fix-cursor-default' href='/'><i class='fa fa-home fa-fw'></i></a>
+        </li>
+      
+      <hr>
+      
+        
+      
+        
+          
+    <li>
+      <a class='vlts-menu fix-cursor-default toggle-mode-btn' 
+        
+        
+        
+        >
+        <i class='fas fa-moon fa-fw'></i> Dark mode
+      </a>
+    </li>
+  
+        
+      
+        
+          <hr>
+        
+      
+        
+          <li class='music name'>
+            <p class='nav music-title fix-cursor-default'></p>
+          </li>
+          <li class='music ctrl'>
+            <a class='nav icon-only backward fix-cursor-default' onclick='aplayerBackward()'><i class='fa fa-step-backward fa-fw'></i></a>
+            <a class='nav icon-only toggle fix-cursor-default' onclick='aplayerToggle()'><i class='fa fa-play fa-fw'></i></a>
+            <a class='nav icon-only forward fix-cursor-default' onclick='aplayerForward()'><i class='fa fa-step-forward fa-fw'></i></a>
+          </li>
+          <li class='music volume'>
+            <a class='nav volume'>
+              <div class="aplayer-volume-bar-wrap">
+                <div class="aplayer-volume-bar fix-cursor-pointer">
+                  <div class="aplayer-volume"></div>
+                  <i class='left fa fa-volume-off fa-fw'></i>
+                  <i class='right fa fa-volume-up fa-fw'></i>
+                </div>
+              </div>
+            </a>
+          </li>
+        
+      
+    </ul>
+  </div>
+
+  <script>
+    window.document.oncontextmenu = function (event) {
+      if (event.ctrlKey) return true;
+      if (/Android|webOS|BlackBerry/i.test(navigator.userAgent)) return true;
+      return popMenu(event);
+    };
+    document.addEventListener("click", function (event) {
+      var mymenu = document.getElementById('rightmenu-wrapper');
+      mymenu.style.display = "none";
+    });
+    function popMenu(event) {
+      var mymenu = document.getElementById('rightmenu-wrapper');
+      var menuContent = document.getElementById('rightmenu-content');
+      var screenWidth = document.documentElement.clientWidth || document.body.clientWidth;
+      var screenHeight = document.documentElement.clientHeight || document.body.clientHeight;
+      mymenu.style.left = event.clientX + "px"; // 获取鼠标位置
+      mymenu.style.top = event.clientY + "px";
+      mymenu.style.display = 'block';
+      if (event.clientX * 2 > screenWidth) {
+        menuContent.classList.add('left');
+      } else {
+        menuContent.classList.remove('left');
+      }
+      if (event.clientY * 2 > screenHeight) {
+        menuContent.classList.add('top');
+      } else {
+        menuContent.classList.remove('top');
+      }
+
+      let hrText = document.getElementById('hr-text');
+      let hrSrc = document.getElementById('hr-src');
+      let hrHref = document.getElementById('hr-href');
+
+      // 选中图片
+      let copySrc = document.getElementById('menu-copy-src');
+      if (copySrc != undefined) {
+        if (event.target.currentSrc) {
+          copySrc.style.display = 'block';
+          copySrc.addEventListener("click", function (e) {
+            copyString(event.target.currentSrc);
+          },{once: true});
+          hrSrc.style.display = 'block';
+        } else {
+          copySrc.style.display = 'none';
+          hrSrc.style.display = 'none';
+        }
+      }
+
+      // 选中按钮
+      // 判断是不是按钮
+      let href = '';
+      if (event.path) {
+        for (i = 0; i < event.path.length; i++) {
+          if (event.path[i].href != undefined && event.path[i].href.length > 0) {
+            href = event.path[i].href;
+          }
+        }
+      }
+
+      let copyText = document.getElementById('menu-copy-text');
+      copyText.style.display = 'none';
+      hrText.style.display = 'none';
+      if (href.length == 0) {
+        // 选中文本
+        if (window.getSelection().toString()) {
+          if ('' == 'true') {
+            copyText.style.display = 'block';
+            hrText.style.display = 'block';
+          }
+        }
+      }
+
+      // 在新标签页打开
+      let openHref = document.getElementById('menu-open-href');
+      if (openHref != undefined) {
+        if (href.length > 0) {
+          openHref.style.display = 'block';
+          openHref.addEventListener("click", function (e) {
+            window.open(href);
+          },{once: true});
+          hrHref.style.display = 'block';
+        } else {
+          openHref.style.display = 'none';
+          hrHref.style.display = 'none';
+        }
+      }
+      // 复制链接
+      let copyHref = document.getElementById('menu-copy-href');
+      if (copyHref != undefined) {
+        if (href.length > 0) {
+          copyHref.style.display = 'block';
+          copyHref.addEventListener("click", function (e) {
+            copyString(href);
+          },{once: true});
+        } else {
+          copyHref.style.display = 'none';
+        }
+      }
+      // 有音乐播放器 see: layout/_third-party/aplayer/script.ejs
+      
+      if(volantis.APlayerLoaded){ // APlayer加载完成？
+        // 如果有aplayer，初始化一下
+        checkAPlayer();
+      }
+      
+      return false; // 该行代码确保系统自带的右键菜单不会被调出
+    }
+    function hideMenu() {
+      document.getElementById('rightmenu-wrapper').style.display = 'none';
+    }
+    function copyString(str) {
+      const input = document.createElement('input');
+      input.setAttribute('readonly', 'readonly');
+      document.body.appendChild(input);
+      input.setAttribute('value', str);
+      input.select();
+      document.execCommand('copy');
+      document.body.removeChild(input);
+    }
+    document.execCommand('click');
+  </script>
+
+
+
+
+<script>
+  function loadIssuesJS() {
+    if ($(".md").find(".issues-api").length == 0) return;
+	
+	  loadScript('/js/issues.js');
+	
+  };
+  $(function () {
+    loadIssuesJS();
+  });
+  volantis.pjax.push(()=>{
+	if (typeof IssuesAPI == "undefined") {
+	  loadIssuesJS();
+	}
+  },"IssuesJS")
+</script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 0
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    lazyLoadInstance.update();
+  });
+  document.addEventListener('pjax:complete', function () {
+    lazyLoadInstance.update();
+  });
+</script>
+
+
+
+
+  
+
+<script>
+  window.FPConfig = {
+	delay: 0,
+	ignoreKeywords: [],
+	maxRPS: 5,
+	hoverDelay: 25
+  };
+</script>
+<script defer src="https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"></script>
+
+
+
+
+
+
+
+
+
+  <script>
+  let APlayerController = new Object();
+  APlayerController.id = '754595573';  // 设定全局音乐播放ID
+  APlayerController.volume = '0.7';
+  APlayerController.autoPlay = 'false';
+  loadCSS("https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css", window.volantis.loadcss);
+  // APlayer 需要在  MetingJS 之前加载
+  loadScript("https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js")
+  window.volantis.APlayerLoaded=0 // APlayer加载完成状态
+  var checkAPlayer = setInterval(function () {
+    if (!window.APlayer) return // APlayer加载完成？
+	  if ($("#safearea").css("display")!="block") return // 文章内容加载完成？ see: source/css/first.styl
+    clearInterval(checkAPlayer)
+	  if (!window.volantis.APlayerLoaded&&!window.MetingJSElement){ // APlayer只能加载一次
+      window.volantis.APlayerLoaded=1 // APlayer加载完成
+      loadScript("https://cdn.jsdelivr.net/npm/meting@2.0/dist/Meting.min.js") // 加载 MetingJS
+	  }
+  }, 2500) // 按照网速调节差分2.5s
+  // rightmenu see: layout/_partial/rightmenu.ejs
+
+  
+    loadScript("/js/aplayer.js")
+  
+
+</script>
+
+
+
+
+  
+  
+<script src="/js/valine.js"></script>
+
+
+<script>
+  function emoji(path, idx, ext) {
+    return path + "/" + path + "-" + idx + "." + ext;
+  }
+  var emojiMaps = {};
+  for (var i = 1; i <= 54; i++) {
+    emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+  }
+  for (var i = 1; i <= 101; i++) {
+    emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+  }
+  for (var i = 1; i <= 116; i++) {
+    emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+  }
+  for (var i = 1; i <= 125; i++) {
+    emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+  }
+  for (var i = 1; i <= 4; i++) {
+    emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+  }
+  function pjax_valine() {
+    if(!document.querySelectorAll("#valine_container")[0])return;
+    let pagePlaceholder = pdata.commentPlaceholder || "快来评论吧~";
+    let path = pdata.commentPath;
+    if (path.length == 0) {
+      let defaultPath = '';
+      path = defaultPath || decodeURI(window.location.pathname);
+    }
+    var valine = new Valine();
+    valine.init(Object.assign({"path":null,"placeholder":"快来评论吧~","appId":null,"appKey":null,"meta":["nick","mail","link"],"requiredFields":["nick","mail"],"enableQQ":true,"recordIP":false,"avatar":"robohash","pageSize":10,"lang":"zh-cn","highlight":true,"mathJax":false}, {
+      el: '#valine_container',
+      path: path,
+      placeholder: pagePlaceholder,
+      emojiCDN: 'https://cdn.jsdelivr.net/gh/volantis-x/cdn-emoji/valine/',
+      emojiMaps: emojiMaps,
+    }))
+  }
+  $(function () {
+    pjax_valine();
+  });
+  volantis.pjax.push(pjax_valine);
+</script>
+
+
+
+
+
+
+  
+<script src="/js/app.js"></script>
+
+
+
+<!-- optional -->
+
+  <script>
+const SearchServiceimagePath="https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@master/img/";
+const ROOT =  ("/" || "/").endsWith('/') ? ("/" || "/") : ("//" || "/" );
+
+$('.input.u-search-input').one('focus',function(){
+	
+		loadScript('/js/search/hexo.js',setSearchService);
+	
+})
+
+function listenSearch(){
+  
+    customSearch = new HexoSearch({
+      imagePath: SearchServiceimagePath
+    });
+  
+}
+function setSearchService() {
+	listenSearch();
+	
+		document.addEventListener("pjax:success", listenSearch);
+	
+}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  <script defer>
+
+  const LCCounter = {
+    app_id: 'geHH6vdoVq9LpPQTAtb6CxW5-gzGzoHsz',
+    app_key: 'NqX0R9487fsiAaloOO5VxE4u',
+    custom_api_server: '',
+
+    // 查询存储的记录
+    getRecord(Counter, url, title) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({url})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {url, title: title, times: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    },
+
+    // 发起自增请求
+    increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    },
+
+    // 构建自增请求体
+    buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "times": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    },
+
+    // 校验是否为有效的 UV
+    validUV() {
+      var key = 'LeanCloudUVTimestamp';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    },
+
+    addCount(Counter) {
+      var enableIncr = '' === 'true' && window.location.hostname !== 'localhost';
+      enableIncr = true;
+      var getterArr = [];
+      var incrArr = [];
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#lc-sv');
+      if (pvCtn || enableIncr) {
+        var pvGetter = this.getRecord(Counter, 'https://www.chasingwind.top' + '/#lc-sv', 'Visits').then((record) => {
+          incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-sv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + 1;
+              if (pvCtn) {
+                pvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#lc-uv');
+      if (uvCtn || enableIncr) {
+        var uvGetter = this.getRecord(Counter, 'https://www.chasingwind.top' + '/#lc-uv', 'Visitors').then((record) => {
+          var vuv = this.validUV();
+          vuv && incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-uv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + (vuv ? 1 : 0);
+              if (uvCtn) {
+                uvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 请求文章的浏览数，如果是当前页面就自增
+      var allPV = document.querySelectorAll('#lc-pv');
+      if (allPV.length > 0 || enableIncr) {
+        for (i = 0; i < allPV.length; i++) {
+          let pv = allPV[i];
+          let title = pv.getAttribute('data-title');
+          var url = 'https://www.chasingwind.top' + pv.getAttribute('data-path');
+          if (url) {
+            var viewGetter = this.getRecord(Counter, url, title).then((record) => {
+              // 是当前页面就自增
+              let curPath = window.location.pathname;
+              if (curPath.includes('index.html')) {
+                curPath = curPath.substring(0, curPath.lastIndexOf('index.html'));
+              }
+              if (pv.getAttribute('data-path') == curPath) {
+                incrArr.push(this.buildIncrement(record.objectId));
+              }
+              if (pv) {
+                var ele = pv.querySelector('#lc-pv #number');
+                if (ele) {
+                  if (pv.getAttribute('data-path') == curPath) {
+                    ele.innerText = (record.times || 0) + 1;
+                  } else {
+                    ele.innerText = record.times || 0;
+                  }
+                  pv.style.display = 'inline';
+                }
+              }
+            });
+            getterArr.push(viewGetter);
+          }
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && this.increment(Counter, incrArr);
+        })
+      }
+
+    },
+
+
+    fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': this.app_id,
+            'X-LC-Key': this.app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      this.addCount(Counter);
+    },
+
+    refreshCounter() {
+      var api_server = this.app_id.slice(-9) !== '-MdYXbMMI' ? this.custom_api_server : `https://${ this.app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+      if (api_server) {
+        this.fetchData(api_server);
+      } else {
+        fetch('https://app-router.leancloud.cn/2/route?appId=' + this.app_id)
+          .then(resp => resp.json())
+          .then(({api_server}) => {
+            this.fetchData('https://' + api_server);
+          });
+      }
+    }
+
+  };
+
+  LCCounter.refreshCounter();
+
+  document.addEventListener('pjax:complete', function () {
+    LCCounter.refreshCounter();
+  });
+</script>
+
+
+
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/Colsrch/CDN@master/judge_time/js.js"></script>
+<script>
+const rootElement = document.documentElement;
+const darkModeStorageKey = "user-color-scheme";
+const rootElementDarkModeAttributeName = "data-user-color-scheme";
+
+const setLS = (k, v) => {
+    localStorage.setItem(k, v);
+};
+
+const removeLS = (k) => {
+    localStorage.removeItem(k);
+};
+
+const getLS = (k) => {
+    return localStorage.getItem(k);
+};
+
+const getModeFromCSSMediaQuery = () => {
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
+};
+
+const resetRootDarkModeAttributeAndLS = () => {
+  rootElement.removeAttribute(rootElementDarkModeAttributeName);
+  removeLS(darkModeStorageKey);
+};
+
+const validColorModeKeys = {
+  dark: true,
+  light: true,
+};
+
+const applyCustomDarkModeSettings = (mode) => {
+  const currentSetting = mode || getLS(darkModeStorageKey);
+
+  if (currentSetting === getModeFromCSSMediaQuery()) {
+    resetRootDarkModeAttributeAndLS();
+  } else if (validColorModeKeys[currentSetting]) {
+    rootElement.setAttribute(rootElementDarkModeAttributeName, currentSetting);
+  } else {
+    resetRootDarkModeAttributeAndLS();
+  }
+};
+
+const invertDarkModeObj = {
+  dark: "light",
+  light: "dark",
+};
+
+/**
+ * get target mode
+ */
+const toggleCustomDarkMode = () => {
+  let currentSetting = getLS(darkModeStorageKey);
+
+  if (validColorModeKeys[currentSetting]) {
+    currentSetting = invertDarkModeObj[currentSetting];
+  } else if (currentSetting === null) {
+    currentSetting = invertDarkModeObj[getModeFromCSSMediaQuery()];
+  } else {
+    return;
+  }
+  setLS(darkModeStorageKey, currentSetting);
+  return currentSetting;
+};
+
+/**
+ * bind click event for toggle button
+ */
+var btn=$("#wrapper .toggle-mode-btn,#rightmenu-wrapper .toggle-mode-btn");
+function bindToggleButton() {
+    btn.on('click',(e) => {
+      const mode = toggleCustomDarkMode();
+      applyCustomDarkModeSettings(mode);
+    });
+}
+
+applyCustomDarkModeSettings();
+document.addEventListener("DOMContentLoaded", bindToggleButton);
+volantis.pjax.push(bindToggleButton);
+volantis.pjax.send(()=>{
+	btn.unbind('click');
+},'toggle-mode-btn-unbind');
+
+// 自动夜间模式
+if (navigator.geolocation) {   //获取地理位置 用于判断日出日落时间
+    navigator.geolocation.getCurrentPosition(
+      function (position) {
+        var res = computeSunRiseSunSet(position.coords.latitude, position.coords.longitude, 8);
+        console.log(res.str)
+        adjust_time(res.strSunRise, res.strSunSet, "08:00", "12:00", "14:00", "23:00")
+      },
+      function (e) {
+        adjust_time("7:00", "17:30", "08:00", "12:00", "14:00", "23:00")  //未允许获取地理位置时，使用默认时间
+        console.log("未允许获取地理位置，使用默认配置时间")
+        throw (e.message);
+      }
+    )
+  }
+function adjust_time(beginTime, endTime, morningTime, noonTime, afternoonTime, nightTime) {
+  const rootElement = document.documentElement;
+  var strb = beginTime.split(":");
+  if (strb.length != 2) {
+    return false;
+  }
+
+  var stre = endTime.split(":");
+  if (stre.length != 2) {
+    return false;
+  }
+
+  var strmorning = morningTime.split(":");   //12点
+  if (stre.length != 2) {
+    return false;
+  }
+
+  var strnoon = noonTime.split(":");   //12点
+  if (stre.length != 2) {
+    return false;
+  }
+
+  var strafternoon = afternoonTime.split(":");   //13点
+  if (stre.length != 2) {
+    return false;
+  }
+
+  var strnight = nightTime.split(":");   //23点
+  if (stre.length != 2) {
+    return false;
+  }
+
+  var b = new Date();
+  var e = new Date();
+  var n = new Date();
+  var morning = new Date();
+  var noon = new Date();
+  var afternoon = new Date();
+  var night = new Date();
+
+  b.setHours(strb[0]);
+  b.setMinutes(strb[1]);
+  e.setHours(stre[0]);
+  e.setMinutes(stre[1]);
+  morning.setHours(strmorning[0]);
+  morning.setMinutes(strmorning[1]);
+  noon.setHours(strnoon[0]);
+  noon.setMinutes(strnoon[1]);
+  afternoon.setHours(strafternoon[0]);
+  afternoon.setMinutes(strafternoon[1]);
+  night.setHours(strnight[0]);
+  night.setMinutes(strnight[1]);
+
+
+  $.getJSON("https://v1.hitokoto.cn", function (hitokoto) {
+    //在这里面处理获得的数据
+    if (n.getTime() - b.getTime() > 0 && n.getTime() - e.getTime() < 0) {
+      var daytimetitle = ''
+      var daytimemessage = ''
+      if (n.getTime() - morning.getTime() < 0) {
+        // 早上
+        daytimetitle = '早安'
+      }
+      else if (n.getTime() - noon.getTime() < 0) {
+        // 上午
+        daytimetitle = '上午好'
+      }
+      else if (n.getTime() - afternoon.getTime() < 0) {
+        // 中午
+        daytimetitle = '中午好'
+        daytimemessage = '<br>要注意休息哦~'
+      }
+      else {
+        // 下午
+        daytimetitle = '下午好'
+      }
+      // 判断是否已经开启夜间模式
+      if (rootElement.getAttribute('data-user-color-scheme', 'dark')) {
+        // 已开启夜间模式，修改按钮状态
+        $.message({ title: '操作通知', message: daytimetitle + '，已自动为您切换为日间模式。<br>' + hitokoto.hitokoto + daytimemessage, type: 'success' });
+        const mode = toggleCustomDarkMode();
+        applyCustomDarkModeSettings(mode);
+      }
+      else {
+        // 未开启夜间模式，不执行操作
+        $.message({ title: daytimetitle, message: hitokoto.hitokoto + daytimemessage, type: 'info' });
+        return true;
+      }
+    } else {
+      // 晚上
+      var nighttitle = ''
+      var nightmessage = ''
+      if (night.getTime() - n.getTime() < 0 || n.getTime() - b.getTime() < 0) {
+        nighttitle = '夜深了'
+        nightmessage = '<br>该睡觉啦~'
+      }
+      else {
+        nighttitle = '晚上好'
+        nightmessage = '<br>吃晚饭了吗？要注意眼睛哦。'
+      }
+      // 判断是否已经开启夜间模式
+      if (rootElement.getAttribute('data-user-color-scheme', 'dark')) {
+        // 已开启夜间模式，不执行操作
+        $.message({ title: nighttitle, message: hitokoto.hitokoto + nightmessage, type: 'info' });
+        return true;
+      }
+      else {
+        // 未开启夜间模式，修改按钮状态
+        $.message({ title: '操作通知', message: nighttitle + '，已自动为您切换为夜间模式。<br>' + hitokoto.hitokoto + nightmessage, type: 'success' });
+        const mode = toggleCustomDarkMode();
+        applyCustomDarkModeSettings(mode);
+      }
+    }
+  });
+}
+</script>
+
+
+
+
+
+
+
+
+<script>
+function listennSidebarTOC() {
+  const navItems = document.querySelectorAll(".toc li");
+  if (!navItems.length) return;
+  const sections = [...navItems].map((element) => {
+    const link = element.querySelector(".toc-link");
+    const target = document.getElementById(
+      decodeURI(link.getAttribute("href")).replace("#", "")
+    );
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      window.scrollTo({
+		top: target.offsetTop + 100,
+		
+		behavior: "smooth"
+		
+	  });
+    });
+    return target;
+  });
+
+  function activateNavByIndex(target) {
+    if (target.classList.contains("active-current")) return;
+
+    document.querySelectorAll(".toc .active").forEach((element) => {
+      element.classList.remove("active", "active-current");
+    });
+    target.classList.add("active", "active-current");
+    let parent = target.parentNode;
+    while (!parent.matches(".toc")) {
+      if (parent.matches("li")) parent.classList.add("active");
+      parent = parent.parentNode;
+    }
+  }
+
+  function findIndex(entries) {
+    let index = 0;
+    let entry = entries[index];
+    if (entry.boundingClientRect.top > 0) {
+      index = sections.indexOf(entry.target);
+      return index === 0 ? 0 : index - 1;
+    }
+    for (; index < entries.length; index++) {
+      if (entries[index].boundingClientRect.top <= 0) {
+        entry = entries[index];
+      } else {
+        return sections.indexOf(entry.target);
+      }
+    }
+    return sections.indexOf(entry.target);
+  }
+
+  function createIntersectionObserver(marginTop) {
+    marginTop = Math.floor(marginTop + 10000);
+    let intersectionObserver = new IntersectionObserver(
+      (entries, observe) => {
+        let scrollHeight = document.documentElement.scrollHeight + 100;
+        if (scrollHeight > marginTop) {
+          observe.disconnect();
+          createIntersectionObserver(scrollHeight);
+          return;
+        }
+        let index = findIndex(entries);
+        activateNavByIndex(navItems[index]);
+      },
+      {
+        rootMargin: marginTop + "px 0px -100% 0px",
+        threshold: 0,
+      }
+    );
+    sections.forEach((element) => {
+      element && intersectionObserver.observe(element);
+    });
+  }
+  createIntersectionObserver(document.documentElement.scrollHeight);
+}
+
+document.addEventListener("DOMContentLoaded", listennSidebarTOC);
+document.addEventListener("pjax:success", listennSidebarTOC);
+</script>
+
+<!-- more -->
+
+ 
+	   
+	    
+
+
+<script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script>
+
+
+<script>
+    var pjax;
+    document.addEventListener('DOMContentLoaded', function () {
+      pjax = new Pjax({
+        elements: 'a[href]:not([href^="#"]):not([href="javascript:void(0)"]):not([pjax-fancybox])',
+        selectors: [
+          "title",
+          
+          "#pjax-container",
+          "#pjax-header-nav-list"
+        ],
+        cacheBust: false,   // url 地址追加时间戳，用以避免浏览器缓存
+        timeout: 5000
+      });
+    });
+
+    document.addEventListener('pjax:send', function (e) {
+      //window.stop(); // 相当于点击了浏览器的停止按钮
+
+      try {
+        var currentUrl = window.location.pathname;
+        var targetUrl = e.triggerElement.href;
+        var banUrl = [""];
+        if (banUrl[0] != "") {
+          banUrl.forEach(item => {
+            if(currentUrl.indexOf(item) != -1 || targetUrl.indexOf(item) != -1) {
+              window.location.href = targetUrl;
+            }
+          });
+        }
+      } catch (error) {}
+
+      window.subData = null; // 移除标题（用于一二级导航栏切换处）
+
+      volantis.$switcher.removeClass('active'); // 关闭移动端激活的搜索框
+      volantis.$header.removeClass('z_search-open'); // 关闭移动端激活的搜索框
+      volantis.$wrapper.removeClass('sub'); // 跳转页面时关闭二级导航
+
+      // 解绑事件 避免重复监听
+      volantis.$topBtn.unbind('click');
+      $('.menu a').unbind('click');
+      $(window).unbind('resize');
+      $(window).unbind('scroll');
+      $(document).unbind('scroll');
+      $(document).unbind('click');
+      $('body').unbind('click');
+	  // 使用 volantis.pjax.send 方法传入pjax:send回调函数 参见layout/_partial/scripts/global.ejs
+	  volantis.pjax.method.send.start();
+    });
+
+    document.addEventListener('pjax:complete', function () {
+      $('.nav-main').find('.list-v').not('.menu-phone').removeAttr("style",""); // 移除小尾巴的移除
+      $('.menu-phone.list-v').removeAttr("style",""); // 移除小尾巴的移除
+      $('script[data-pjax], .pjax-reload script').each(function () {
+        $(this).parent().append($(this).remove());
+      });
+      try{
+		// 使用 volantis.pjax.push 方法传入重载函数 参见layout/_partial/scripts/global.ejs
+		volantis.pjax.method.complete.start();
+      } catch (e) {
+        console.log(e);
+      }
+    });
+
+    document.addEventListener('pjax:error', function (e) {
+	  // 使用 volantis.pjax.error 方法传入pjax:error回调函数 参见layout/_partial/scripts/global.ejs
+	  volantis.pjax.method.error.start();
+      window.location.href = e.triggerElement.href;
+    });
+</script>
+ 
+	  
+    </div>
+  </body>
+</html>
