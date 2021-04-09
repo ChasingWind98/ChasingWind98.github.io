@@ -495,10 +495,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           
         
           
-            <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-04-07T22:53:22+08:00">
+            <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-04-08T23:29:43+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：2021年4月7日</p>
+    <p>更新于：2021年4月8日</p>
   </a>
 </div>
 
@@ -721,10 +721,104 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 </ul>
 </li>
 <li><p>定点数的加减法运算</p>
+<blockquote>
+<p>定点数的加法使用的是<strong>补码</strong>进行计算的，取模操作是为了将符号位产生的进位丢掉</p>
+<p><img src="https://blog.chasingwind.top/FsT0IJ.png" class="lazyload" data-srcset="https://blog.chasingwind.top/FsT0IJ.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+<ol>
+<li><p>整数的加法</p>
+<blockquote>
+<p><img src="https://blog.chasingwind.top/QHU42N.png" class="lazyload" data-srcset="https://blog.chasingwind.top/QHU42N.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="符号位未产生进位"></p>
+<hr>
+<p><img src="https://blog.chasingwind.top/8oazi5.png" class="lazyload" data-srcset="https://blog.chasingwind.top/8oazi5.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="符号位产生进位--加和结果为负数"></p>
+<hr>
+<p><img src="https://blog.chasingwind.top/jKAX0W.png" class="lazyload" data-srcset="https://blog.chasingwind.top/jKAX0W.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="符号位产生进位--加和结果为正数"></p>
+</blockquote>
+</li>
+<li><p>小数的加法</p>
+<blockquote>
+<p>与整数加法同理</p>
+<p><img src="https://blog.chasingwind.top/0i5gSR.png" class="lazyload" data-srcset="https://blog.chasingwind.top/0i5gSR.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>溢出</p>
+<blockquote>
+<p>按照整数的加法的流程计算，由于两个计算数是8位的，结果的长度已经超过了8位，发生了溢出</p>
+<p><img src="https://blog.chasingwind.top/WwjzY2.png" class="lazyload" data-srcset="https://blog.chasingwind.top/WwjzY2.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>如何判断是否溢出？– 双符号位判断法</p>
+<p><img src="https://blog.chasingwind.top/Kg9og2.png" class="lazyload" data-srcset="https://blog.chasingwind.top/Kg9og2.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p><img src="https://blog.chasingwind.top/UkP2uy.png" class="lazyload" data-srcset="https://blog.chasingwind.top/UkP2uy.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="双符号位判断溢出--溢出情况"></p>
+<hr>
+<p><img src="https://blog.chasingwind.top/kAAL1b.png" class="lazyload" data-srcset="https://blog.chasingwind.top/kAAL1b.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="双符号位判断溢出--未溢出情况"></p>
+</blockquote>
+</li>
+<li><p>定点数的减法运算</p>
+<blockquote>
+<p><img src="https://blog.chasingwind.top/jri8TH.png" class="lazyload" data-srcset="https://blog.chasingwind.top/jri8TH.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="https://blog.chasingwind.top/v0CHrH.png" class="lazyload" data-srcset="https://blog.chasingwind.top/v0CHrH.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ol>
 </li>
 <li><p>浮点数的加减法运算</p>
+<blockquote>
+<p>步骤：对阶–尾数求和–尾数规格化–舍入–溢出判断</p>
+<p>对阶：</p>
+<p><img src="https://blog.chasingwind.top/2K1inC.png" class="lazyload" data-srcset="https://blog.chasingwind.top/2K1inC.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="https://blog.chasingwind.top/BDD8gx.png" class="lazyload" data-srcset="https://blog.chasingwind.top/BDD8gx.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="对阶"></p>
+<hr>
+<p>尾数求和：与定点数加减法类似</p>
+<p><img src="https://blog.chasingwind.top/p1Lau1.png" class="lazyload" data-srcset="https://blog.chasingwind.top/p1Lau1.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="尾数求和"></p>
+<hr>
+<p>尾数规格化（左移）：双符号位一致，并且符号位和最高位一致</p>
+<p>什么时候需要尾数规格化？</p>
+<p><strong>当尾数符号位和尾数最高位一致的时候需要尾数规格化</strong></p>
+<p><img src="https://blog.chasingwind.top/7QegEq.png" class="lazyload" data-srcset="https://blog.chasingwind.top/7QegEq.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="https://blog.chasingwind.top/VbSFgd.png" class="lazyload" data-srcset="https://blog.chasingwind.top/VbSFgd.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>尾数规格化（右移）：双符号位不一致的时候需要右移（此时双符号位不一致不是定点数溢出的情况）</p>
+<p><img src="https://blog.chasingwind.top/F8smgP.png" class="lazyload" data-srcset="https://blog.chasingwind.top/F8smgP.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>舍入操作：<strong>0舍1入</strong>，提升精度，但是可能会溢出</p>
+<p>关于为什么补1？由于进位导致的符号位不同，2位变成3位，那么这三位中，高位的前两位必然是相同的</p>
+<p><img src="https://blog.chasingwind.top/RHxZKv.png" class="lazyload" data-srcset="https://blog.chasingwind.top/RHxZKv.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>0舍1入溢出的情况</p>
+<p><img src="https://blog.chasingwind.top/DvVpxS.png" class="lazyload" data-srcset="https://blog.chasingwind.top/DvVpxS.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>浮点数溢出判断：</p>
+<p><img src="https://blog.chasingwind.top/ZmLD4t.png" class="lazyload" data-srcset="https://blog.chasingwind.top/ZmLD4t.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+<blockquote>
+<p>运算案例</p>
+<p><img src="https://blog.chasingwind.top/HAchCZ.png" class="lazyload" data-srcset="https://blog.chasingwind.top/HAchCZ.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="对阶"></p>
+<p><img src="https://blog.chasingwind.top/3iRk2I.png" class="lazyload" data-srcset="https://blog.chasingwind.top/3iRk2I.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="尾数求和"></p>
+<p>发现尾数的符号位不相同，所以需要进行尾数规格化（<strong>右移</strong>）</p>
+<p><img src="https://blog.chasingwind.top/HADgD2.png" class="lazyload" data-srcset="https://blog.chasingwind.top/HADgD2.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="0舍1入，阶码+1"></p>
+<p><img src="https://blog.chasingwind.top/tDICXP.png" class="lazyload" data-srcset="https://blog.chasingwind.top/tDICXP.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="溢出判断"></p>
+<hr>
+<p><img src="https://blog.chasingwind.top/sLF9a9.png" class="lazyload" data-srcset="https://blog.chasingwind.top/sLF9a9.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="浮点数加减法运算流程图"></p>
+</blockquote>
 </li>
-<li><p>浮点数的乘除法运算</p>
+<li><p>浮点数的乘除法运算（了解）</p>
+<ol>
+<li><p>浮点数乘法</p>
+<blockquote>
+<p><img src="https://blog.chasingwind.top/YcFuek.png" class="lazyload" data-srcset="https://blog.chasingwind.top/YcFuek.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>浮点数除法</p>
+<blockquote>
+<p><img src="https://blog.chasingwind.top/z9dLWN.png" class="lazyload" data-srcset="https://blog.chasingwind.top/z9dLWN.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>流程</p>
+<blockquote>
+<p><img src="https://blog.chasingwind.top/I884Vh.png" class="lazyload" data-srcset="https://blog.chasingwind.top/I884Vh.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="https://blog.chasingwind.top/d669av.png" class="lazyload" data-srcset="https://blog.chasingwind.top/d669av.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="乘法案例"></p>
+</blockquote>
+</li>
+</ol>
 </li>
 </ol>
 
@@ -746,10 +840,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-04-07T22:53:22+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-04-08T23:29:43+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：2021年4月7日</p>
+    <p>更新于：2021年4月8日</p>
   </a>
 </div>
 
