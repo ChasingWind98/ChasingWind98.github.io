@@ -5,8 +5,6 @@
   <!-- SEO相关 -->
   
     
-      <meta name="robots" content="noindex,follow">
-    
   
   <!-- 渲染优化 -->
   <meta http-equiv='x-dns-prefetch-control' content='on' />
@@ -24,9 +22,20 @@
 
   <!-- 页面元数据 -->
   
-  <title>归档：2019/9 - 追风少年</title>
+  <title>编程基础之操作系统(基础篇) - 追风少年</title>
+  
+    <meta name="keywords" content="操作系统">
   
 
+  
+    <meta name="description" content="
+操作系统概览
+进程管理
+存储管理
+作业管理
+文件管理
+设别管理
+">
   
 
   <!-- feed -->
@@ -106,7 +115,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <body>
     
 
-<header id="l_header" class="l_header always shadow floatable blur "  >
+<header id="l_header" class="l_header always shadow floatable blur show"  >
   <div class='container'>
   <div id='wrapper'>
     <div class='nav-sub'>
@@ -399,7 +408,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       <div id="l_cover">
   
     
-        <div id="half" class='cover-wrapper  search' style="display: ;">
+        <div id="full" class='cover-wrapper post search' style="display: none;">
           
             <div id='cover-backstretch'></div>
           
@@ -441,79 +450,421 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           
 
 <div class='l_main'>
-	
-		
-  <section class="post-list">
-    
-      
-        
-          
-        
-      
-    
-    
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-    <div class='headimg-div'>
-      <a class='headimg-a' href="/2019/09/29/Git/">
-        <img class='headimg' src='https://blog.chasingwind.top/SVN.png'/>
-      </a>
-    </div>
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2019/09/29/Git/">
-        Git
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <p>Git是一个开源的<strong>分布式版本控制系统</strong>，可以有效、高速地处理从很小到非常大的项目版本管理。 [1]  Git 是 [Linus Torvalds](<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/Linus">https://baike.baidu.com/item/Linus</a> Torvalds/9336769) 为了帮助管理 Linux 内核开发而开发的一个开放源码的版本控制软件</p>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-          
-          <a class='avatar' href='/about/'><img src='https://blog.chasingwind.top/blogavater.jpeg'></a>
-        
-        <time>2019-09-29</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/%E5%B7%A5%E5%85%B7/">工具</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2019/09/29/Git/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
+  <article class="article post white-box reveal md shadow article-type-post" id="post" itemscope itemprop="blogPost">
   
 
+
+  
+  <div class="article-meta" id="top">
+    
+    
+    
+      <h1 class="title">
+        编程基础之操作系统(基础篇)
+      </h1>
+      <div class='new-meta-box'>
+        
+          
+            
+<div class='new-meta-item author'>
+  <a class='author' href="/about/" rel="nofollow">
+    <img no-lazy src="https://blog.chasingwind.top/blogavater.jpeg">
+    <p>ChasingWind</p>
+  </a>
 </div>
 
-          </div>
+          
+        
+          
+            
+  <div class='new-meta-item category'>
+    <a class='notlink'>
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <a class="category-link" href="/categories/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/">编程基础</a>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：2021年4月13日</p>
+  </a>
+</div>
+
+          
+        
+          
+            <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-04-14T23:33:11+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2021年4月14日</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+
+          
+        
+          
+            
+  <div class="new-meta-item browse leancloud">
+    <a class='notlink'>
+      
+      <div id="lc-pv" data-title="编程基础之操作系统(基础篇)" data-path="/2021/04/13/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80%E4%B9%8B%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E5%9F%BA%E7%A1%80%E7%AF%87/">
+        <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
+        <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+        次浏览
+      </div>
+    </a>
+  </div>
+
+
+          
+        
+      </div>
+    
+  </div>
+
+
+  
+  
+  <ul>
+<li>操作系统概览</li>
+<li>进程管理</li>
+<li>存储管理</li>
+<li>作业管理</li>
+<li>文件管理</li>
+<li>设别管理</li>
+</ul>
+<a id="more"></a>
+
+
+
+<h2 id="操作系统的演进"><a href="#操作系统的演进" class="headerlink" title="操作系统的演进"></a>操作系统的演进</h2><blockquote>
+<p><img src="https://blog.chasingwind.top/CgE0vv.png" class="lazyload" data-srcset="https://blog.chasingwind.top/CgE0vv.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="演进流程"></p>
+<hr>
+<p>多道程序设计：</p>
+<p><img src="https://blog.chasingwind.top/Qld4pQ.png" class="lazyload" data-srcset="https://blog.chasingwind.top/Qld4pQ.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="https://blog.chasingwind.top/0x9FEn.png" class="lazyload" data-srcset="https://blog.chasingwind.top/0x9FEn.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+<ul>
+<li>根据操作系统对多道程序的管理以及资源的管理可以分为五大功能：分别为进程管理、存储管理、作业管理、文件管理、设备管理</li>
+</ul>
+<h2 id="操作系统概览"><a href="#操作系统概览" class="headerlink" title="操作系统概览"></a>操作系统概览</h2><h3 id="是什么？为什么要使用操作系统"><a href="#是什么？为什么要使用操作系统" class="headerlink" title="是什么？为什么要使用操作系统"></a>是什么？为什么要使用操作系统</h3><ul>
+<li>操作系统是管理计算机硬件和软件资源的<strong>计算机程序</strong></li>
+<li>通过管理配置内存、决定资源供需顺序、控制输入输出设备等来控制硬件资源</li>
+<li>操作系统提供让用户和系统交互的<strong>操作界面</strong></li>
+<li>操作系统的种类是多种多样的，不局限于计算机</li>
+<li>从手机到超级计算机，操作系统可简单也可复杂</li>
+<li> 在不同的设备上，操作系统可向用户呈现多种操作手段</li>
+</ul>
+<p>定义：<strong>管理硬件、提供用户交互的软件系统</strong></p>
+<p>为什么要使用操作系统？</p>
+<ul>
+<li>我们不可能直接操作计算机硬件。比如，我们要用计算机计算1+1，我们不能直接让CPU执行，需要通过操作系统告诉CPU来执行对应的操作</li>
+<li>设备种类繁多复杂，需要统一界面，操作系统屏蔽了不同设备之间的差异。让操作系统去管理硬件</li>
+<li>操作系统的简易性使得更多人能够使用计算机</li>
+</ul>
+<h3 id="基本功能"><a href="#基本功能" class="headerlink" title="基本功能"></a>基本功能</h3><ol>
+<li><p>统一管理计算机资源，比如处理器资源，存储器资源，IO设备资源，文件资源</p>
+</li>
+<li><p>实现了对计算机资源的抽象</p>
+<blockquote>
+<p><img src="https://blog.chasingwind.top/Ppq28g.png" class="lazyload" data-srcset="https://blog.chasingwind.top/Ppq28g.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>实现对计算机资源的抽象是通过xx设备管理软件来实现的，这些软件屏蔽了硬件的设备，为用户提供逻辑设备</p>
+</blockquote>
+</li>
+<li><p>提供了用户与计算机之间的接口</p>
+<ul>
+<li><p>图形图像窗口（Windows、MacOS）</p>
+</li>
+<li><p>命令形式（Linux）</p>
+</li>
+<li><p>系统调用形式（比如Java操作本地文件）</p>
+<blockquote>
+<p><img src="https://blog.chasingwind.top/Ymoisj.png" class="lazyload" data-srcset="https://blog.chasingwind.top/Ymoisj.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="相关概念"><a href="#相关概念" class="headerlink" title="相关概念"></a>相关概念</h3><ul>
+<li><p>并发性</p>
+<blockquote>
+<p><img src="https://blog.chasingwind.top/Gyqoyd.png" class="lazyload" data-srcset="https://blog.chasingwind.top/Gyqoyd.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="并行vs并发"></p>
+<p>在计算机中的体现</p>
+<p>对于单个处理器而言，主要是并发</p>
+<p>对于对各处理器之间，主要是并行的关系；同时但看某个处理器，主要是并发的关系。</p>
+<p><img src="https://blog.chasingwind.top/OWoBwg.png" class="lazyload" data-srcset="https://blog.chasingwind.top/OWoBwg.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>共享性</p>
+<blockquote>
+<p>共享性表现为<strong>操作系统中的资源可供多个并发的程序共同使用</strong>，这种共同使用的形式称之为资源共享，我们称这种资源具有共享性</p>
+<p>Ex1，主存具有共享性</p>
+<p><img src="https://blog.chasingwind.top/YRcOOb.png" class="lazyload" data-srcset="https://blog.chasingwind.top/YRcOOb.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>互斥共享形式：比如打印机</p>
+<p><img src="https://blog.chasingwind.top/1HiY0M.png" class="lazyload" data-srcset="https://blog.chasingwind.top/1HiY0M.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="互斥共享特点"></p>
+<p>同时访问形式：比如硬盘</p>
+<p>虽然在某一时刻，硬盘只能进行一个操作，但是执行速度很快。在宏观上的一段时间内可以看做是同时访问的。</p>
+<p><img src="https://blog.chasingwind.top/BHC8K1.png" class="lazyload" data-srcset="https://blog.chasingwind.top/BHC8K1.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>总结：</p>
+<p>如果我们强调<strong>某一时刻</strong>，一般强调的是资源的互斥共享形式</p>
+<p>如果我们强调<strong>某一时间段</strong>，一般强调的是资源的同时访问形式</p>
+</blockquote>
+</li>
+<li><p>虚拟性</p>
+<blockquote>
+<p><img src="https://blog.chasingwind.top/tlqxym.png" class="lazyload" data-srcset="https://blog.chasingwind.top/tlqxym.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="虚拟性定义"></p>
+<p><strong>时分复用技术</strong>：比如在一段时间内，多个程序交替执行，交替使用计算机CPU资源就是属于时分复用技术的一种</p>
+<p><img src="https://blog.chasingwind.top/mbATqr.png" class="lazyload" data-srcset="https://blog.chasingwind.top/mbATqr.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>时分复用技术分为：虚拟处理器技术和虚拟设备技术</p>
+<p><img src="https://blog.chasingwind.top/f4XcAf.png" class="lazyload" data-srcset="https://blog.chasingwind.top/f4XcAf.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><strong>空分复用技术</strong>：</p>
+<p><img src="https://blog.chasingwind.top/h0suq7.png" class="lazyload" data-srcset="https://blog.chasingwind.top/h0suq7.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="https://blog.chasingwind.top/hAHoMD.png" class="lazyload" data-srcset="https://blog.chasingwind.top/hAHoMD.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>异步性</p>
+<blockquote>
+<p><strong><em>\</em>异步性**</strong>是指进程以不可预知的速度向前推进</p>
+<p>在多道程序环境下，进程是并发执行的，不同进程之间存在着不同的相互制约关系(一般是资源问题)。内存中的每个进程何时执行，何时暂停，以怎样的速度向前推进，程序总共需要多少时间才能完成等，都是不可预知的。</p>
+<p>进程是如何以走走停停的形式推进的？</p>
+<p><img src="https://blog.chasingwind.top/TsypOq.png" class="lazyload" data-srcset="https://blog.chasingwind.top/TsypOq.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ul>
+<h2 id="五大功能"><a href="#五大功能" class="headerlink" title="五大功能"></a>五大功能</h2><h3 id="进程管理"><a href="#进程管理" class="headerlink" title="进程管理"></a>进程管理</h3><ul>
+<li><p>为什么需要进程</p>
+<blockquote>
+<p>操作系统的作用是管理底层的硬件资源</p>
+<p>在单道程序处理的时候，所有的资源被当前运行的程序独占</p>
+<p>多道处理程序出现后，配置了操作系统来管理资源。<strong>在操作系统中，是使用进程来合理隔离资源和运行环境，提升资源的利用率</strong></p>
+<hr>
+<p>总结：</p>
+<p><img src="https://blog.chasingwind.top/ENvrg4.png" class="lazyload" data-srcset="https://blog.chasingwind.top/ENvrg4.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ul>
+<h4 id="进程管理之进程实体"><a href="#进程管理之进程实体" class="headerlink" title="进程管理之进程实体"></a>进程管理之进程实体</h4><ol>
+<li><p>主存中的进程形态</p>
+<blockquote>
+<p><strong>在主存中，进程也是一段连续的存储空间，</strong>这个连续的存储空间称之为<strong>进程控制块</strong>。</p>
+<p>在进程控制块（PCB）中有一些重要的信息：</p>
+<p><img src="https://blog.chasingwind.top/n6pQZo.png" class="lazyload" data-srcset="https://blog.chasingwind.top/n6pQZo.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>标识符：唯一标记一个进程，用于与其他进程之间的区别</p>
+<p>状态：标记进程的运行状态，比如：运行态，阻塞状态等等</p>
+<p>程序计数器：指向进程即将被执行的下一条指令的地址</p>
+<p>内存指针： 程序代码、进程数据相关指针。可能有多个，分别指向程序的具体逻辑代码，或者指向进程数据相关的地址。</p>
+<p><strong>上下文数据</strong>：进程执行时<strong>处理器存储的数据</strong> ，存储于CPU寄存器或者高速缓存</p>
+<p>IO状态信息：被进程IO操作所占用的文件列表</p>
+<p>记账信息： 使用处理器时间、时钟数总和等</p>
+<hr>
+<p>可以将进程控制块中的信息分为4种类型：</p>
+<ul>
+<li>进程标识符</li>
+<li>处理机状态</li>
+<li>进程调度信息</li>
+<li>进程控制信息</li>
+</ul>
+<p><img src="https://blog.chasingwind.top/3pB6Sv.png" class="lazyload" data-srcset="https://blog.chasingwind.top/3pB6Sv.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>PCB常驻内存</p>
+<p><img src="https://blog.chasingwind.top/OZ8PXy.png" class="lazyload" data-srcset="https://blog.chasingwind.top/OZ8PXy.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>进程（Process）与线程（Thread）</p>
+<blockquote>
+<ul>
+<li><p>进程和线程的关系：</p>
+<ol>
+<li>一个<strong>进程</strong>可以有<strong>一个或者多个线程</strong></li>
+<li><strong>进程</strong>是操作系统进行资源分配和调度的<strong>基本单位</strong>，<strong>线程</strong>是操作系统进行运行调度的<strong>最小</strong>单位。也就是说<strong>操作系统对进程的调度实际上是对进程中线程的调度</strong>。</li>
+<li><strong>线程包含在进程之中</strong>，是进程中实际运行工作的单位。也就是说<strong>在进程里面实际运行的是进程中的线程而不是进程本身。</strong></li>
+<li><strong>一个进程可以并发多个线程</strong>，每个线程执行不同的任务。</li>
+</ol>
+</li>
+<li><p><strong>同一个进程中的线程之间共享进程的资源</strong></p>
+<blockquote>
+<p>进程是拥有资源的，线程是不拥有资源的</p>
+<p><img src="https://blog.chasingwind.top/976K6u.png" class="lazyload" data-srcset="https://blog.chasingwind.top/976K6u.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>总结</p>
+<blockquote>
+<p><img src="https://blog.chasingwind.top/yy0lNR.png" class="lazyload" data-srcset="https://blog.chasingwind.top/yy0lNR.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>线程通信：通过读写同一个数据进行通信。</p>
+</blockquote>
+</li>
+</ul>
+</blockquote>
+</li>
+</ol>
+
+  
+  
+    
+    <div class='footer'>
+      
+      
+      
+      
+    </div>
+  
+  
+    
+
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-04-14T23:33:11+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2021年4月14日</p>
+  </a>
+</div>
+
         
       
-    
-  </section>
+        
+          
   
-    
-  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>操作系统</p></a></div>
 
 
-	
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.chasingwind.top/2021/04/13/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80%E4%B9%8B%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E5%9F%BA%E7%A1%80%E7%AF%87/&title=编程基础之操作系统(基础篇) - 追风少年&summary=
+操作系统概览
+进程管理
+存储管理
+作业管理
+文件管理
+设别管理
+"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://www.chasingwind.top/2021/04/13/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80%E4%B9%8B%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E5%9F%BA%E7%A1%80%E7%AF%87/&title=编程基础之操作系统(基础篇) - 追风少年&summary=
+操作系统概览
+进程管理
+存储管理
+作业管理
+文件管理
+设别管理
+"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.chasingwind.top/2021/04/13/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80%E4%B9%8B%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E5%9F%BA%E7%A1%80%E7%AF%87/&title=编程基础之操作系统(基础篇) - 追风少年&summary=
+操作系统概览
+进程管理
+存储管理
+作业管理
+文件管理
+设别管理
+"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </div>
+
+
+  
+  
+
+  
+    <div class="prev-next">
+      
+      
+        <a class='next' href='/2021/03/25/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80%E4%B9%8B%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86-%E8%AE%A1%E7%AE%97%E7%AF%87/'>
+          <p class='title'>编程基础之计算机组成原理(计算篇)<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>
+进制运算的基本知识
+二进制数据的表示方法
+二进制数据的运算
+
+
+
+
+
+进制运算的基本知识进制概述
+进位制是一种记数方式，亦称进位计数法或位值计数法
+ 有限种数字符号来表示无限的数值（十进制只需...</p>
+        </a>
+      
+    </div>
+  
+</article>
+
+
+  
+
+  <article class="post white-box reveal shadow" id="comments">
+    <p ct><i class='fas fa-comments'></i> 评论</p>
+    
+    <div id="valine_container" class="valine_thread">
+  <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+</div>
+
+  </article>
+
+
+
+
+
+
 </div>
 <aside class='l_side'>
   
@@ -521,314 +872,28 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     
     
 
-<section class="widget blogger shadow desktop mobile">
-  <div class='content'>
-    
-      
-        <a class='avatar flat-box rectangle' href='/about/'>
-          <img no-lazy src='https://blog.chasingwind.top/blogavater.jpeg'/>
-        </a>
-      
-    
-    
-      <div class='text'>
-        
-        
-        
-          <p><span id="jinrishici-sentence">追风少年</span></p>
-          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
-        
-      </div>
-    
-    
-      <div class="social-wrapper">
-        
-          
-            <a href="/atom.xml"
-              class="social fas fa-rss flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="mailto:me@xxx.com"
-              class="social fas fa-envelope flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="https://github.com/volantis-x/"
-              class="social fab fa-github flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="/"
-              class="social fas fa-headphones-alt flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-      </div>
-    
-  </div>
-</section>
 
-  
 
-  
-    
-    
-  
-
-  <section class="widget category shadow desktop">
+  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
     
   <header>
     
-      <a href='/blog/categories/'><i class="fas fa-folder-open fa-fw" aria-hidden="true"></i><span class='name'>文章分类</span></a>
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
     
   </header>
 
 
     <div class='content'>
-      <ul class="entry navigation">
-        
-          <li><a class="flat-box"
-            title="/categories/JVM%E7%B3%BB%E5%88%97/" href="/categories/JVM%E7%B3%BB%E5%88%97/"
-            id="categoriesJVME7B3BBE58897"
-            ><div class='name'>JVM系列</div><div class='badge'>(2)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Java-EE/" href="/categories/Java-EE/"
-            id="categoriesJava-EE"
-            ><div class='name'>Java EE</div><div class='badge'>(14)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Java%E5%9F%BA%E7%A1%80/" href="/categories/Java%E5%9F%BA%E7%A1%80/"
-            id="categoriesJavaE59FBAE7A180"
-            ><div class='name'>Java基础</div><div class='badge'>(2)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Linux/" href="/categories/Linux/"
-            id="categoriesLinux"
-            ><div class='name'>Linux</div><div class='badge'>(2)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/MySQL/" href="/categories/MySQL/"
-            id="categoriesMySQL"
-            ><div class='name'>MySQL</div><div class='badge'>(3)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/MySQL%E9%AB%98%E7%BA%A7/" href="/categories/MySQL%E9%AB%98%E7%BA%A7/"
-            id="categoriesMySQLE9AB98E7BAA7"
-            ><div class='name'>MySQL高级</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/SpringBoot/" href="/categories/SpringBoot/"
-            id="categoriesSpringBoot"
-            ><div class='name'>SpringBoot</div><div class='badge'>(3)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E4%B8%BB%E6%B5%81%E6%A1%86%E6%9E%B6/" href="/categories/%E4%B8%BB%E6%B5%81%E6%A1%86%E6%9E%B6/"
-            id="categoriesE4B8BBE6B581E6A186E69EB6"
-            ><div class='name'>主流框架</div><div class='badge'>(11)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2/" href="/categories/%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2/"
-            id="categoriesE585A8E69687E6A380E7B4A2"
-            ><div class='name'>全文检索</div><div class='badge'>(2)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E5%B7%A5%E5%85%B7/" href="/categories/%E5%B7%A5%E5%85%B7/"
-            id="categoriesE5B7A5E585B7"
-            ><div class='name'>工具</div><div class='badge'>(7)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"
-            id="categoriesE695B0E68DAEE5BA93"
-            ><div class='name'>数据库</div><div class='badge'>(7)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E6%97%85%E8%A1%8C%E5%BF%97/" href="/categories/%E6%97%85%E8%A1%8C%E5%BF%97/"
-            id="categoriesE69785E8A18CE5BF97"
-            ><div class='name'>旅行志</div><div class='badge'>(2)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/" href="/categories/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/"
-            id="categoriesE7BC96E7A88BE59FBAE7A180"
-            ><div class='name'>编程基础</div><div class='badge'>(4)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E9%A1%B9%E7%9B%AE/" href="/categories/%E9%A1%B9%E7%9B%AE/"
-            id="categoriesE9A1B9E79BAE"
-            ><div class='name'>项目</div><div class='badge'>(4)</div></a></li>
-        
-      </ul>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%BC%94%E8%BF%9B"><span class="toc-text">操作系统的演进</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%A7%88"><span class="toc-text">操作系统概览</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="toc-text">是什么？为什么要使用操作系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E5%8A%9F%E8%83%BD"><span class="toc-text">基本功能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5"><span class="toc-text">相关概念</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E5%A4%A7%E5%8A%9F%E8%83%BD"><span class="toc-text">五大功能</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86"><span class="toc-text">进程管理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86%E4%B9%8B%E8%BF%9B%E7%A8%8B%E5%AE%9E%E4%BD%93"><span class="toc-text">进程管理之进程实体</span></a></li></ol></li></ol></li></ol>
     </div>
   </section>
 
-
-  
-
-  
-    
-    
-  
-
-  <section class="widget tagcloud shadow desktop mobile">
-    
-  <header>
-    
-      <a href='/blog/tags/'><i class="fas fa-tags fa-fw" aria-hidden="true"></i><span class='name'>热门标签</span></a>
-    
-  </header>
-
-
-    <div class='content'>
-      <a href="/tags/Ajax/" style="font-size: 14px; color: #999">Ajax</a> <a href="/tags/BootStrap/" style="font-size: 14px; color: #999">BootStrap</a> <a href="/tags/CSS/" style="font-size: 14px; color: #999">CSS</a> <a href="/tags/Cookie/" style="font-size: 14px; color: #999">Cookie</a> <a href="/tags/Docker/" style="font-size: 14px; color: #999">Docker</a> <a href="/tags/EL/" style="font-size: 14px; color: #999">EL</a> <a href="/tags/ElasticSearch/" style="font-size: 14px; color: #999">ElasticSearch</a> <a href="/tags/Fliter/" style="font-size: 14px; color: #999">Fliter</a> <a href="/tags/Git/" style="font-size: 14px; color: #999">Git</a> <a href="/tags/HTML/" style="font-size: 14px; color: #999">HTML</a> <a href="/tags/Http%E5%8D%8F%E8%AE%AE/" style="font-size: 16px; color: #8b8b8b">Http协议</a> <a href="/tags/IO/" style="font-size: 14px; color: #999">IO</a> <a href="/tags/JDBC/" style="font-size: 14px; color: #999">JDBC</a> <a href="/tags/JSON/" style="font-size: 14px; color: #999">JSON</a> <a href="/tags/JSP/" style="font-size: 16px; color: #8b8b8b">JSP</a> <a href="/tags/JSTL/" style="font-size: 14px; color: #999">JSTL</a> <a href="/tags/JVM%E5%86%85%E5%AD%98%E4%B8%8E%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/" style="font-size: 16px; color: #8b8b8b">JVM内存与垃圾回收</a> <a href="/tags/Java-Web/" style="font-size: 14px; color: #999">Java Web</a> <a href="/tags/Java8/" style="font-size: 14px; color: #999">Java8</a> <a href="/tags/JavaScript/" style="font-size: 14px; color: #999">JavaScript</a> <a href="/tags/JavaWeb%E9%A1%B9%E7%9B%AE/" style="font-size: 14px; color: #999">JavaWeb项目</a> <a href="/tags/Linux/" style="font-size: 16px; color: #8b8b8b">Linux</a> <a href="/tags/Listener/" style="font-size: 14px; color: #999">Listener</a> <a href="/tags/Lucene/" style="font-size: 14px; color: #999">Lucene</a> <a href="/tags/MVC/" style="font-size: 14px; color: #999">MVC</a> <a href="/tags/MYSQL%E9%94%81%E6%9C%BA%E5%88%B6/" style="font-size: 14px; color: #999">MYSQL锁机制</a> <a href="/tags/Maven/" style="font-size: 16px; color: #8b8b8b">Maven</a> <a href="/tags/MyBatis/" style="font-size: 16px; color: #8b8b8b">MyBatis</a> <a href="/tags/MySQL/" style="font-size: 16px; color: #8b8b8b">MySQL</a> <a href="/tags/MySQL%E6%9E%B6%E6%9E%84/" style="font-size: 14px; color: #999">MySQL架构</a> <a href="/tags/MySQL%E9%AB%98%E7%BA%A7/" style="font-size: 18px; color: #7e7e7e">MySQL高级</a> <a href="/tags/Mybatis/" style="font-size: 20px; color: #707070">Mybatis</a> <a href="/tags/Nginx/" style="font-size: 14px; color: #999">Nginx</a> <a href="/tags/Oracle/" style="font-size: 16px; color: #8b8b8b">Oracle</a> <a href="/tags/Redis/" style="font-size: 16px; color: #8b8b8b">Redis</a> <a href="/tags/Request/" style="font-size: 16px; color: #8b8b8b">Request</a> <a href="/tags/Response/" style="font-size: 14px; color: #999">Response</a> <a href="/tags/SSM/" style="font-size: 16px; color: #8b8b8b">SSM</a> <a href="/tags/SSM%E9%A1%B9%E7%9B%AE/" style="font-size: 14px; color: #999">SSM项目</a> <a href="/tags/SVN/" style="font-size: 14px; color: #999">SVN</a> <a href="/tags/Servlet/" style="font-size: 14px; color: #999">Servlet</a> <a href="/tags/Session/" style="font-size: 14px; color: #999">Session</a> <a href="/tags/Spring/" style="font-size: 22px; color: #636363">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 16px; color: #8b8b8b">SpringBoot</a> <a href="/tags/SpringBoot%E5%85%A5%E9%97%A8/" style="font-size: 14px; color: #999">SpringBoot入门</a> <a href="/tags/SpringMVC/" style="font-size: 18px; color: #7e7e7e">SpringMVC</a> <a href="/tags/Tomcat/" style="font-size: 14px; color: #999">Tomcat</a> <a href="/tags/Web/" style="font-size: 24px; color: #555">Web</a> <a href="/tags/XML/" style="font-size: 14px; color: #999">XML</a> <a href="/tags/jQuery/" style="font-size: 16px; color: #8b8b8b">jQuery</a> <a href="/tags/%E4%B8%89%E5%B1%82%E6%9E%B6%E6%9E%84/" style="font-size: 14px; color: #999">三层架构</a> <a href="/tags/%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90%E5%B7%A5%E5%85%B7/" style="font-size: 14px; color: #999">代码生成工具</a> <a href="/tags/%E6%91%84%E5%BD%B1/" style="font-size: 16px; color: #8b8b8b">摄影</a> <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 14px; color: #999">操作系统</a> <a href="/tags/%E6%97%85%E8%A1%8C/" style="font-size: 16px; color: #8b8b8b">旅行</a> <a href="/tags/%E6%97%A5%E5%BF%97/" style="font-size: 14px; color: #999">日志</a> <a href="/tags/%E7%BB%83%E4%B9%A0/" style="font-size: 14px; color: #999">练习</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" style="font-size: 18px; color: #7e7e7e">计算机组成原理</a>
-    </div>
-  </section>
-
-
-  
-
-  
-
-  
-    
-    
-
-<section class="widget shadow desktop">
-  
-  <header>
-    
-      <i class="fas fa-award fa-fw" aria-hidden="true"></i><span class='name'>站点信息</span>
-    
-  </header>
-
-
-  <div class='content'>
-    <div class="webinfo">
-      
-        <div class="webinfo-item">
-          <div>文章数目：</div>
-          <div>64 篇</div>
-        </div>
-      
-
-      
-        <div class="webinfo-item">
-          <div>已运行时间：</div>
-          <div id="webinfo-runtime-count" publish_date="03/24/2020 21:34:09"></div>
-        </div>
-        <script>
-          var BirthDay = new Date(new Date('2020/01/01'));
-          var today = new Date();
-          var timeold = (today.getTime() - BirthDay.getTime());
-          var daysold = Math.floor(timeold / (24 * 60 * 60 * 1000));
-          document.getElementById('webinfo-runtime-count').innerHTML = daysold + ' 天';
-        </script>
-      
-
-
-      
-
-      
-        <div class="webinfo-item">
-          <div>本站访客数：</div>
-          
-          <div><span id="lc-uv"><span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span></span> 人</div>
-          
-        </div>
-      
-
-      
-        <div class="webinfo-item">
-          <div>本站总访问量：</div>
-          
-          <div><span id="lc-sv"><span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span></span> 次</div>
-          
-        </div>
-      
-
-      
-        <div class="webinfo-item">
-          <div>最后活动时间：</div>
-          
-            <div id="last-update" style="display: none;">Thu Apr 15 2021 12:30:01 GMT+0800 (GMT+08:00)</div>
-            <div id="last-update-show">2021-04-15 日</div>
-          
-        </div>
-        
-        <script>
-          function timeago(dateTimeStamp) {
-              var minute = 1000 * 60; //把分，时，天，周，半个月，一个月用毫秒表示
-              var hour = minute * 60;
-              var day = hour * 24;
-              var week = day * 7;
-              var month = day * 30;
-              var now = new Date().getTime(); //获取当前时间毫秒
-              var diffValue = now - dateTimeStamp; //时间差
-              if (diffValue < 0) {
-                  return;
-              }
-              var minC = diffValue / minute; //计算时间差的分，时，天，周，月
-              var hourC = diffValue / hour;
-              var dayC = diffValue / day;
-              var weekC = diffValue / week;
-              var monthC = diffValue / month;
-              if (monthC >= 1 && monthC <= 3) {
-                  result = " " + parseInt(monthC) + " 月前"
-              } else if (weekC >= 1 && weekC <= 3) {
-                  result = " " + parseInt(weekC) + " 周前"
-              } else if (dayC >= 1 && dayC <= 6) {
-                  result = " " + parseInt(dayC) + " 天前"
-              } else if (hourC >= 1 && hourC <= 23) {
-                  result = " " + parseInt(hourC) + " 小时前"
-              } else if (minC >= 1 && minC <= 59) {
-                  result = " " + parseInt(minC) + " 分钟前"
-              } else if (diffValue >= 0 && diffValue <= minute) {
-                  result = "刚刚"
-              } else {
-                  var datetime = new Date();
-                  datetime.setTime(dateTimeStamp);
-                  var Nyear = datetime.getFullYear();
-                  var Nmonth = datetime.getMonth() + 1 < 10 ? "0" + (datetime.getMonth() + 1) : datetime.getMonth() + 1;
-                  var Ndate = datetime.getDate() < 10 ? "0" + datetime.getDate() : datetime.getDate();
-                  var Nhour = datetime.getHours() < 10 ? "0" + datetime.getHours() : datetime.getHours();
-                  var Nminute = datetime.getMinutes() < 10 ? "0" + datetime.getMinutes() : datetime.getMinutes();
-                  var Nsecond = datetime.getSeconds() < 10 ? "0" + datetime.getSeconds() : datetime.getSeconds();
-                  result = Nyear + "-" + Nmonth + "-" + Ndate
-              }
-              return result;
-          }
-          var lastUpDate = document.getElementById('last-update').innerHTML;
-          try {
-            document.getElementById('last-update-show').innerHTML = timeago(new Date(lastUpDate));
-          } catch (error) {
-            document.getElementById('last-update-show').innerHTML = '2021-04-15 日';
-          }
-        </script>
-        
-      
-    </div>
-  </div>
-</section>
 
   
 
 
 </aside>
+
 
 
 		  
@@ -837,21 +902,21 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
 <script>
   window.pdata={}
-  pdata.ispage=false;
-  pdata.postTitle="";
+  pdata.ispage=true;
+  pdata.postTitle="编程基础之操作系统(基础篇)";
   pdata.commentPath="";
   pdata.commentPlaceholder="";
   // header 这里无论是否开启pjax都需要
   var l_header=document.getElementById("l_header");
   
-  l_header.classList.remove("show");
+  l_header.classList.add("show");
   
   
     // cover
     var cover_wrapper=document.querySelector('.cover-wrapper');
     
-    cover_wrapper.id="half";
-    cover_wrapper.style.display="";
+    cover_wrapper.id="none";
+    cover_wrapper.style.display="none";
     
   
 </script>
