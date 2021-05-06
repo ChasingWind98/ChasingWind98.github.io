@@ -493,10 +493,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           
         
           
-            <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-04-27T23:23:50+08:00">
+            <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-04-30T11:11:04+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：2021年4月27日</p>
+    <p>更新于：2021年4月30日</p>
   </a>
 </div>
 
@@ -577,6 +577,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <hr>
 <p><strong>最佳适应算法（BF算法）</strong></p>
 <p><img src="https://blog.chasingwind.top/aFxOqE.png" class="lazyload" data-srcset="https://blog.chasingwind.top/aFxOqE.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
 <p><strong>快速适应算法（QF算法）</strong></p>
 <p><img src="https://blog.chasingwind.top/JExoHo.png" class="lazyload" data-srcset="https://blog.chasingwind.top/JExoHo.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 </blockquote>
@@ -617,11 +618,11 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <p>我们还需要知道某个页面存储在内存中的什么位置，通过<strong>页表</strong>来进行二者（<strong>进程空间中的页面和内存中的字块</strong>）之间的映射</p>
 <p><img src="https://blog.chasingwind.top/gQCiP1.png" class="lazyload" data-srcset="https://blog.chasingwind.top/gQCiP1.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <p>页表</p>
-<p>下图中的地址表示的是页面在进程空间中的逻辑地址</p>
+<p>下图中的<strong>地址表示的是页面在进程空间中的逻辑地址</strong></p>
 <p><img src="https://blog.chasingwind.top/F8edFV.png" class="lazyload" data-srcset="https://blog.chasingwind.top/F8edFV.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
 <p>通过计算可以发现的问题</p>
 <p><img src="https://blog.chasingwind.top/uFpnYB.png" class="lazyload" data-srcset="https://blog.chasingwind.top/uFpnYB.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
-<p>解决页表过大的问题：多级页表</p>
+<p>解决页表过大的问题：<strong>多级页表</strong></p>
 <p>分为根页表和二级页表….</p>
 <p>根页表中存储的是二级页表在内存中的地址（对应的字块）</p>
 <p>二级页表中存储的字块才是页表实际使用的内存的地址</p>
@@ -652,7 +653,104 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 </blockquote>
 </li>
 </ol>
-<h3 id="存储管理之虚拟内存"><a href="#存储管理之虚拟内存" class="headerlink" title="存储管理之虚拟内存"></a>存储管理之虚拟内存</h3>
+<h3 id="存储管理之虚拟内存"><a href="#存储管理之虚拟内存" class="headerlink" title="存储管理之虚拟内存"></a>存储管理之虚拟内存</h3><ol>
+<li><p>为什么需要虚拟内存</p>
+<blockquote>
+<p>实际生活中的问题</p>
+<p><img src="https://blog.chasingwind.top/4e3M7k.png" class="lazyload" data-srcset="https://blog.chasingwind.top/4e3M7k.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="https://blog.chasingwind.top/yBenGW.png" class="lazyload" data-srcset="https://blog.chasingwind.top/yBenGW.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>虚拟内存是如何工作的？</p>
+<blockquote>
+<p><img src="https://blog.chasingwind.top/f7PMBK.png" class="lazyload" data-srcset="https://blog.chasingwind.top/f7PMBK.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>将进程暂时不需要使用的放在在辅存（磁盘）</p>
+<p><img src="https://blog.chasingwind.top/cKzC1M.png" class="lazyload" data-srcset="https://blog.chasingwind.top/cKzC1M.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>暂时不需要的数据如何进行判定?</p>
+<p>——程序的局部性原理</p>
+</blockquote>
+</li>
+<li><p>程序的局部性原理</p>
+<blockquote>
+<p><img src="https://blog.chasingwind.top/HxntU7.png" class="lazyload" data-srcset="https://blog.chasingwind.top/HxntU7.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>在计算机中是如何进行工作的？</p>
+<p><img src="https://blog.chasingwind.top/kPoPe6.png" class="lazyload" data-srcset="https://blog.chasingwind.top/kPoPe6.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>虚拟内存页面置换算法</p>
+<blockquote>
+<ul>
+<li>先进先出算法（FIFIO）</li>
+<li>最不经常使用算法（LFU）</li>
+<li>最近最少使用算部分（LRU）</li>
+</ul>
+<hr>
+<p>回顾计算机组成原理中，高速缓存的替换</p>
+<p><img src="https://blog.chasingwind.top/EMx1Vn.png" class="lazyload" data-srcset="https://blog.chasingwind.top/EMx1Vn.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>虚拟内存中主存页面替换时机</p>
+<p><img src="https://blog.chasingwind.top/12T0ZS.png" class="lazyload" data-srcset="https://blog.chasingwind.top/12T0ZS.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>二者对比</p>
+<p><img src="https://blog.chasingwind.top/Nc7KN6.png" class="lazyload" data-srcset="https://blog.chasingwind.top/Nc7KN6.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ol>
+<h3 id="Linux的存储管理"><a href="#Linux的存储管理" class="headerlink" title="Linux的存储管理"></a>Linux的存储管理</h3><ol>
+<li><p>Buddy内存管理算法</p>
+<blockquote>
+<p>Buddy(伙伴)，通常此算法也称为伙伴系统</p>
+<p><img src="https://blog.chasingwind.top/mDAGlB.png" class="lazyload" data-srcset="https://blog.chasingwind.top/mDAGlB.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>页内碎片和页外碎片</p>
+<p><img src="https://blog.chasingwind.top/4EObsf.png" class="lazyload" data-srcset="https://blog.chasingwind.top/4EObsf.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="https://blog.chasingwind.top/lNONIe.png" class="lazyload" data-srcset="https://blog.chasingwind.top/lNONIe.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>借助二进制使得内存可以快速进行合并</p>
+<p><img src="https://blog.chasingwind.top/28gC0R.png" class="lazyload" data-srcset="https://blog.chasingwind.top/28gC0R.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><strong>内存分配</strong>原则</p>
+<p><img src="https://blog.chasingwind.top/T4mZCj.png" class="lazyload" data-srcset="https://blog.chasingwind.top/T4mZCj.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="https://blog.chasingwind.top/EGQpJQ.png" class="lazyload" data-srcset="https://blog.chasingwind.top/EGQpJQ.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>算法初始的时候创建的空闲块链表</p>
+<p><img src="https://blog.chasingwind.top/bti7bE.png" class="lazyload" data-srcset="https://blog.chasingwind.top/bti7bE.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>内存分配案例</p>
+<p>假设从初始的时候存储空间有1M大小</p>
+<p>算法初始化时候空闲链表状态：只有1M的链表有结点，其他都是空链表</p>
+<p><img src="https://blog.chasingwind.top/d9S1fN.png" class="lazyload" data-srcset="https://blog.chasingwind.top/d9S1fN.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p>使用此算法分配100K内存</p>
+<p>总体流程就是：分配到向上取2的幂大小对应的空闲块，如果没有，找更大的空闲块。之后将更大的空闲块分割，直到分割到向上取2的幂大小对应的空闲块，分配出去，然后将空闲块链接到对应的空闲块链表中</p>
+<p><img src="https://blog.chasingwind.top/AqJBoh.png" class="lazyload" data-srcset="https://blog.chasingwind.top/AqJBoh.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><img src="https://blog.chasingwind.top/tZhm8H.png" class="lazyload" data-srcset="https://blog.chasingwind.top/tZhm8H.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p><strong>内存回收</strong>过程</p>
+<p><img src="https://blog.chasingwind.top/zUNB7l.png" class="lazyload" data-srcset="https://blog.chasingwind.top/zUNB7l.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>总结</p>
+<p>将内存外碎片转换为内存内碎片，比如刚才的分配过程，需要的是100K大小，分配了128K大小，那么就会产生内存内碎片28K</p>
+<p>但是这样算法还是会提升效率，因为一般情况下，内存外碎片比内存内碎片要大</p>
+<p><img src="https://blog.chasingwind.top/duecq0.png" class="lazyload" data-srcset="https://blog.chasingwind.top/duecq0.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+<li><p>Linux交换空间</p>
+<blockquote>
+<p>什么是Linux的交换空间</p>
+<p><img src="https://blog.chasingwind.top/J1Yrh3.png" class="lazyload" data-srcset="https://blog.chasingwind.top/J1Yrh3.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<p><code>top</code>命令查看Linux的交换空间大小以及使用情况</p>
+<p><img src="https://blog.chasingwind.top/1PhC3p.png" class="lazyload" data-srcset="https://blog.chasingwind.top/1PhC3p.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<hr>
+<p>最好避免使用交换空间，毕竟是在磁盘中，速度比较慢</p>
+<p>Linux交换空间的实际使用场景↓</p>
+<p><strong>冷启动内存依赖</strong>：对于一些大型程序，在启动的时候需要使用大量的内存，但是这些内存只是在启动的时候用一下，后续在使用的时候很少使用内存。因此，可以将这些不怎么使用的内存数据保存在交换空间，从而释放更多的物理内存</p>
+<p><strong>系统睡眠依赖</strong>：Linux睡眠的时候，将物理内存中的数据保存在交换空间中，等下次启动的时候，再从交换空间中加载到内存。加快系统的启动速度。</p>
+<p><strong>大进程空间依赖</strong>：有些进程使用的内存确实比较大，可以将暂时使用不到的放置在交换空间中，使用的时候再加载到内存中</p>
+<hr>
+<p>交换空间和虚拟内存杜对比</p>
+<p><img src="https://blog.chasingwind.top/iBnWmp.png" class="lazyload" data-srcset="https://blog.chasingwind.top/iBnWmp.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+</blockquote>
+</li>
+</ol>
+
   
   
     
@@ -671,10 +769,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-04-27T23:23:50+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-04-30T11:11:04+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：2021年4月27日</p>
+    <p>更新于：2021年4月30日</p>
   </a>
 </div>
 
@@ -756,6 +854,40 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     <div class="prev-next">
       
+        <a class='prev' href='/2021/04/30/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80%E4%B9%8B%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/'>
+          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>编程基础之操作系统(文件管理)</p>
+          <p class='content'>
+作业管理
+
+
+
+
+
+文件管理文件的逻辑结构
+逻辑结构的文件类型
+
+
+
+有结构文件的结构是怎样的？
+
+
+
+无结构文件：也称为流式文件
+
+
+
+顺序文件
+
+
+增删改效率很低
+
+
+索引文件
+
+
+索引表...</p>
+        </a>
+      
       
         <a class='next' href='/2021/04/25/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80%E4%B9%8B%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E4%BD%9C%E4%B8%9A%E7%AE%A1%E7%90%86/'>
           <p class='title'>编程基础之操作系统(作业管理)<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
@@ -814,7 +946,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E7%AE%A1%E7%90%86"><span class="toc-text">存储管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E7%AE%A1%E7%90%86%E4%B9%8B%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E5%92%8C%E5%9B%9E%E6%94%B6"><span class="toc-text">存储管理之内存分配和回收</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E7%AE%A1%E7%90%86%E4%B9%8B%E6%AE%B5%E9%A1%B5%E5%BC%8F%E5%AD%98%E5%82%A8%E7%AE%A1%E7%90%86"><span class="toc-text">存储管理之段页式存储管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E7%AE%A1%E7%90%86%E4%B9%8B%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98"><span class="toc-text">存储管理之虚拟内存</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E7%AE%A1%E7%90%86"><span class="toc-text">存储管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E7%AE%A1%E7%90%86%E4%B9%8B%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E5%92%8C%E5%9B%9E%E6%94%B6"><span class="toc-text">存储管理之内存分配和回收</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E7%AE%A1%E7%90%86%E4%B9%8B%E6%AE%B5%E9%A1%B5%E5%BC%8F%E5%AD%98%E5%82%A8%E7%AE%A1%E7%90%86"><span class="toc-text">存储管理之段页式存储管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E7%AE%A1%E7%90%86%E4%B9%8B%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98"><span class="toc-text">存储管理之虚拟内存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Linux%E7%9A%84%E5%AD%98%E5%82%A8%E7%AE%A1%E7%90%86"><span class="toc-text">Linux的存储管理</span></a></li></ol></li></ol>
     </div>
   </section>
 
